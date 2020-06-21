@@ -69,27 +69,27 @@
                 formatters: {
                     "commands": function(column, row)
                     {
-                        return "<button type=\"button\" class=\"btn btn-primary command-edit\" data-row-id=\"" + row.id   + "\"><span class=\"fa fa-pencil-square-o\"></span></button> " +
-                            "<button type=\"button\" class=\"btn btn-danger command-delete\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-trash-o\"></span></button>";
+                        return "<button type=\"button\" class=\"btn btn-primary command-edit\" data-row-id=\"" + row.idCliente   + "\"><span class=\"fa fa-pencil-square-o\"></span></button> " +
+                            "<button type=\"button\" class=\"btn btn-danger command-delete\" data-row-id=\"" + row.idCliente + "\"><span class=\"fa fa-trash-o\"></span></button>";
                     }
                 }
             }).on("loaded.rs.jquery.bootgrid", function()
             {
                 grid.find(".command-edit").on("click", function(e)
                 {
-                    document.location = '/cliente/formeditar/' + $(this).data("row-id");
+                    document.location = '/cliente/formeditar/' + $(this).data("row-idCliente");
                 }).end().find(".command-delete").on("click", function(e)
                 {
-                    iziToastExcluir($(this).data("row-id"));
+                    iziToastExcluir($(this).data("row-idCliente"));
                 });
             });
         });
 
 
-        function excluir(id){
+        function excluir(idCliente){
             $.post(
-                "/tipo/excluir",
-                { id: id },
+                "/cliente/excluir",
+                { idCliente: idCliente },
                 function( data ) {
                     if (data.status==0){
                         iziToast.error({
