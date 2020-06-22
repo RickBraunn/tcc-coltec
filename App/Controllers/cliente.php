@@ -70,7 +70,7 @@ class Cliente Extends Controller
     {
         $db = Conexao::connect();
 
-        $sql = "UPDATE cliente SET idCliente=:idCliente nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, estados_cli=:estados_cli, Cidades_idCidades=:Cidades_idCidades, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli, senha_cli=:senha_cli WHERE idCliente=:idCliente";
+        $sql = "UPDATE cliente SET nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, estados_cli=:estados_cli, Cidades_idCidades=:Cidades_idCidades, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli, senha_cli=:senha_cli WHERE idCliente=:idCliente";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_cli", $_POST['nome_cli']);
@@ -101,7 +101,7 @@ class Cliente Extends Controller
         $sql = "DELETE FROM cliente WHERE idCliente=:idCliente";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":idCliente", $_POST['idCliente']);
+        $query->bindParam(":idCliente", $_POST['id']);
         $query->execute();
 
         if ($query->rowCount()==1) {
