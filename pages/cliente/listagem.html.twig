@@ -77,19 +77,19 @@
             {
                 grid.find(".command-edit").on("click", function(e)
                 {
-                    document.location = '/cliente/formeditar/' + $(this).data("row-idCliente");
+                    document.location = '/cliente/formeditar/' + $(this).data("row-id");
                 }).end().find(".command-delete").on("click", function(e)
                 {
-                    iziToastExcluir($(this).data("row-idCliente"));
+                    iziToastExcluir($(this).data("row-id"));
                 });
             });
         });
 
 
-        function excluir(idCliente){
+        function excluir(id){
             $.post(
                 "/cliente/excluir",
-                { idCliente: idCliente },
+                { id: id },
                 function( data ) {
                     if (data.status==0){
                         iziToast.error({
