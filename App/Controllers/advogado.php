@@ -113,7 +113,7 @@ class Advogado Extends Controller
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT `id`, `nome` FROM advogado WHERE 1 ";
+        $sql = "SELECT * FROM advogado WHERE 1 ";
 
         if ($busca!=''){
             $sql .= " and (
