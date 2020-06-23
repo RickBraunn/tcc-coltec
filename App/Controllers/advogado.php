@@ -25,14 +25,14 @@ class Advogado Extends Controller
         echo $this->template->twig->render('advogado/cadastrar.html.twig');
     }
 
-    public function formEditar($id)
+    public function formEditar($idAdvogado)
     {
         $db = Conexao::connect();
 
-        $sql = "SELECT * FROM advogado WHERE id=:id";
+        $sql = "SELECT * FROM advogado WHERE idAdvogado=:idAdvogado";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":id", $id);
+        $query->bindParam(":idAdvogado", $idAdvogado);
         $resultado = $query->execute();
 
         $linha = $query->fetch();
@@ -71,11 +71,18 @@ class Advogado Extends Controller
     public function salvarEditar(){
         $db = Conexao::connect();
 
-        $sql = "UPDATE advogado SET nome=:nome WHERE id=:id";
+        $sql = "UPDATE advogado SET nome_adv=:nome_adv, sobrenome_adv=:sobrenome_adv, email_adv=:email_adv, estados_adv=:estados_adv, Cidades_idCidades=:Cidades_idCidades, telefone_adv=:telefone_adv, nome_usuario_adv=:nome_usuario_adv, senha_adv=:senha_adv WHERE idAdvogado=:idAdvogado";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":nome", $_POST['nome']);
-        $query->bindParam(":id", $_POST['id']);
+        $query->bindParam(":nome_adv", $_POST['nome_adv']);
+        $query->bindParam(":sobrenome_adv", $_POST['sobrenome_adv']);
+        $query->bindParam(":email_adv", $_POST['email_adv']);
+        $query->bindParam(":estados_adv", $_POST['estados_adv']);
+        $query->bindParam(":Cidades_idCidades", $_POST['Cidades_idCidades']);
+        $query->bindParam(":telefone_adv", $_POST['telefone_adv']);
+        $query->bindParam(":nome_usuario_adv", $_POST['nome_usuario_adv']);
+        $query->bindParam(":senha_adv", $_POST['senha_adv']);
+        $query->bindParam(":idAdvogado", $_POST['idAdvogado']);
         $query->execute();
 
         if ($query->rowCount()==1) {
@@ -93,10 +100,10 @@ class Advogado Extends Controller
     {
         $db = Conexao::connect();
 
-        $sql = "DELETE FROM advogado WHERE id=:id";
+        $sql = "DELETE FROM advogado WHERE idAdvogado=:idAdvogado";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":id", $_POST['id']);
+        $query->bindParam(":idAdvogado", $_POST['id']);
         $query->execute();
 
         if ($query->rowCount() == 1) {

@@ -1,7 +1,7 @@
 {% extends 'layouts/dashboard.html.twig' %}
 
 
-{% block title %}| Cliente | Cadastrar{% endblock %}
+{% block title %}| Advogado | Cadastrar{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="/dist/css/iziToast.min.css">
 {% endblock %}
@@ -10,12 +10,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Cliente
+            Advogado
             <small>Editar</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active"><a href="/cliente">Cliente</a></li>
+            <li class="active"><a href="/advogado">Advogado</a></li>
         </ol>
     </section>
 {% endblock %}
@@ -30,31 +30,31 @@
                 <div class="box box-primary">
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/cliente/salvareditar" method="post" class="jsonForm">
+                    <form role="form" action="/advogado/salvareditar" method="post" class="jsonForm">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="idCliente">Código</label>
-                                <input type="number" class="form-control" id="idCliente" name="idCliente" readonly value="{{ linha['idCliente'] }}" >
+                                <label for="idAdvogado">Código</label>
+                                <input type="number" class="form-control" id="idAdvogado" name="idAdvogado" readonly value="{{ linha['idAdvogado'] }}" >
                             </div>
                             <div class="form-group">
-                                <label for="nome_cli">Nome</label>
-                                <input type="text" class="form-control" id="nome_cli" name="nome_cli" placeholder="Nome do Cliente" required value="{{ linha['nome_cli'] }}">
+                                <label for="nome_adv">Nome</label>
+                                <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Nome do Advogado" required value="{{ linha['nome_adv'] }}">
                             </div>
                             <div class="form-group">
-                            <label for="sobrenome_cli">Sobrenome</label>
-                            <input type="text" class="form-control" id="sobrenome_cli" name="sobrenome_cli" placeholder="Sobrenomeome do Cliente" required value="{{ linha['sobrenome_cli'] }}">
+                            <label for="sobrenome_adv">Sobrenome</label>
+                            <input type="text" class="form-control" id="sobrenome_adv" name="sobrenome_adv" placeholder="Sobrenomeome do Advogado" required value="{{ linha['sobrenome_adv'] }}">
                         </div>
 
 
                         <div class="form-group">
-                            <label for="email_cli">Email</label>
-                            <input type="email" class="form-control" id="email_cli" name="email_cli" placeholder="Email do Cliente" required value="{{ linha['email_cli'] }}">
+                            <label for="email_adv">Email</label>
+                            <input type="email" class="form-control" id="email_adv" name="email_adv" placeholder="Email do Advogado" required value="{{ linha['email_adv'] }}">
                         </div>
 
 
                         <div class="form-group">
-                            <label for="estados_cli">Estados</label>
-                            <input type="number" class="form-control" id="estados_cli" name="estados_cli" placeholder="estado" required value="{{ linha['estados_cli'] }}">
+                            <label for="estados_adv">Estados</label>
+                            <input type="number" class="form-control" id="estados_adv" name="estados_adv" placeholder="estado" required value="{{ linha['estados_adv'] }}">
                         </div>
 
 
@@ -65,21 +65,24 @@
 
 
                         <div class="form-group">
-                            <label for="telefone_cli">Telefone</label>
-                            <input type="number" class="form-control" id="telefone_cli" name="telefone_cli" placeholder="Telefone" required value="{{ linha['telefone_cli'] }}">
+                            <label for="telefone_adv">Telefone</label>
+                            <input type="number" class="form-control" id="telefone_adv" name="telefone_adv" placeholder="Telefone" required value="{{ linha['telefone_adv'] }}">
                         </div>
 
 
                         <div class="form-group">
-                            <label for="nome_usuario_cli">Nome de Usuario</label>
-                            <input type="text" class="form-control" id="nome_usuario_cli" name="nome_usuario_cli" placeholder="Nome de Usuario" required value="{{ linha['nome_usuario_cli'] }}">
+                            <label for="nome_usuario_adv">Nome de Usuario</label>
+                            <input type="text" class="form-control" id="nome_usuario_adv" name="nome_usuario_adv" placeholder="Nome de Usuario" required value="{{ linha['nome_usuario_adv'] }}">
                         </div>
 
 
                         <div class="form-group">
-                            <label for="senha_cli">Senha</label>
-                            <input type="text" class="form-control" id="senha_cli" name="senha_cli" placeholder="senha" required value="{{ linha['senha_cli'] }}">
+                            <label for="senha_adv">Senha</label>
+                            <input type="text" class="form-control" id="senha_adv" name="senha_adv" placeholder="senha" required value="{{ linha['senha_adv'] }}">
                         </div>
+                            <div class="form-group">
+                                <textarea name="formacao" class="form-control" rows="4" cols="50" placeholder="Formação" required value="{{ linha['formacao'] }}"></textarea>
+                            </div>
                         </div>
                         <!-- /.box-body -->
 
@@ -118,7 +121,7 @@
                         iziToast.success({
                             message: d.mensagem,
                             onClosed: function(){
-                                document.location = "/cliente";
+                                document.location = "/advogado";
                             }
                         });
 
