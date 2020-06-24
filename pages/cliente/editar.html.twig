@@ -33,8 +33,8 @@
                     <form role="form" action="/cliente/salvareditar" method="post" class="jsonForm">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="idCliente">Código</label>
-                                <input type="number" class="form-control" id="idCliente" name="idCliente" readonly value="{{ linha['idCliente'] }}" >
+                                <label for="id_cli">Código</label>
+                                <input type="number" class="form-control" id="id_cli" name="id_cli" readonly value="{{ linha['id_cli'] }}" >
                             </div>
                             <div class="form-group">
                                 <label for="nome_cli">Nome</label>
@@ -53,14 +53,14 @@
 
 
                         <div class="form-group">
-                            <label for="estados_cli">Estados</label>
-                            <input type="number" class="form-control" id="estados_cli" name="estados_cli" placeholder="estado" required value="{{ linha['estados_cli'] }}">
+                            <label for="estado_cli">Estados</label>
+                            <input type="number" class="form-control" id="estado_cli" name="estado_cli" placeholder="estado" required value="{{ linha['estado_cli'] }}">
                         </div>
 
 
                         <div class="form-group">
-                            <label for="Cidades_idCidades">Cidade</label>
-                            <input type="number" class="form-control" id="Cidades_idCidades" name="Cidades_idCidades" placeholder="cidade" required value="{{ linha['Cidades_idCidades'] }}">
+                            <label for="cidade_cli">Cidade</label>
+                            <input type="number" class="form-control" id="cidade_cli" name="cidade_cli" placeholder="cidade" required value="{{ linha['cidade_cli'] }}">
                         </div>
 
 

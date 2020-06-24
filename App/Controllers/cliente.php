@@ -21,14 +21,14 @@ class Cliente Extends Controller
         echo $this->template->twig->render('cliente/cadastrar.html.twig');
     }
 
-    public function formEditar($idCliente)
+    public function formEditar($id_cli)
     {
         $db = Conexao::connect();
 
-        $sql = "SELECT * FROM cliente WHERE idCliente=:idCliente";
+        $sql = "SELECT * FROM cliente WHERE id_cli=:id_cli";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":idCliente", $idCliente);
+        $query->bindParam(":id_cli", $id_cli);
         $resultado = $query->execute();
 
         $linha = $query->fetch();
@@ -42,14 +42,14 @@ class Cliente Extends Controller
     {
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO cliente (nome_cli, sobrenome_cli, email_cli, estados_cli, Cidades_idCidades, telefone_cli, nome_usuario_cli, senha_cli  ) VALUES (:nome_cli, :sobrenome_cli, :email_cli, :estados_cli, :Cidades_idCidades, :telefone_cli, :nome_usuario_cli, :senha_cli)";
+        $sql = "INSERT INTO cliente (nome_cli, sobrenome_cli, email_cli, estado_cli, cidade_cli, telefone_cli, nome_usuario_cli, senha_cli  ) VALUES (:nome_cli, :sobrenome_cli, :email_cli, :estado_cli, :cidade_cli, :telefone_cli, :nome_usuario_cli, :senha_cli)";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_cli", $_POST['nome_cli']);
         $query->bindParam(":sobrenome_cli", $_POST['sobrenome_cli']);
         $query->bindParam(":email_cli", $_POST['email_cli']);
-        $query->bindParam(":estados_cli", $_POST['estados_cli']);
-        $query->bindParam(":Cidades_idCidades", $_POST['Cidades_idCidades']);
+        $query->bindParam(":estado_cli", $_POST['estado_cli']);
+        $query->bindParam(":cidade_cli", $_POST['cidade_cli']);
         $query->bindParam(":telefone_cli", $_POST['telefone_cli']);
         $query->bindParam(":nome_usuario_cli", $_POST['nome_usuario_cli']);
         $query->bindParam(":senha_cli", $_POST['senha_cli']);
@@ -70,18 +70,18 @@ class Cliente Extends Controller
     {
         $db = Conexao::connect();
 
-        $sql = "UPDATE cliente SET nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, estados_cli=:estados_cli, Cidades_idCidades=:Cidades_idCidades, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli, senha_cli=:senha_cli WHERE idCliente=:idCliente";
+        $sql = "UPDATE cliente SET nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, estado_cli=:estado_cli, cidade_cli=:cidade_cli, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli, senha_cli=:senha_cli WHERE id_cli=:id_cli";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_cli", $_POST['nome_cli']);
         $query->bindParam(":sobrenome_cli", $_POST['sobrenome_cli']);
         $query->bindParam(":email_cli", $_POST['email_cli']);
-        $query->bindParam(":estados_cli", $_POST['estados_cli']);
-        $query->bindParam(":Cidades_idCidades", $_POST['Cidades_idCidades']);
+        $query->bindParam(":estado_cli", $_POST['estado_cli']);
+        $query->bindParam(":cidade_cli", $_POST['cidade_cli']);
         $query->bindParam(":telefone_cli", $_POST['telefone_cli']);
         $query->bindParam(":nome_usuario_cli", $_POST['nome_usuario_cli']);
         $query->bindParam(":senha_cli", $_POST['senha_cli']);
-        $query->bindParam(":idCliente", $_POST['idCliente']);
+        $query->bindParam(":id_cli", $_POST['id_cli']);
         $query->execute();
 
         if ($query->rowCount()==1) {
@@ -98,10 +98,10 @@ class Cliente Extends Controller
     public function excluir(){
         $db = Conexao::connect();
 
-        $sql = "DELETE FROM cliente WHERE idCliente=:idCliente";
+        $sql = "DELETE FROM cliente WHERE id_cli=:id_cli";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":idCliente", $_POST['id']);
+        $query->bindParam(":id_cli", $_POST['id']);
         $query->execute();
 
         if ($query->rowCount()==1) {
@@ -119,7 +119,7 @@ class Cliente Extends Controller
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT `idCliente`, `nome_cli`, `sobrenome_cli`, `email_cli`, `estados_cli`, `Cidades_idCidades`, `telefone_cli`, `nome_usuario_cli`, `senha_cli` FROM cliente WHERE 1 ";
+        $sql = "SELECT `id_cli`, `nome_cli`, `sobrenome_cli`, `email_cli`, `estado_cli`, `cidade_cli`, `telefone_cli`, `nome_usuario_cli`, `senha_cli` FROM cliente WHERE 1 ";
 
         if ($busca!=''){
             $sql .= " and (

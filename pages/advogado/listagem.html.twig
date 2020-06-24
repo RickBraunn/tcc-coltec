@@ -30,12 +30,12 @@
                 <table id="grid-data" class="table table-condensed table-hover table-striped">
                     <thead>
                     <tr>
-                        <th data-column-id="idAdvogado" >Código</th>
+                        <th data-column-id="id_adv" >Código</th>
                         <th data-column-id="nome_adv" data-order="desc" data-sortable="true">Nome</th>
                         <th data-column-id="sobrenome_adv" >Sobrenome</th>
                         <th data-column-id="email_adv" >Email</th>
-                        <th data-column-id="estados_adv" >Estados</th>
-                        <th data-column-id="Cidades_idCidades" >Cidade</th>
+                        <th data-column-id="estado_adv" >Estados</th>
+                        <th data-column-id="cidade_adv" >Cidade</th>
                         <th data-column-id="telefone_adv" >telefone</th>
                         <th data-column-id="nome_usuario_adv" >Nome de Usuario</th>
                         <th data-column-id="senha_adv" >Senha</th>
@@ -70,8 +70,8 @@
                 formatters: {
                     "commands": function(column, row)
                     {
-                        return "<button type=\"button\" class=\"btn btn-primary command-edit\" data-row-id=\"" + row.idAdvogado   + "\"><span class=\"fa fa-pencil-square-o\"></span></button> " +
-                            "<button type=\"button\" class=\"btn btn-danger command-delete\" data-row-id=\"" + row.idAdvogado + "\"><span class=\"fa fa-trash-o\"></span></button>";
+                        return "<button type=\"button\" class=\"btn btn-primary command-edit\" data-row-id=\"" + row.id_adv   + "\"><span class=\"fa fa-pencil-square-o\"></span></button> " +
+                            "<button type=\"button\" class=\"btn btn-danger command-delete\" data-row-id=\"" + row.id_adv + "\"><span class=\"fa fa-trash-o\"></span></button>";
                     }
                 }
             }).on("loaded.rs.jquery.bootgrid", function()

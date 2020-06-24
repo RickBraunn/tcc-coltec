@@ -48,6 +48,8 @@
 {% block javascriptPlugins %}
     <script src="/dist/js/jquery.bootgrid.js"></script>
     <script src="/dist/js/jquery.bootgrid.fa.js"></script>
+    <script src="/dist/js/iziToast.js"></script>
+    <script src="/dist/js/iziToastExcluir.js"></script>
 {% endblock %}
 
 {% block jquery %}
@@ -71,7 +73,7 @@
                     document.location = '/admin/formeditar/' + $(this).data("row-id");
                 }).end().find(".command-delete").on("click", function(e)
                 {
-                    iziToastExcluir($(this).data("row-id"));
+                    excluir($(this).data("row-id"));
                 });
             });
         });
