@@ -10,12 +10,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Categoria
+            Admin
             <small>Cadastrar</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active"><a href="/categoria">Categoria</a></li>
+            <li class="active"><a href="/admin">Admin</a></li>
         </ol>
     </section>
 {% endblock %}
@@ -30,11 +30,15 @@
                 <div class="box box-primary">
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/categoria/salvarcadastrar" method="post" class="jsonForm">
+                    <form role="form" action="/admin/salvarcadastrar" method="post" class="jsonForm">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="nome">Nome</label>
-                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Categoria" required>
+                                <label for="nome_adm">Nome</label>
+                                <input type="text" class="form-control" id="nome_adm" name="nome_adm" placeholder="Nome do Admin" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="senha_adm">Senha</label>
+                                <input type="password" class="form-control" id="senha_adm" name="senha_adm" placeholder="Senha do Admin" required>
                             </div>
                         </div>
                         <!-- /.box-body -->
