@@ -21,14 +21,14 @@ class Admin Extends Controller
         echo $this->template->twig->render('admin/cadastrar.html.twig');
     }
 
-    public function formEditar($idAdministrador)
+    public function formEditar($id_adm)
     {
         $db = Conexao::connect();
 
-        $sql = "SELECT * FROM administrador WHERE idAdministrador=:idAdministrador";
+        $sql = "SELECT * FROM administrador WHERE id_adm=:id_adm";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":idAdministrador", $idAdministrador);
+        $query->bindParam(":id_adm", $id_adm);
         $resultado = $query->execute();
 
         $linha = $query->fetch();
@@ -65,12 +65,12 @@ class Admin Extends Controller
     {
         $db = Conexao::connect();
 
-        $sql = "UPDATE administrador SET nome_adm=:nome_adm, senha_adm=:senha_adm WHERE idAdministrador=:idAdministrador";
+        $sql = "UPDATE administrador SET nome_adm=:nome_adm, senha_adm=:senha_adm WHERE id_adm=:id_adm";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_adm", $_POST['nome_adm']);
         $query->bindParam(":senha_adm", $_POST['senha_adm']);
-        $query->bindParam(":idAdministrador", $_POST['idAdministrador']);
+        $query->bindParam(":id_adm", $_POST['id_adm']);
         $query->execute();
 
         if ($query->rowCount()==1) {
@@ -87,10 +87,10 @@ class Admin Extends Controller
     public function excluir(){
         $db = Conexao::connect();
 
-        $sql = "DELETE FROM administrador WHERE idAdministrador=:idAdministrador";
+        $sql = "DELETE FROM administrador WHERE id_adm=:id_adm";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":idAdministrador", $_POST['id']);
+        $query->bindParam(":id_adm", $_POST['id']);
         $query->execute();
 
         if ($query->rowCount()==1) {
