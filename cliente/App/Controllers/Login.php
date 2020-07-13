@@ -23,15 +23,15 @@ class Login Extends Controller
 
         $db = Conexao::connect();
 
-        $nome_usuario_adv = $_POST['nome_usuario_adv'];
-        $senha_adv = $_POST['senha_adv'];
+        $nome_usuario_cli = $_POST['nome_usuario_cli'];
+        $senha_cli = $_POST['senha_cli'];
 
-        $sql = "SELECT * FROM advogado WHERE nome_usuario_adv=:nome_usuario_adv AND senha_adv=:senha_adv";
+        $sql = "SELECT * FROM cliente WHERE nome_usuario_cli=:nome_usuario_cli AND senha_cli=:senha_cli";
 
         $resultados = $db ->prepare($sql);
 
-        $resultados->bindParam(":nome_usuario_adv", $nome_usuario_adv);
-        $resultados->bindParam(":senha_adv", $senha_adv);
+        $resultados->bindParam(":nome_usuario_cli", $nome_usuario_cli);
+        $resultados->bindParam(":senha_cli", $senha_cli);
         $resultados->execute();
 		
         if($resultados->rowCount()==1){
