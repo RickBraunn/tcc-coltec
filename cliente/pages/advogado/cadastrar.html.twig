@@ -1,0 +1,135 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+
+{% block title %}| Tipo | Cadastrar{% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="/dist/css/iziToast.min.css">
+{% endblock %}
+
+{% block breadcrumb %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Cadastro de Advogado
+            <small>Cadastrar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active"><a href="/cliente">Advogados</a></li>
+        </ol>
+    </section>
+{% endblock %}
+
+
+{% block content %}
+    <section class="content">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" action="/advogado/salvarcadastrar" method="post" class="jsonForm">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="nome_adv">Nome</label>
+                                <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Nome do Advogado" required>
+                            </div>
+
+                                <div class="form-group">
+                                    <label for="sobrenome_adv">Sobrenome</label>
+                                    <input type="text" class="form-control" id="sobrenome_adv" name="sobrenome_adv" placeholder="Sobrenomeome do Advogado" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="email_adv">Email</label>
+                                    <input type="email" class="form-control" id="email_adv" name="email_adv" placeholder="Email do Advogado" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="estado_adv">Estados</label>
+                                    <input type="number" class="form-control" id="estado_adv" name="estado_adv" placeholder="estado" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="cidade_adv">Cidade</label>
+                                    <input type="number" class="form-control" id="cidade_adv" name="cidade_adv" placeholder="cidade" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="telefone_adv">Telefone</label>
+                                    <input type="number" class="form-control" id="telefone_adv" name="telefone_adv" placeholder="Telefone" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="nome_usuario_adv">Nome de Usuario</label>
+                                    <input type="text" class="form-control" id="nome_usuario_adv" name="nome_usuario_adv" placeholder="Nome de Usuario" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="senha_adv">Senha</label>
+                                    <input type="text" class="form-control" id="senha_adv" name="senha_adv" placeholder="senha" required>
+                                </div>
+
+                                <div class="form-group">
+                                  <textarea name="formacao" class="form-control" rows="4" cols="50" placeholder="Formação"></textarea>
+                                </div>
+                        </div>
+
+
+
+                            <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </section>
+
+{% endblock %}
+
+
+
+{% block javascriptPlugins %}
+    <script src="/dist/js/jquery.form.js"></script>
+    <script src="/dist/js/iziToast.min.js"></script>
+{% endblock %}
+
+{% block jquery %}
+    <script>
+        $(document).ready(function(){
+            $('.jsonForm').ajaxForm({
+                dataType:  'json',
+
+                success:   function(d){
+                    if (d.status==0){
+                        iziToast.error({
+                            message: d.mensagem
+                        });
+                    }else{
+                        iziToast.success({
+                            message: d.mensagem
+                        });
+                        $('.jsonForm').trigger("reset");
+                    }
+                }
+
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

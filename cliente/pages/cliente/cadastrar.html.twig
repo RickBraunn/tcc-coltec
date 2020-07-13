@@ -1,0 +1,131 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+
+{% block title %}| Tipo | Cadastrar{% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="/dist/css/iziToast.min.css">
+{% endblock %}
+
+{% block breadcrumb %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Cadastro de Clientes
+            <small>Cadastrar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active"><a href="/cliente">clientes</a></li>
+        </ol>
+    </section>
+{% endblock %}
+
+
+{% block content %}
+    <section class="content">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" action="/cliente/salvarcadastrar" method="post" class="jsonForm">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="nome_cli">Nome</label>
+                                <input type="text" class="form-control" id="nome_cli" name="nome_cli" placeholder="Nome do Cliente" required>
+                            </div>
+
+                                <div class="form-group">
+                                    <label for="sobrenome_cli">Sobrenome</label>
+                                    <input type="text" class="form-control" id="sobrenome_cli" name="sobrenome_cli" placeholder="Sobrenomeome do Cliente" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="email_cli">Email</label>
+                                    <input type="email" class="form-control" id="email_cli" name="email_cli" placeholder="Email do Cliente" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="estado_cli">Estados</label>
+                                    <input type="number" class="form-control" id="estado_cli" name="estado_cli" placeholder="estado" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="cidade_cli">Cidade</label>
+                                    <input type="number" class="form-control" id="cidade_cli" name="cidade_cli" placeholder="cidade" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="telefone_cli">Telefone</label>
+                                    <input type="number" class="form-control" id="telefone_cli" name="telefone_cli" placeholder="Telefone" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="nome_usuario_cli">Nome de Usuario</label>
+                                    <input type="text" class="form-control" id="nome_usuario_cli" name="nome_usuario_cli" placeholder="Nome de Usuario" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="senha_cli">Senha</label>
+                                    <input type="text" class="form-control" id="senha_cli" name="senha_cli" placeholder="senha" required>
+                                </div>
+                        </div>
+
+
+
+                            <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </section>
+
+{% endblock %}
+
+
+
+{% block javascriptPlugins %}
+    <script src="/dist/js/jquery.form.js"></script>
+    <script src="/dist/js/iziToast.min.js"></script>
+{% endblock %}
+
+{% block jquery %}
+    <script>
+        $(document).ready(function(){
+            $('.jsonForm').ajaxForm({
+                dataType:  'json',
+
+                success:   function(d){
+                    if (d.status==0){
+                        iziToast.error({
+                            message: d.mensagem
+                        });
+                    }else{
+                        iziToast.success({
+                            message: d.mensagem
+                        });
+                        $('.jsonForm').trigger("reset");
+                    }
+                }
+
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}
