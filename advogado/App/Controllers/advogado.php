@@ -43,13 +43,12 @@ class Advogado Extends Controller
     public function salvarCadastrar(){
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO advogado (nome_adv, sobrenome_adv, email_adv, estado_adv, cidade_adv, telefone_adv, nome_usuario_adv, senha_adv, formacao  ) VALUES (:nome_adv, :sobrenome_adv, :email_adv, :estado_adv, :cidade_adv, :telefone_adv, :nome_usuario_adv, :senha_adv, :formacao)";
+        $sql = "INSERT INTO advogado (nome_adv, sobrenome_adv, email_adv cidade_adv, telefone_adv, nome_usuario_adv, senha_adv, formacao  ) VALUES (:nome_adv, :sobrenome_adv, :email_adv, :cidade_adv, :telefone_adv, :nome_usuario_adv, :senha_adv, :formacao)";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_adv", $_POST['nome_adv']);
         $query->bindParam(":sobrenome_adv", $_POST['sobrenome_adv']);
         $query->bindParam(":email_adv", $_POST['email_adv']);
-        $query->bindParam(":estado_adv", $_POST['estado_adv']);
         $query->bindParam(":cidade_adv", $_POST['cidade_adv']);
         $query->bindParam(":telefone_adv", $_POST['telefone_adv']);
         $query->bindParam(":nome_usuario_adv", $_POST['nome_usuario_adv']);
@@ -71,13 +70,12 @@ class Advogado Extends Controller
     public function salvarEditar(){
         $db = Conexao::connect();
 
-        $sql = "UPDATE advogado SET nome_adv=:nome_adv, sobrenome_adv=:sobrenome_adv, email_adv=:email_adv, estado_adv=:estado_adv, cidade_adv=:cidade_adv, telefone_adv=:telefone_adv, nome_usuario_adv=:nome_usuario_adv, senha_adv=:senha_adv WHERE id_adv=:id_adv";
+        $sql = "UPDATE advogado SET nome_adv=:nome_adv, sobrenome_adv=:sobrenome_adv, email_adv=:email_adv, cidade_adv=:cidade_adv, telefone_adv=:telefone_adv, nome_usuario_adv=:nome_usuario_adv, senha_adv=:senha_adv WHERE id_adv=:id_adv";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_adv", $_POST['nome_adv']);
         $query->bindParam(":sobrenome_adv", $_POST['sobrenome_adv']);
         $query->bindParam(":email_adv", $_POST['email_adv']);
-        $query->bindParam(":estado_adv", $_POST['estados_adv']);
         $query->bindParam(":cidade_adv", $_POST['Cidades_idCidades']);
         $query->bindParam(":telefone_adv", $_POST['telefone_adv']);
         $query->bindParam(":nome_usuario_adv", $_POST['nome_usuario_adv']);

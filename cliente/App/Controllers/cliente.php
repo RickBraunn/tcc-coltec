@@ -18,7 +18,11 @@ class Cliente Extends Controller
     public function formCadastrar()
     {
 //        include(ROOT . "/seguranca.php");
+       
+
+
         echo $this->template->twig->render('cliente/cadastrar.html.twig');
+       
     }
 
     public function formEditar($id_cli)
@@ -42,13 +46,12 @@ class Cliente Extends Controller
     {
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO cliente (nome_cli, sobrenome_cli, email_cli, estado_cli, cidade_cli, telefone_cli, nome_usuario_cli, senha_cli  ) VALUES (:nome_cli, :sobrenome_cli, :email_cli, :estado_cli, :cidade_cli, :telefone_cli, :nome_usuario_cli, :senha_cli)";
+        $sql = "INSERT INTO cliente (nome_cli, sobrenome_cli, email_cli, cidade_cli, telefone_cli, nome_usuario_cli, senha_cli  ) VALUES (:nome_cli, :sobrenome_cli, :email_cli,  :cidade_cli, :telefone_cli, :nome_usuario_cli, :senha_cli)";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_cli", $_POST['nome_cli']);
         $query->bindParam(":sobrenome_cli", $_POST['sobrenome_cli']);
         $query->bindParam(":email_cli", $_POST['email_cli']);
-        $query->bindParam(":estado_cli", $_POST['estado_cli']);
         $query->bindParam(":cidade_cli", $_POST['cidade_cli']);
         $query->bindParam(":telefone_cli", $_POST['telefone_cli']);
         $query->bindParam(":nome_usuario_cli", $_POST['nome_usuario_cli']);
@@ -70,13 +73,12 @@ class Cliente Extends Controller
     {
         $db = Conexao::connect();
 
-        $sql = "UPDATE cliente SET nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, estado_cli=:estado_cli, cidade_cli=:cidade_cli, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli, senha_cli=:senha_cli WHERE id_cli=:id_cli";
+        $sql = "UPDATE cliente SET nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, cidade_cli=:cidade_cli, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli, senha_cli=:senha_cli WHERE id_cli=:id_cli";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_cli", $_POST['nome_cli']);
         $query->bindParam(":sobrenome_cli", $_POST['sobrenome_cli']);
         $query->bindParam(":email_cli", $_POST['email_cli']);
-        $query->bindParam(":estado_cli", $_POST['estado_cli']);
         $query->bindParam(":cidade_cli", $_POST['cidade_cli']);
         $query->bindParam(":telefone_cli", $_POST['telefone_cli']);
         $query->bindParam(":nome_usuario_cli", $_POST['nome_usuario_cli']);
@@ -119,7 +121,7 @@ class Cliente Extends Controller
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT `id_cli`, `nome_cli`, `sobrenome_cli`, `email_cli`, `estado_cli`, `cidade_cli`, `telefone_cli`, `nome_usuario_cli`, `senha_cli` FROM cliente WHERE 1 ";
+        $sql = "SELECT `id_cli`, `nome_cli`, `sobrenome_cli`, `email_cli`, `cidade_cli`, `telefone_cli`, `nome_usuario_cli`, `senha_cli` FROM cliente WHERE 1 ";
 
         if ($busca!=''){
             $sql .= " and (

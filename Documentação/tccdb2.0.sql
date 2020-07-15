@@ -52,7 +52,6 @@ CREATE TABLE `advogado` (
   `nome_adv` varchar(45) NOT NULL,
   `sobrenome_adv` varchar(45) NOT NULL,
   `email_adv` varchar(45) NOT NULL,
-  `estado_adv` int NOT NULL,
   `cidade_adv` int NOT NULL,
   `telefone_adv` varchar(45) NOT NULL,
   `nome_usuario_adv` varchar(45) NOT NULL,
@@ -60,10 +59,8 @@ CREATE TABLE `advogado` (
   `formacao` text NOT NULL,
   `foto` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_adv`),
-  KEY `fk_Advogado_estados1_idx` (`estado_adv`),
   KEY `fk_Advogado_Cidades1_idx` (`cidade_adv`),
-  CONSTRAINT `fk_Advogado_Cidades1` FOREIGN KEY (`cidade_adv`) REFERENCES `cidade` (`id_cidade`),
-  CONSTRAINT `fk_Advogado_estados1` FOREIGN KEY (`estado_adv`) REFERENCES `estado` (`id_estado`)
+  CONSTRAINT `fk_Advogado_Cidades1` FOREIGN KEY (`cidade_adv`) REFERENCES `cidade` (`id_cidade`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -73,7 +70,7 @@ CREATE TABLE `advogado` (
 
 LOCK TABLES `advogado` WRITE;
 /*!40000 ALTER TABLE `advogado` DISABLE KEYS */;
-INSERT INTO `advogado` VALUES (3,'qaffg','wedfweae','saf@gmail.com',1,1,'123454','sfa','saggasg','sass',NULL),(4,'ggggg','ggggggg','saf@gmail.com',1,1,'11111111','asd','gggggg','d',NULL);
+INSERT INTO `advogado` VALUES (3,'qaffg','wedfweae','saf@gmail.com',1,'123454','sfa','saggasg','sass',NULL),(4,'ggggg','ggggggg','saf@gmail.com',1,'11111111','asd','gggggg','d',NULL);
 /*!40000 ALTER TABLE `advogado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,17 +194,14 @@ CREATE TABLE `cliente` (
   `nome_cli` varchar(45) NOT NULL,
   `sobrenome_cli` varchar(45) NOT NULL,
   `email_cli` varchar(45) NOT NULL,
-  `estado_cli` int NOT NULL,
   `cidade_cli` int NOT NULL,
   `telefone_cli` varchar(45) NOT NULL,
   `nome_usuario_cli` varchar(45) NOT NULL,
   `senha_cli` varchar(45) NOT NULL,
   `foto` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_cli`),
-  KEY `fk_Cliente_estados1_idx` (`estado_cli`),
   KEY `fk_Cliente_Cidades1_idx` (`cidade_cli`),
-  CONSTRAINT `fk_Cliente_Cidades1` FOREIGN KEY (`cidade_cli`) REFERENCES `cidade` (`id_cidade`),
-  CONSTRAINT `fk_Cliente_estados1` FOREIGN KEY (`estado_cli`) REFERENCES `estado` (`id_estado`)
+  CONSTRAINT `fk_Cliente_Cidades1` FOREIGN KEY (`cidade_cli`) REFERENCES `cidade` (`id_cidade`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='		';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -217,7 +211,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (6,'fggg','afdfsa','rick@hg.com',1,1,'44444','sadf','safsfsa',NULL);
+INSERT INTO `cliente` VALUES (6,'fggg','afdfsa','rick@hg.com',1,'44444','sadf','safsfsa',NULL);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,4 +336,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-30 14:05:09
+-- Dump completed on 2020-07-15 18:07:09
