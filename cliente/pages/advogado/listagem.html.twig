@@ -33,12 +33,7 @@
                         <th data-column-id="id_adv" >Código</th>
                         <th data-column-id="nome_adv" data-order="desc" data-sortable="true">Nome</th>
                         <th data-column-id="sobrenome_adv" >Sobrenome</th>
-                        <th data-column-id="email_adv" >Email</th>
-                        <th data-column-id="estado_adv" >Estados</th>
                         <th data-column-id="cidade_adv" >Cidade</th>
-                        <th data-column-id="telefone_adv" >telefone</th>
-                        <th data-column-id="nome_usuario_adv" >Nome de Usuario</th>
-                        <th data-column-id="senha_adv" >Senha</th>
                         <th data-column-id="formacao" >Formação</th>
                         <th data-column-id="commands" data-formatter="commands" data-sortable="false">Ações</th>
                     </tr>
@@ -70,13 +65,13 @@
                 formatters: {
                     "commands": function(column, row)
                     {
-                        return "<button type=\"button\" class=\"btn btn-primary command-edit\" data-row-id=\"" + row.id_adv   + "\"><span class=\"fa fa-pencil-square-o\"></span></button> " +
-                            "<button type=\"button\" class=\"btn btn-danger command-delete\" data-row-id=\"" + row.id_adv + "\"><span class=\"fa fa-trash-o\"></span></button>";
+                        return "<button type=\"button\" class=\"btn btn-primary Check-square\" data-row-id=\"" + row.id_adv   + "\"><span class=\"fa fa-pencil-square-o\"></span></button> " 
+                            
                     }
                 }
             }).on("loaded.rs.jquery.bootgrid", function()
             {
-                grid.find(".command-edit").on("click", function(e)
+                grid.find(".Check-square").on("click", function(e)
                 {
                     document.location = '/advogado/formeditar/' + $(this).data("row-id");
                 }).end().find(".command-delete").on("click", function(e)
