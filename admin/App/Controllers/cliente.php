@@ -11,13 +11,13 @@ class Cliente Extends Controller
 {
     public function index()
     {
-//        include(ROOT . "/seguranca.php");
+        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('cliente/listagem.html.twig');
     }
 
     public function formCadastrar()
     {
-//        include(ROOT . "/seguranca.php");
+        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('cliente/cadastrar.html.twig');
     }
 
@@ -32,7 +32,7 @@ class Cliente Extends Controller
         $resultado = $query->execute();
 
         $linha = $query->fetch();
-
+        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('cliente/editar.html.twig', compact('linha'));
     }
 

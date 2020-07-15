@@ -9,20 +9,26 @@ use App\Bootgrid;
 
 class Admin Extends Controller
 {
+    //public function __construct()
+    //{
+    //    include(ROOT . "/seguranca.php");
+    //}
+// testar dps
     public function index()
     {
-//        include(ROOT . "/seguranca.php");
+        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('admin/listagem.html.twig');
     }
 
     public function formCadastrar()
     {
-//        include(ROOT . "/seguranca.php");
+        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('admin/cadastrar.html.twig');
     }
 
     public function formEditar($id_adm)
     {
+        
         $db = Conexao::connect();
 
         $sql = "SELECT * FROM administrador WHERE id_adm=:id_adm";
@@ -32,7 +38,7 @@ class Admin Extends Controller
         $resultado = $query->execute();
 
         $linha = $query->fetch();
-
+        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('admin/editar.html.twig', compact('linha'));
     }
 
@@ -40,6 +46,7 @@ class Admin Extends Controller
 
     public function salvarCadastrar()
     {
+        
         $db = Conexao::connect();
 
         $sql = "INSERT INTO administrador (nome_adm, senha_adm) VALUES (:nome_adm, :senha_adm)";
@@ -63,6 +70,7 @@ class Admin Extends Controller
 
     public function salvarEditar()
     {
+      
         $db = Conexao::connect();
 
         $sql = "UPDATE administrador SET nome_adm=:nome_adm, senha_adm=:senha_adm WHERE id_adm=:id_adm";
@@ -84,7 +92,9 @@ class Admin Extends Controller
         echo $this->jsonResponse($retorno);
     }
 
-    public function excluir(){
+    public function excluir()
+    {
+        
         $db = Conexao::connect();
 
         $sql = "DELETE FROM administrador WHERE id_adm=:id_adm";
@@ -107,6 +117,7 @@ class Admin Extends Controller
 
     public function bootgrid()
     {
+        
         $busca = addslashes($_POST['searchPhrase']);
         $sql = "SELECT * FROM administrador WHERE 1 ";
 

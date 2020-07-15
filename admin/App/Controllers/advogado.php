@@ -11,7 +11,7 @@ class Advogado Extends Controller
 {
     public function index(){
 
-//        include(ROOT . "/seguranca.php");
+       include(ROOT . "/seguranca.php");
 
         $db = Conexao::connect();
 
@@ -22,6 +22,7 @@ class Advogado Extends Controller
 
     public function formCadastrar()
     {
+        
         echo $this->template->twig->render('advogado/cadastrar.html.twig');
     }
 
@@ -36,7 +37,7 @@ class Advogado Extends Controller
         $resultado = $query->execute();
 
         $linha = $query->fetch();
-
+        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('advogado/editar.html.twig', compact('linha'));
     }
 
@@ -124,7 +125,8 @@ class Advogado Extends Controller
 
         if ($busca!=''){
             $sql .= " and (
-                        nome LIKE '%{$busca}%'
+                        nome_adv LIKE '%{$busca}%'
+                       and sobrenome_adv LIKE '%{$busca}%'
                         ) ";
         }
 
