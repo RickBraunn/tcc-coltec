@@ -6,28 +6,17 @@ namespace App\Controllers;
 use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
+use App\ControllerSeguro;
 
-class Cliente Extends Controller
+class Cliente Extends ControllerSeguro
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        session_start();
-        if (!isset($_SESSION['liberado']) || $_SESSION['liberado'] != true) {
-            \App\Controller::errorPermission();
-        }
-    }
-
     public function index()
     {
-        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('cliente/listagem.html.twig');
     }
 
     public function formCadastrar()
     {
-        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('cliente/cadastrar.html.twig');
     }
 
