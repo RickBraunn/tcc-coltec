@@ -9,6 +9,16 @@ use App\Bootgrid;
 
 class Cliente Extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        session_start();
+        if (!isset($_SESSION['liberado']) || $_SESSION['liberado'] != true) {
+            \App\Controller::errorPermission();
+        }
+    }
+
     public function index()
     {
         include(ROOT . "/seguranca.php");
