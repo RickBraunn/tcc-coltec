@@ -8,53 +8,54 @@ use App\Conexao;
 use App\Bootgrid;
 use App\ControllerSeguro;
 
-class Advogado Extends ControllerSeguro
+class oab Extends ControllerSeguro
 {
     public function index(){
 
-//        include(ROOT . "/seguranca.php");
+        //        include(ROOT . "/seguranca.php");
 
-        $db = Conexao::connect();
+        //        $db = Conexao::connect();
 
+    echo $this->template->twig->render('oab/listagem.html.twig');
 
-        echo $this->template->twig->render('advogado/listagem.html.twig');
 
     }
 
     public function formCadastrar()
     {
-        echo $this->template->twig->render('advogado/cadastrar.html.twig');
+        
+        echo $this->template->twig->render('oab/cadastrar.html.twig');
     }
 
-    public function formEditar($id_adv)
+    public function formEditar($id_oab)
     {
         $db = Conexao::connect();
 
-        $sql = "SELECT * FROM advogado WHERE id_adv=:id_adv";
+        $sql = "SELECT * FROM oab WHERE id_oab=:id_oab AND id_adv=:id_adv";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":id_adv", $id_adv);
+        $query->bindParam(":id_oab", $id_oab);
+        $query->bindParam(":id_adv", $_SESSION["id_adv"]);
         $resultado = $query->execute();
+
+        if ($query->rowCount()==0){
+            self::errorNotFound('Objeto não encontrado');
+        }
 
         $linha = $query->fetch();
 
-        echo $this->template->twig->render('advogado/editar.html.twig', compact('linha'));
+        echo $this->template->twig->render('oab/editar.html.twig', compact('linha'));
     }
 
     public function salvarCadastrar(){
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO advogado (nome_adv, sobrenome_adv, email_adv cidade_adv, telefone_adv, nome_usuario_adv, senha_adv, formacao  ) VALUES (:nome_adv, :sobrenome_adv, :email_adv, :cidade_adv, :telefone_adv, :nome_usuario_adv, :senha_adv, :formacao)";
+        $sql = "INSERT INTO oab ( numero_oab, estados_oab, id_adv  ) VALUES ( :numero_oab, :estados_oab, :id_adv)";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":nome_adv", $_POST['nome_adv']);
-        $query->bindParam(":sobrenome_adv", $_POST['sobrenome_adv']);
-        $query->bindParam(":email_adv", $_POST['email_adv']);
-        $query->bindParam(":cidade_adv", $_POST['cidade_adv']);
-        $query->bindParam(":telefone_adv", $_POST['telefone_adv']);
-        $query->bindParam(":nome_usuario_adv", $_POST['nome_usuario_adv']);
-        $query->bindParam(":senha_adv", $_POST['senha_adv']);
-        $query->bindParam(":formacao", $_POST['formacao']);
+        $query->bindParam(":numero_oab", $_POST['numero_oab']);
+        $query->bindParam(":estados_oab", $_POST['estados_oab']);
+        $query->bindParam(":id_adv", $_SESSION["id_adv"]);
         $query->execute();
 
         if ($query->rowCount()==1) {
@@ -71,17 +72,12 @@ class Advogado Extends ControllerSeguro
     public function salvarEditar(){
         $db = Conexao::connect();
 
-        $sql = "UPDATE advogado SET nome_adv=:nome_adv, sobrenome_adv=:sobrenome_adv, email_adv=:email_adv, cidade_adv=:cidade_adv, telefone_adv=:telefone_adv, nome_usuario_adv=:nome_usuario_adv, senha_adv=:senha_adv WHERE id_adv=:id_adv";
+        $sql = "UPDATE oab SET id_adv=:id_adv, numero_oab=:numero_oab, estados_oab=:estados_oab WHERE id_adv=:id_adv";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":nome_adv", $_POST['nome_adv']);
-        $query->bindParam(":sobrenome_adv", $_POST['sobrenome_adv']);
-        $query->bindParam(":email_adv", $_POST['email_adv']);
-        $query->bindParam(":cidade_adv", $_POST['Cidades_idCidades']);
-        $query->bindParam(":telefone_adv", $_POST['telefone_adv']);
-        $query->bindParam(":nome_usuario_adv", $_POST['nome_usuario_adv']);
-        $query->bindParam(":senha_adv", $_POST['senha_adv']);
-        $query->bindParam(":id_adv", $_POST['id_adv']);
+        $query->bindParam(":id_adv", $_SESSION["id_adv"]);
+        $query->bindParam(":numero_oab", $_POST['numero_oab']);
+        $query->bindParam(":estados_oab", $_POST['estados_oab']);
         $query->execute();
 
         if ($query->rowCount()==1) {
@@ -99,10 +95,11 @@ class Advogado Extends ControllerSeguro
     {
         $db = Conexao::connect();
 
-        $sql = "DELETE FROM advogado WHERE id_adv=:id_adv";
+        $sql = "DELETE FROM oab WHERE id_oab=:id_oab AND id_adv=:id_adv";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":id_adv", $_POST['id']);
+        $query->bindParam(":id_oab", $_POST['id_oab']);
+        $query->bindParam(":id_adv", $_POST['id_adv']);
         $query->execute();
 
         if ($query->rowCount() == 1) {
@@ -119,7 +116,8 @@ class Advogado Extends ControllerSeguro
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT * FROM advogado WHERE 1 ";
+        $sql = "SELECT * FROM oab WHERE id_oab=:id_oab AND id_adv=:id_adv ";
+
 
         if ($busca!=''){
             $sql .= " and (
