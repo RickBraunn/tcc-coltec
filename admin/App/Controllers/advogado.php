@@ -6,12 +6,11 @@ namespace App\Controllers;
 use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
+use App\ControllerSeguro;
 
-class Advogado Extends Controller
+class Advogado Extends ControllerSeguro
 {
     public function index(){
-
-       include(ROOT . "/seguranca.php");
 
         $db = Conexao::connect();
 
@@ -37,7 +36,7 @@ class Advogado Extends Controller
         $resultado = $query->execute();
 
         $linha = $query->fetch();
-        include(ROOT . "/seguranca.php");
+
         echo $this->template->twig->render('advogado/editar.html.twig', compact('linha'));
     }
 
