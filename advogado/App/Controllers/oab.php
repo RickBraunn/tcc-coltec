@@ -60,7 +60,7 @@ class oab Extends ControllerSeguro
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Tipo cadastrado com sucesso';
+            $retorno['mensagem'] = 'OAB cadastrado com sucesso, aguardando aprovação.';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';
@@ -82,7 +82,7 @@ class oab Extends ControllerSeguro
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Tipo alterado com sucesso';
+            $retorno['mensagem'] = 'OAB alterada com sucesso';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nenhum dado alterado';
@@ -95,7 +95,7 @@ class oab Extends ControllerSeguro
     {
         $db = Conexao::connect();
 
-        $sql = "DELETE FROM oab WHERE id_oab=:id_oab AND id_adv=:id_adv";
+        $sql = "DELETE FROM oab WHERE id_adv={$_SESSION['id_adv']}";
 
         $query = $db->prepare($sql);
         $query->bindParam(":id_oab", $_POST['id_oab']);
@@ -116,12 +116,11 @@ class oab Extends ControllerSeguro
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT * FROM oab WHERE id_oab=:id_oab AND id_adv=:id_adv ";
-
+        $sql = "SELECT * FROM oab WHERE id_adv={$_SESSION['id_adv']} ";
 
         if ($busca!=''){
             $sql .= " and (
-                        nome LIKE '%{$busca}%'
+                        numero_oab LIKE '%{$busca}%'
                         ) ";
         }
 
