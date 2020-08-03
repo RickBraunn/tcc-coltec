@@ -7,7 +7,7 @@ use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
 
-class Admin Extends Controller
+class Area Extends Controller
 {
     //public function __construct()
     //{
@@ -17,29 +17,29 @@ class Admin Extends Controller
     public function index()
     {
         include(ROOT . "/seguranca.php");
-        echo $this->template->twig->render('admin/listagem.html.twig');
+        echo $this->template->twig->render('area/listagem.html.twig');
     }
 
     public function formCadastrar()
     {
         include(ROOT . "/seguranca.php");
-        echo $this->template->twig->render('admin/cadastrar.html.twig');
+        echo $this->template->twig->render('area/cadastrar.html.twig');
     }
 
-    public function formEditar($id_adm)
+    public function formEditar($id_area)
     {
         
         $db = Conexao::connect();
 
-        $sql = "SELECT * FROM administrador WHERE id_adm=:id_adm";
+        $sql = "SELECT * FROM area WHERE id_area=:id_area";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":id_adm", $id_adm);
+        $query->bindParam(":id_area", $id_area);
         $resultado = $query->execute();
 
         $linha = $query->fetch();
         include(ROOT . "/seguranca.php");
-        echo $this->template->twig->render('admin/editar.html.twig', compact('linha'));
+        echo $this->template->twig->render('area/editar.html.twig', compact('linha'));
     }
 
 
@@ -49,17 +49,17 @@ class Admin Extends Controller
         
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO administrador (nome_adm, senha_adm) VALUES (:nome_adm, :senha_adm)";
+        $sql = "INSERT INTO area (nome_area, descricao) VALUES (:nome_area, :descricao)";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":nome_adm", $_POST['nome_adm']);
-        $query->bindParam(":senha_adm", $_POST['senha_adm']);
+        $query->bindParam(":nome_area", $_POST['nome_area']);
+        $query->bindParam(":descricao", $_POST['descricao']);
 
         $query->execute();
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Tipo cadastrado com sucesso';
+            $retorno['mensagem'] = 'Area cadastrada com sucesso';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';
@@ -73,17 +73,17 @@ class Admin Extends Controller
       
         $db = Conexao::connect();
 
-        $sql = "UPDATE administrador SET nome_adm=:nome_adm, senha_adm=:senha_adm WHERE id_adm=:id_adm";
+        $sql = "UPDATE area SET nome_area=:nome_area, descricao=:descricao WHERE id_area=:id_area";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":nome_adm", $_POST['nome_adm']);
-        $query->bindParam(":senha_adm", $_POST['senha_adm']);
-        $query->bindParam(":id_adm", $_POST['id_adm']);
+        $query->bindParam(":nome_area", $_POST['nome_area']);
+        $query->bindParam(":descricao", $_POST['descricao']);
+        $query->bindParam(":id_area", $_POST['id_area']);
         $query->execute();
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Tipo alterado com sucesso';
+            $retorno['mensagem'] = 'Area alterado com sucesso';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nenhum dado alterado';
@@ -97,10 +97,10 @@ class Admin Extends Controller
         
         $db = Conexao::connect();
 
-        $sql = "DELETE FROM administrador WHERE id_adm=:id_adm";
+        $sql = "DELETE FROM area WHERE id_area=:id_area";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":id_adm", $_POST['id']);
+        $query->bindParam(":id_area", $_POST['id']);
         $query->execute();
 
         if ($query->rowCount()==1) {
@@ -119,7 +119,7 @@ class Admin Extends Controller
     {
         
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT * FROM administrador WHERE 1 ";
+        $sql = "SELECT * FROM area WHERE 1 ";
 
         if ($busca!=''){
             $sql .= " and (
