@@ -83,7 +83,7 @@ class Area Extends Controller
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Area alterado com sucesso';
+            $retorno['mensagem'] = 'Area alterada com sucesso';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nenhum dado alterado';
@@ -105,7 +105,7 @@ class Area Extends Controller
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Excluído com sucesso';
+            $retorno['mensagem'] = 'Area excluída com sucesso';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao excluir os dados';

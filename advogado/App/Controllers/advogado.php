@@ -59,7 +59,7 @@ class Advogado Extends ControllerSeguro
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Tipo cadastrado com sucesso';
+            $retorno['mensagem'] = 'Advogado cadastrado com sucesso';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';
@@ -86,7 +86,7 @@ class Advogado Extends ControllerSeguro
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Tipo alterado com sucesso';
+            $retorno['mensagem'] = 'Advogado alterado com sucesso';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nenhum dado alterado';
@@ -107,7 +107,7 @@ class Advogado Extends ControllerSeguro
 
         if ($query->rowCount() == 1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Excluído com sucesso';
+            $retorno['mensagem'] = 'Advogado excluído com sucesso';
         } else {
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao excluir os dados';

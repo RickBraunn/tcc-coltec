@@ -56,7 +56,7 @@ class Cliente Extends ControllerSeguro
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Tipo cadastrado com sucesso';
+            $retorno['mensagem'] = 'Cliente cadastrado com sucesso';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';
@@ -85,7 +85,7 @@ class Cliente Extends ControllerSeguro
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Tipo alterado com sucesso';
+            $retorno['mensagem'] = 'Cliente alterado com sucesso';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nenhum dado alterado';
@@ -105,7 +105,7 @@ class Cliente Extends ControllerSeguro
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Excluído com sucesso';
+            $retorno['mensagem'] = 'Cliente excluído com sucesso';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao excluir os dados';
