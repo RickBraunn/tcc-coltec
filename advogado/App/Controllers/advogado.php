@@ -33,7 +33,7 @@ class Advogado Extends ControllerSeguro
         $sql = "SELECT * FROM advogado WHERE id_adv=:id_adv";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":id_adv", $id_adv);
+        $query->bindParam(":id_adv",$_SESSION["id_adv"]);
         $resultado = $query->execute();
 
         $linha = $query->fetch();
@@ -44,7 +44,7 @@ class Advogado Extends ControllerSeguro
     public function salvarCadastrar(){
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO advogado (nome_adv, sobrenome_adv, email_adv cidade_adv, telefone_adv, nome_usuario_adv, senha_adv, formacao  ) VALUES (:nome_adv, :sobrenome_adv, :email_adv, :cidade_adv, :telefone_adv, :nome_usuario_adv, :senha_adv, :formacao)";
+        $sql = "INSERT INTO advogado (nome_adv, sobrenome_adv, email_adv, cidade_adv, telefone_adv, nome_usuario_adv, senha_adv, formacao  ) VALUES (:nome_adv, :sobrenome_adv, :email_adv, :cidade_adv, :telefone_adv, :nome_usuario_adv, :senha_adv, :formacao)";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_adv", $_POST['nome_adv']);
