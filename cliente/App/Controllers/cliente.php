@@ -17,17 +17,26 @@ class Cliente Extends Controller
 
     public function formCadastrar()
     {
-//        include(ROOT . "/seguranca.php");
+        $db = Conexao::connect();
+
+
+        $sql = "SELECT * FROM cidade ORDER BY nome";
+        $resultados = $db->query($sql);
+        $cidades = $resultados->fetchALl();
        
 
 
-        echo $this->template->twig->render('cliente/cadastrar.html.twig');
+        echo $this->template->twig->render('cliente/cadastrar.html.twig', compact("cidades"));
        
     }
 
     public function formEditar($id_cli)
     {
         $db = Conexao::connect();
+
+        $sql = "SELECT * FROM cidade ORDER BY nome";
+        $resultados = $db->query($sql);
+        $cidades = $resultados->fetchALl();
 
         $sql = "SELECT * FROM cliente WHERE id_cli=:id_cli";
 
@@ -37,7 +46,7 @@ class Cliente Extends Controller
 
         $linha = $query->fetch();
 
-        echo $this->template->twig->render('cliente/editar.html.twig', compact('linha'));
+        echo $this->template->twig->render('cliente/editar.html.twig', compact('linha', "cidades"));
     }
 
 

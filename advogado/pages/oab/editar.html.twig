@@ -46,9 +46,19 @@
                         </div>
 
 
-                        <div class="form-group">
+
+                                                <div class="form-group">
                             <label for="estados_oab">Estado</label>
-                            <input type="number" class="form-control" id="estados_oab" name="estados_oab" placeholder="Email do Advogado" required value="{{ linha['estados_oab'] }}">
+                            <select class="form-control selectpicker" id="estados_oab" name="estados_oab" required>
+                                <option value="">-Selecione um Estado-</option>
+                                {% for estado in estados %}
+                                    {% set selected = '' %}
+                                    {% if estado.id_estado == linha['estados_oab'] %}
+                                        {% set selected = 'selected' %}
+                                    {% endif %}
+                                    <option value="{{ estado.id_estado }}" {{ selected }}>{{ estado.nome_estado }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
 
                         <!-- /.box-body -->

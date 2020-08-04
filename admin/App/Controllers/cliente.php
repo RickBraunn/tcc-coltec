@@ -6,23 +6,37 @@ namespace App\Controllers;
 use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
-use App\ControllerSeguro;
 
-class Cliente Extends ControllerSeguro
+class Cliente Extends Controller
 {
     public function index()
     {
+//        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('cliente/listagem.html.twig');
     }
 
     public function formCadastrar()
     {
-        echo $this->template->twig->render('cliente/cadastrar.html.twig');
+        $db = Conexao::connect();
+
+
+        $sql = "SELECT * FROM cidade ORDER BY nome";
+        $resultados = $db->query($sql);
+        $cidades = $resultados->fetchALl();
+       
+
+
+        echo $this->template->twig->render('cliente/cadastrar.html.twig', compact("cidades"));
+       
     }
 
     public function formEditar($id_cli)
     {
         $db = Conexao::connect();
+
+        $sql = "SELECT * FROM cidade ORDER BY nome";
+        $resultados = $db->query($sql);
+        $cidades = $resultados->fetchALl();
 
         $sql = "SELECT * FROM cliente WHERE id_cli=:id_cli";
 
@@ -31,8 +45,8 @@ class Cliente Extends ControllerSeguro
         $resultado = $query->execute();
 
         $linha = $query->fetch();
-        include(ROOT . "/seguranca.php");
-        echo $this->template->twig->render('cliente/editar.html.twig', compact('linha'));
+
+        echo $this->template->twig->render('cliente/editar.html.twig', compact('linha', "cidades"));
     }
 
 
@@ -41,13 +55,12 @@ class Cliente Extends ControllerSeguro
     {
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO cliente (nome_cli, sobrenome_cli, email_cli, estado_cli, cidade_cli, telefone_cli, nome_usuario_cli, senha_cli  ) VALUES (:nome_cli, :sobrenome_cli, :email_cli, :estado_cli, :cidade_cli, :telefone_cli, :nome_usuario_cli, :senha_cli)";
+        $sql = "INSERT INTO cliente (nome_cli, sobrenome_cli, email_cli, cidade_cli, telefone_cli, nome_usuario_cli, senha_cli  ) VALUES (:nome_cli, :sobrenome_cli, :email_cli,  :cidade_cli, :telefone_cli, :nome_usuario_cli, :senha_cli)";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_cli", $_POST['nome_cli']);
         $query->bindParam(":sobrenome_cli", $_POST['sobrenome_cli']);
         $query->bindParam(":email_cli", $_POST['email_cli']);
-        $query->bindParam(":estado_cli", $_POST['estado_cli']);
         $query->bindParam(":cidade_cli", $_POST['cidade_cli']);
         $query->bindParam(":telefone_cli", $_POST['telefone_cli']);
         $query->bindParam(":nome_usuario_cli", $_POST['nome_usuario_cli']);
@@ -69,13 +82,12 @@ class Cliente Extends ControllerSeguro
     {
         $db = Conexao::connect();
 
-        $sql = "UPDATE cliente SET nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, estado_cli=:estado_cli, cidade_cli=:cidade_cli, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli, senha_cli=:senha_cli WHERE id_cli=:id_cli";
+        $sql = "UPDATE cliente SET nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, cidade_cli=:cidade_cli, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli, senha_cli=:senha_cli WHERE id_cli=:id_cli";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_cli", $_POST['nome_cli']);
         $query->bindParam(":sobrenome_cli", $_POST['sobrenome_cli']);
         $query->bindParam(":email_cli", $_POST['email_cli']);
-        $query->bindParam(":estado_cli", $_POST['estado_cli']);
         $query->bindParam(":cidade_cli", $_POST['cidade_cli']);
         $query->bindParam(":telefone_cli", $_POST['telefone_cli']);
         $query->bindParam(":nome_usuario_cli", $_POST['nome_usuario_cli']);

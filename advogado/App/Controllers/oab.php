@@ -23,28 +23,40 @@ class oab Extends ControllerSeguro
 
     public function formCadastrar()
     {
-        
-        echo $this->template->twig->render('oab/cadastrar.html.twig');
+        $db = Conexao::connect();
+
+        $sql = "SELECT * FROM estado ORDER BY nome_estado";
+        $resultados = $db->query($sql);
+        $estados = $resultados->fetchALl();
+
+
+
+        echo $this->template->twig->render('oab/cadastrar.html.twig', compact("estados"));
     }
 
     public function formEditar($id_oab)
     {
         $db = Conexao::connect();
 
-        $sql = "SELECT * FROM oab WHERE id_oab=:id_oab AND id_adv=:id_adv";
+        $sql = "SELECT * FROM estado ORDER BY nome_estado";
+        $resultados = $db->query($sql);
+        $estados = $resultados->fetchALl();
 
+        $sql = "SELECT * FROM oab WHERE id_oab=:id_oab AND id_adv=:id_adv";
+        $id_adv = $_SESSION["id_adv"];
         $query = $db->prepare($sql);
         $query->bindParam(":id_oab", $id_oab);
-        $query->bindParam(":id_adv", $_SESSION["id_adv"]);
-        $resultado = $query->execute();
+        $query->bindParam(":id_adv", $id_adv);
 
+       $resultado = $query->execute();
+        /*
         if ($query->rowCount()==0){
             self::errorNotFound('Objeto não encontrado');
         }
-
+        Problema na verificação sempre verificando 0 */
         $linha = $query->fetch();
 
-        echo $this->template->twig->render('oab/editar.html.twig', compact('linha'));
+        echo $this->template->twig->render('oab/editar.html.twig', compact('linha', 'estados'));
     }
 
     public function salvarCadastrar(){
