@@ -4,6 +4,7 @@
 {% block title %}| Advogado | Editar{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="/dist/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 {% endblock %}
 
 {% block breadcrumb %}
@@ -55,7 +56,16 @@
 
                         <div class="form-group">
                             <label for="Cidades_idCidades">Cidade</label>
-                            <input type="number" class="form-control" id="Cidades_idCidades" name="Cidades_idCidades" placeholder="cidade" required value="{{ linha['Cidades_idCidades'] }}">
+                            <select class="form-control selectpicker" id="cidade_adv" name="cidade_adv" required>
+                                <option value="">-Selecione uma cidade-</option>
+                                {% for cidade in cidades %}
+                                    {% set selected = '' %}
+                                    {% if cidade.id_cidade == linha['cidade_adv'] %}
+                                        {% set selected = 'selected' %}
+                                    {% endif %}
+                                    <option value="{{ cidade.id_cidade }}" {{ selected }}>{{ cidade.Nome }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
 
 
@@ -99,11 +109,14 @@
 {% block javascriptPlugins %}
     <script src="/dist/js/jquery.form.js"></script>
     <script src="/dist/js/iziToast.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 {% endblock %}
 
 {% block jquery %}
     <script>
         $(document).ready(function(){
+            $('.selectpicker').selectpicker();
+
             $('.jsonForm').ajaxForm({
                 dataType:  'json',
 

@@ -12,10 +12,6 @@ class Advogado Extends ControllerSeguro
 {
     public function index(){
 
-//        include(ROOT . "/seguranca.php");
-
-        $db = Conexao::connect();
-
 
         echo $this->template->twig->render('advogado/listagem.html.twig');
 
@@ -23,12 +19,22 @@ class Advogado Extends ControllerSeguro
 
     public function formCadastrar()
     {
-        echo $this->template->twig->render('advogado/cadastrar.html.twig');
+        $db = Conexao::connect();
+
+        $sql = "SELECT * FROM cidade ORDER BY nome";
+        $resultados = $db->query($sql);
+        $cidades = $resultados->fetchALl();
+
+        echo $this->template->twig->render('advogado/cadastrar.html.twig', compact('cidades'));
     }
 
     public function formEditar($id_adv)
     {
         $db = Conexao::connect();
+
+        $sql = "SELECT * FROM cidade ORDER BY nome";
+        $resultados = $db->query($sql);
+        $cidades = $resultados->fetchALl();
 
         $sql = "SELECT * FROM advogado WHERE id_adv=:id_adv";
 
@@ -38,7 +44,7 @@ class Advogado Extends ControllerSeguro
 
         $linha = $query->fetch();
 
-        echo $this->template->twig->render('advogado/editar.html.twig', compact('linha'));
+        echo $this->template->twig->render('advogado/editar.html.twig', compact('linha', 'cidades'));
     }
 
     public function salvarCadastrar(){
