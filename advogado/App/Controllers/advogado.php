@@ -13,8 +13,8 @@ class Advogado Extends ControllerSeguro
     public function index(){
 
 
-        echo $this->template->twig->render('advogado/listagem.html.twig');
-
+        //echo $this->template->twig->render('advogado/listagem.html.twig');
+        echo $this->template->twig->render('advogado/menu.html');
     }
 
     public function formCadastrar()
