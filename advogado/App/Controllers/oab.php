@@ -128,7 +128,7 @@ class oab Extends ControllerSeguro
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT * FROM oab WHERE id_adv={$_SESSION['id_adv']} ";
+        $sql = "SELECT oab.id_oab, oab.numero_oab, oab.validacao, estado.nome_estado FROM oab Inner Join estado On oab.estados_oab = estado.id_estado WHERE id_adv={$_SESSION['id_adv']} ";
 
         if ($busca!=''){
             $sql .= " and (
