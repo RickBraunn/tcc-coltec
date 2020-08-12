@@ -30,7 +30,7 @@ class Solicitacao extends ControllerSeguro
         echo $this->template->twig->render('solicitacao/cadastrar.html.twig', compact('linha', 'id_adv','nome_adv'));
     }
 
-    public function formEditar($id_cli)
+   /* public function formEditar($id_cli)
     {
         $db = Conexao::connect();
 
@@ -48,28 +48,24 @@ class Solicitacao extends ControllerSeguro
 
         echo $this->template->twig->render('cliente/editar.html.twig', compact('linha', "cidades"));
     }
-
+*/
 
 
     public function salvarCadastrar()
     {
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO cliente (nome_cli, sobrenome_cli, email_cli, cidade_cli, telefone_cli, nome_usuario_cli, senha_cli  ) VALUES (:nome_cli, :sobrenome_cli, :email_cli,  :cidade_cli, :telefone_cli, :nome_usuario_cli, :senha_cli)";
+        $sql = "INSERT INTO solicitacoes (descricao, id_cli, id_adv  ) VALUES (:descricao, :id_cli, :id_adv)";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":nome_cli", $_POST['nome_cli']);
-        $query->bindParam(":sobrenome_cli", $_POST['sobrenome_cli']);
-        $query->bindParam(":email_cli", $_POST['email_cli']);
-        $query->bindParam(":cidade_cli", $_POST['cidade_cli']);
-        $query->bindParam(":telefone_cli", $_POST['telefone_cli']);
-        $query->bindParam(":nome_usuario_cli", $_POST['nome_usuario_cli']);
-        $query->bindParam(":senha_cli", $_POST['senha_cli']);
+        $query->bindParam(":descricao", $_POST['descricao']);
+        $query->bindParam(":id_cli", $_SESSION['id_cli']);
+        $query->bindParam(":id_adv", $_POST['id_adv']);
         $query->execute();
 
         if ($query->rowCount() == 1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Cliente cadastrado com sucesso';
+            $retorno['mensagem'] = 'Solicitação cadastrada com sucesso';
         } else {
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';
@@ -77,7 +73,7 @@ class Solicitacao extends ControllerSeguro
 
         $this->jsonResponse($retorno);
     }
-
+/*
     public function salvarEditar()
     {
         $db = Conexao::connect();
@@ -105,7 +101,7 @@ class Solicitacao extends ControllerSeguro
 
         echo $this->jsonResponse($retorno);
     }
-
+*/
     public function excluir()
     {
         $db = Conexao::connect();
