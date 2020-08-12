@@ -20,11 +20,14 @@ class Solicitacao extends ControllerSeguro
     {
         
         $db = Conexao::connect();
-        $sql = "SELECT advogado.id_adv, cliente.id_cli From advogado, cliente ";
-        
+        $sql = "SELECT advogado.id_adv, advogado.nome_adv,  cliente.id_cli From advogado, cliente ";
+        $query = $db->prepare($sql);
+        $resultado = $query->execute();
+
+        $linha = $query->fetch();
 
 
-        echo $this->template->twig->render('solicitacao/cadastrar.html.twig', compact('id_adv'));
+        echo $this->template->twig->render('solicitacao/cadastrar.html.twig', compact('linha', 'id_adv','nome_adv'));
     }
 
     public function formEditar($id_cli)
