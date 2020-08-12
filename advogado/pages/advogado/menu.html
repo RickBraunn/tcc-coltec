@@ -31,47 +31,63 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Cadastrar OAB</h5>
-                <p class="card-text">Cadastre um numero de OAB valido.</p>
-                <a href="/oab/formcadastrar" class="btn btn-primary">Leve-me lá</a>
-            </div>
+<div class="col-lg-6 col-xs-12">
+
+    <div class="small-box bg-aqua">
+        <div class="inner">
+            <h3>Cadastrar OAB</h3>
+    
+            <p>Cadastre um numero de OAB valido.</p>
         </div>
+        <div class="icon">
+            <i class="fa fa-plus-square"></i>
+        </div>
+        <a href="/oab/formcadastrar" class="small-box-footer">
+            Leve-me lá <i class="fa fa-arrow-circle-right"></i>
+        </a>
     </div>
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Lista de OAB</h5>
-                <p class="card-text">Veja uma lista com todas as suas OABs cadastradas.</p>
-                <a href="oab/" class="btn btn-primary">Leve-me lá</a>
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>Lista de OAB</h3>
+            
+                    <p>Veja uma lista com todas as suas OABs cadastradas.</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-list-alt"></i>
+                </div>
+                <a href="/oab/" class="small-box-footer">
+                    Leve-me lá <i class="fa fa-arrow-circle-right"></i>
+                </a>
             </div>
-        </div>
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>Adicionar Area</h3>
+            
+                    <p>Adicione suas areas de atuação.</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-check-square"></i>
+                </div>
+                <a href="/area/formcadastrar" class="small-box-footer">
+                    Leve-me lá <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>Editar Perfi</h3>
+            
+                    <p>Edite seu perfil.</p>
+                </div>
+                <div class="icon">
+                    <i class=" fa fa-cog"></i>
+                </div>
+                <a href="/advogado/formeditar" class="small-box-footer">
+                    Leve-me lá <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
     </div>
 </div>
-<br><br>
-<div class="row">
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body" >
-                <h5 class="card-title">Adicionar Area</h5>
-                <p class="card-text">Adicione suas areas de atuação.</p>
-                <a href="/area/formcadastrar" class="btn btn-primary">Leve-me lá</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Editar Perfil</h5>
-                <p class="card-text">Edite seu perfil.</p>
-                <a href="/advogado/formeditar" class="btn btn-primary">Leve-me lá</a>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 {% endblock %}
