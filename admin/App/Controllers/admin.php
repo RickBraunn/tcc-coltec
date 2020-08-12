@@ -6,8 +6,9 @@ namespace App\Controllers;
 use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
+use App\ControllerSeguro;
 
-class Admin Extends Controller
+class Admin Extends ControllerSeguro
 {
     //public function __construct()
     //{
@@ -16,13 +17,13 @@ class Admin Extends Controller
 // testar dps
     public function index()
     {
-        include(ROOT . "/seguranca.php");
-        echo $this->template->twig->render('admin/listagem.html.twig');
+        echo $this->template->twig->render('admin/menu.html');
+        //echo $this->template->twig->render('admin/listagem.html.twig');
     }
 
     public function formCadastrar()
     {
-        include(ROOT . "/seguranca.php");
+
         echo $this->template->twig->render('admin/cadastrar.html.twig');
     }
 
@@ -38,7 +39,7 @@ class Admin Extends Controller
         $resultado = $query->execute();
 
         $linha = $query->fetch();
-        include(ROOT . "/seguranca.php");
+
         echo $this->template->twig->render('admin/editar.html.twig', compact('linha'));
     }
 
