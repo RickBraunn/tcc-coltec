@@ -29,11 +29,12 @@ class oab Extends ControllerSeguro
         $resultados = $db->query($sql);
         $estados = $resultados->fetchALl();
 
-        $sql = "SELECT * FROM oab WHERE id_oab=:id_oab";
+        $sql = "SELECT oab.id_oab, oab.numero_oab, oab.estados_oab, oab.id_adv, advogado.nome_adv From oab Inner Join advogado On oab.id_adv = advogado.id_adv";
         $query = $db->prepare($sql);
         $query->bindParam(":id_oab", $id_oab);
 
         $resultado = $query->execute();
+        $linha = $query->fetch();
 
         echo $this->template->twig->render('oab/cadastrar.html.twig', compact('linha',"estados"));
     }
@@ -63,11 +64,14 @@ class oab Extends ControllerSeguro
 
     public function salvarCadastrar(){
         $db = Conexao::connect();
-        $status_oab = 'Aprovado';
-        $sql = "INSERT INTO oab ( status_oab ) VALUES ( :status_oab)";
+        $sql = "UPDATE oab SET id_oab=:id_oab, id_adv=:id_adv, numero_oab=:numero_oab, estados_oab=:estados_oab, status_oab=:status_oab WHERE id_oab=:id_oab";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":status_oab", $status_oab);
+        $query->bindParam(":id_oab", $_POST['id_oab']);
+        $query->bindParam(":id_adv", $_POST['id_adv']);
+        $query->bindParam(":numero_oab", $_POST['numero_oab']);
+        $query->bindParam(":estados_oab", $_POST['estados_oab']);
+        $query->bindValue(":status_oab", 'Aprovado');
         $query->execute();
 
         if ($query->rowCount()==1) {
@@ -83,26 +87,26 @@ class oab Extends ControllerSeguro
 
     public function salvarEditar(){
         $db = Conexao::connect();
-
-        $sql = "UPDATE oab SET id_adv=:id_adv, numero_oab=:numero_oab, estados_oab=:estados_oab WHERE id_adv=:id_adv";
+        $sql = "UPDATE oab SET id_oab=:id_oab, id_adv=:id_adv, numero_oab=:numero_oab, estados_oab=:estados_oab, status_oab=:status_oab WHERE id_oab=:id_oab";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":id_adv", $_SESSION["id_adv"]);
+        $query->bindParam(":id_oab", $_POST['id_oab']);
+        $query->bindParam(":id_adv", $_POST['id_adv']);
         $query->bindParam(":numero_oab", $_POST['numero_oab']);
         $query->bindParam(":estados_oab", $_POST['estados_oab']);
+        $query->bindValue(":status_oab", 'Rejeitado');
         $query->execute();
 
-        if ($query->rowCount()==1) {
+        if ($query->rowCount() == 1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'OAB alterada com sucesso';
-        }else{
+            $retorno['mensagem'] = 'OAB aprovada com sucesso.';
+        } else {
             $retorno['status'] = 0;
-            $retorno['mensagem'] = 'Nenhum dado alterado';
+            $retorno['mensagem'] = 'Erro ao inserir os dados';
         }
 
         echo $this->jsonResponse($retorno);
     }
-
     public function excluir()
     {
         $db = Conexao::connect();
@@ -128,7 +132,7 @@ class oab Extends ControllerSeguro
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT oab.id_oab, oab.numero_oab, oab.validacao, estado.nome_estado FROM oab Inner Join estado On oab.estados_oab = estado.id_estado WHERE id_adv={$_SESSION['id_adv']} ";
+        $sql = "SELECT oab.*, estado.nome_estado, advogado.nome_adv From oab Inner Join estado On oab.estados_oab = estado.id_estado Inner Join advogado On oab.id_adv = advogado.id_adv";
 
         if ($busca!=''){
             $sql .= " and (
