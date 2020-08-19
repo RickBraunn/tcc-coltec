@@ -1,0 +1,114 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+
+{% block title %}| OAB | Editar{% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="/dist/css/iziToast.min.css">
+{% endblock %}
+
+{% block breadcrumb %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Editar OAB
+            <small>Editar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active"><a href="/oab">OAB</a></li>
+        </ol>
+    </section>
+{% endblock %}
+
+
+{% block content %}
+    <section class="content">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" action="/oab/salvareditar" method="post" class="jsonForm">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="id_oab">Código OAB</label>
+                                <input type="number" class="form-control" id="id_oab" name="id_oab" readonly value="{{ linha['id_oab'] }}" >
+                            <div class="form-group">
+	                            <label for="id_adv">Código Advogado</label>
+	                            <input type="number" class="form-control" id="id_adv" name="id_adv" readonly value="{{ linha['id_adv'] }}">
+                            </div>
+
+                            <div class="form-group">
+                            <label for="numero_oab">Numero OAB</label>
+                            <input type="text" class="form-control" id="numero_oab" name="numero_oab" placeholder="Sobrenomeome do Advogado" required value="{{ linha['numero_oab'] }}">
+                        </div>
+
+
+
+                                                <div class="form-group">
+                            <label for="estados_oab">Estado</label>
+                            <select class="form-control selectpicker" id="estados_oab" name="estados_oab" required>
+                                <option value="">-Selecione um Estado-</option>
+                                {% for estado in estados %}
+                                    {% set selected = '' %}
+                                    {% if estado.id_estado == linha['estados_oab'] %}
+                                        {% set selected = 'selected' %}
+                                    {% endif %}
+                                    <option value="{{ estado.id_estado }}" {{ selected }}>{{ estado.nome_estado }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </section>
+
+{% endblock %}
+
+
+
+{% block javascriptPlugins %}
+    <script src="/dist/js/jquery.form.js"></script>
+    <script src="/dist/js/iziToast.min.js"></script>
+{% endblock %}
+
+{% block jquery %}
+    <script>
+        $(document).ready(function(){
+            $('.jsonForm').ajaxForm({
+                dataType:  'json',
+
+                success:   function(d){
+                    if (d.status==0){
+                        iziToast.error({
+                            message: d.mensagem
+                        });
+                    }else{
+                        iziToast.success({
+                            message: d.mensagem,
+                            onClosed: function(){
+                                document.location = "/oab";
+                            }
+                        });
+
+                    }
+                }
+
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}
