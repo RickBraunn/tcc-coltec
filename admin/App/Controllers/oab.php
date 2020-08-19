@@ -21,7 +21,7 @@ class oab Extends ControllerSeguro
 
     }
 
-    public function formCadastrar()
+    public function formCadastrar($id_oab)
     {
         $db = Conexao::connect();
 
@@ -29,9 +29,13 @@ class oab Extends ControllerSeguro
         $resultados = $db->query($sql);
         $estados = $resultados->fetchALl();
 
+        $sql = "SELECT * FROM oab WHERE id_oab=:id_oab";
+        $query = $db->prepare($sql);
+        $query->bindParam(":id_oab", $id_oab);
 
+        $resultado = $query->execute();
 
-        echo $this->template->twig->render('oab/cadastrar.html.twig', compact("estados"));
+        echo $this->template->twig->render('oab/cadastrar.html.twig', compact('linha',"estados"));
     }
 
     public function formEditar($id_oab)
@@ -42,11 +46,9 @@ class oab Extends ControllerSeguro
         $resultados = $db->query($sql);
         $estados = $resultados->fetchALl();
 
-        $sql = "SELECT * FROM oab WHERE id_oab=:id_oab AND id_adv=:id_adv";
-        $id_adv = $_SESSION["id_adv"];
+        $sql = "SELECT * FROM oab WHERE id_oab=:id_oab";
         $query = $db->prepare($sql);
         $query->bindParam(":id_oab", $id_oab);
-        $query->bindParam(":id_adv", $id_adv);
 
        $resultado = $query->execute();
         /*
@@ -61,18 +63,16 @@ class oab Extends ControllerSeguro
 
     public function salvarCadastrar(){
         $db = Conexao::connect();
-
-        $sql = "INSERT INTO oab ( numero_oab, estados_oab, id_adv  ) VALUES ( :numero_oab, :estados_oab, :id_adv)";
+        $status_oab = 'Aprovado';
+        $sql = "INSERT INTO oab ( status_oab ) VALUES ( :status_oab)";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":numero_oab", $_POST['numero_oab']);
-        $query->bindParam(":estados_oab", $_POST['estados_oab']);
-        $query->bindParam(":id_adv", $_SESSION["id_adv"]);
+        $query->bindParam(":status_oab", $status_oab);
         $query->execute();
 
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'OAB cadastrado com sucesso, aguardando aprovação.';
+            $retorno['mensagem'] = 'OAB aprovada com sucesso.';
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';
