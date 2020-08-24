@@ -25,18 +25,24 @@ class oab Extends ControllerSeguro
     {
         $db = Conexao::connect();
 
-        $sql = "SELECT * FROM estado ORDER BY nome_estado";
-        $resultados = $db->query($sql);
-        $estados = $resultados->fetchALl();
 
-        $sql = "SELECT oab.id_oab, oab.numero_oab, oab.estados_oab, oab.id_adv, advogado.nome_adv From oab Inner Join advogado On oab.id_adv = advogado.id_adv";
+        $sql = "SELECT
+                oab.id_oab,
+                concat(numero_oab, '/', sigla_estado) as numero_oab,
+    advogado.nome_adv,
+    estado.sigla_estado,
+     oab.status_oab
+From
+    oab Inner Join
+    advogado On oab.id_adv = advogado.id_adv Inner Join  estado On oab.estados_oab = estado.id_estado
+Where oab.id_oab = :id_oab";
         $query = $db->prepare($sql);
         $query->bindParam(":id_oab", $id_oab);
 
         $resultado = $query->execute();
         $linha = $query->fetch();
 
-        echo $this->template->twig->render('oab/cadastrar.html.twig', compact('linha',"estados"));
+        echo $this->template->twig->render('oab/cadastrar.html.twig', compact('linha'));
     }
 
     public function formEditar($id_oab)
@@ -64,14 +70,11 @@ class oab Extends ControllerSeguro
 
     public function salvarCadastrar(){
         $db = Conexao::connect();
-        $sql = "UPDATE oab SET id_oab=:id_oab, id_adv=:id_adv, numero_oab=:numero_oab, estados_oab=:estados_oab, status_oab=:status_oab WHERE id_oab=:id_oab";
+        $sql = "UPDATE oab SET status_oab=:status_oab WHERE id_oab=:id_oab";
 
         $query = $db->prepare($sql);
         $query->bindParam(":id_oab", $_POST['id_oab']);
-        $query->bindParam(":id_adv", $_POST['id_adv']);
-        $query->bindParam(":numero_oab", $_POST['numero_oab']);
-        $query->bindParam(":estados_oab", $_POST['estados_oab']);
-        $query->bindValue(":status_oab", 'Aprovado');
+        $query->bindValue(":status_oab", $_POST['aprovado']);
         $query->execute();
 
         if ($query->rowCount()==1) {

@@ -33,42 +33,38 @@
                     <form role="form" action="/oab/salvarCadastrar" method="post" class="jsonForm">
                         <div class="box-body">
 
-                            <div class="form-group">
-                                <label for="id_oab">Código OAB</label>
-                                <input type="number" class="form-control" id="id_oab" name="id_oab" readonly value="{{ linha['id_oab'] }}" >
-                            <div class="form-group">
-	                            <label for="id_adv">Código Advogado</label>
-	                            <input type="number" class="form-control" id="id_adv" name="id_adv" readonly value="{{ linha['id_adv'] }}">
-                            </div>
-
                                 <div class="form-group">
                                     <label for="nome_adv ">Nome do Advogado</label>
-                                    <input type="text" class="form-control" id="nome_adv " name="nome_adv" placeholder="Numero" readonly value="{{ linha['nome_adv'] }}">
+                                    <input type="text" class="form-control" id="nome_adv " name="nome_adv" readonly value="{{ linha['nome_adv'] }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="numero_oab ">Numero Oab</label>
-                                    <input type="number" class="form-control" id="numero_oab " name="numero_oab" placeholder="Numero" readonly value="{{ linha['numero_oab'] }}">
+                                    <input type="text" class="form-control" id="numero_oab " name="numero_oab" readonly value="{{ linha['numero_oab'] }}">
                                 </div>
-
-                                                <div class="form-group">
-                            <label for="estados_oab">Estado</label>
-                            <select class="form-control selectpicker" id="estados_oab" name="estados_oab" required>
-                                <option value="">-Selecione um Estado-</option>
-                                {% for estado in estados %}
-                                    {% set selected = '' %}
-                                    {% if estado.id_estado == linha['estados_oab'] %}
-                                        {% set selected = 'selected' %}
-                                    {% endif %}
-                                    <option value="{{ estado.id_estado }}" {{ selected }}>{{ estado.nome_estado }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
+                                
+                     
+                                <input type="hidden" class="form-control" id="id_oab" name="id_oab"  value="{{ linha['id_oab'] }}" >              
+                                <input type="hidden" class="form-control" id="aprovado" name="aprovado"   value="">
+                            
                             <!-- /.box-body -->
-
+                        {% if linha['status_oab'] == 'Aguardando Avaliacao' %}
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-block btn-success btn-flat">Aprovar</button>
+                            <button type="button" id="aprovar" class="btn btn-block btn-success btn-flat">Aprovar</button>
+                            <button type="button" id="reprovar" class="btn btn-block btn-danger btn-flat">Reprovar</button>
                         </div>
+                        {% elseif linha['status_oab'] == 'Reprovado'%}
+                        <div class="callout callout-warning">
+                <h4>Essa OAB já foi Reprovada!</h4>
+
+               
+              </div>
+              {% elseif linha['status_oab'] == 'Aprovado'%}
+              <div class="callout callout-success">
+                <h4>Essa OAB já foi Aprovada!</h4>
+
+                
+              </div>
+                        {%endif%}
                     </form>
                     
    
@@ -92,6 +88,13 @@
 {% block jquery %}
     <script>
         $(document).ready(function(){
+            $("#aprovar").on("click", function(){
+   $("#aprovado").val("Aprovado");
+$('.jsonForm').submit();  });
+            $("#reprovar").on("click", function(){
+   $("#aprovado").val("Reprovado");
+$('.jsonForm').submit();  });
+        
             $('.jsonForm').ajaxForm({
                 dataType:  'json',
 
