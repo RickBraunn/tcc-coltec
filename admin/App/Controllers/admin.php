@@ -10,14 +10,10 @@ use App\ControllerSeguro;
 
 class Admin Extends ControllerSeguro
 {
-    //public function __construct()
-    //{
-    //    include(ROOT . "/seguranca.php");
-    //}
-// testar dps
+
     public function index()
     {
-        echo $this->template->twig->render('admin/menu.html');
+        echo $this->template->twig->render('admin/menu.html.twig');
         //echo $this->template->twig->render('admin/listagem.html.twig');
     }
 
@@ -35,7 +31,7 @@ class Admin Extends ControllerSeguro
         $sql = "SELECT * FROM administrador WHERE id_adm=:id_adm";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":id_adm", $id_adm);
+        $query->bindParam(":id_adm",$_SESSION["id_adm"]);
         $resultado = $query->execute();
 
         $linha = $query->fetch();

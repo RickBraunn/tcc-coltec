@@ -43,10 +43,9 @@ class oab Extends ControllerSeguro
         $estados = $resultados->fetchALl();
 
         $sql = "SELECT * FROM oab WHERE id_oab=:id_oab AND id_adv=:id_adv";
-        $id_adv = $_SESSION["id_adv"];
         $query = $db->prepare($sql);
         $query->bindParam(":id_oab", $id_oab);
-        $query->bindParam(":id_adv", $id_adv);
+        $query->bindParam(":id_adv", $_SESSION["id_adv"]);
 
        $resultado = $query->execute();
         /*
@@ -128,7 +127,7 @@ class oab Extends ControllerSeguro
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT oab.id_oab, oab.numero_oab, oab.validacao, estado.nome_estado FROM oab Inner Join estado On oab.estados_oab = estado.id_estado WHERE id_adv={$_SESSION['id_adv']} ";
+        $sql = "SELECT oab.id_oab, oab.numero_oab, oab.status_oab, estado.nome_estado FROM oab Inner Join estado On oab.estados_oab = estado.id_estado WHERE id_adv={$_SESSION['id_adv']} ";
 
         if ($busca!=''){
             $sql .= " and (

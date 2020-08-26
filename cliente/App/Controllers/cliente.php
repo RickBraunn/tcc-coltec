@@ -6,8 +6,9 @@ namespace App\Controllers;
 use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
+use App\ControllerSeguro;
 
-class Cliente Extends Controller
+class Cliente Extends ControllerSeguro
 {
     public function index()
     {
@@ -41,7 +42,7 @@ class Cliente Extends Controller
         $sql = "SELECT * FROM cliente WHERE id_cli=:id_cli";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":id_cli", $id_cli);
+        $query->bindParam(":id_cli",$_SESSION["id_cli"]);
         $resultado = $query->execute();
 
         $linha = $query->fetch();

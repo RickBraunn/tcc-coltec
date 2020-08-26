@@ -55,7 +55,7 @@
 
 
                         <div class="form-group">
-                            <label for="Cidades_idCidades">Cidade</label>
+                            <label for="cidade_adv">Cidade</label>
                             <select class="form-control selectpicker" id="cidade_adv" name="cidade_adv" required>
                                 <option value="">-Selecione uma cidade-</option>
                                 {% for cidade in cidades %}
@@ -86,7 +86,7 @@
                             <input type="password" class="form-control" id="senha_adv" name="senha_adv" placeholder="senha" required value="{{ linha['senha_adv'] }}">
                         </div>
                             <div class="form-group">
-                                <textarea name="formacao" class="form-control" rows="4" cols="50" placeholder="Formação" required value="{{ linha['formacao'] }}"></textarea>
+                                <textarea name="formacao" class="form-control" rows="4" cols="50" placeholder="Formação"  value="{{ linha['formacao'] }}"></textarea>
                             </div>
                         </div>
                         <!-- /.box-body -->
