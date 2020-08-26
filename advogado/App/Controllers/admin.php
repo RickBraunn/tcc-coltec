@@ -12,7 +12,7 @@ class Admin Extends Controller
     public function index()
     {
 //        include(ROOT . "/seguranca.php");
-        echo $this->template->twig->render('admin/listagem.html.twig');
+        echo $this->template->twig->render('admin/menu.html.twig');
     }
 
     public function formCadastrar()
