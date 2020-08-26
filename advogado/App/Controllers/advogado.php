@@ -77,7 +77,7 @@ class Advogado Extends ControllerSeguro
     public function salvarEditar(){
         $db = Conexao::connect();
 
-        $sql = "UPDATE advogado SET nome_adv=:nome_adv, sobrenome_adv=:sobrenome_adv, email_adv=:email_adv, cidade_adv=:cidade_adv, telefone_adv=:telefone_adv, nome_usuario_adv=:nome_usuario_adv, senha_adv=:senha_adv WHERE id_adv=:id_adv";
+        $sql = "UPDATE advogado SET nome_adv=:nome_adv, sobrenome_adv=:sobrenome_adv, email_adv=:email_adv, cidade_adv=:cidade_adv, telefone_adv=:telefone_adv, nome_usuario_adv=:nome_usuario_adv, formacao=:formacao WHERE id_adv=:id_adv";
 
         $query = $db->prepare($sql);
         $query->bindParam(":id_adv", $_POST['id_adv']);
@@ -87,7 +87,8 @@ class Advogado Extends ControllerSeguro
         $query->bindParam(":cidade_adv", $_POST['cidade_adv']);
         $query->bindParam(":telefone_adv", $_POST['telefone_adv']);
         $query->bindParam(":nome_usuario_adv", $_POST['nome_usuario_adv']);
-        $query->bindParam(":senha_adv", $_POST['senha_adv']);
+        $query->bindParam(":formacao", $_POST['formacao']);
+        //$query->bindParam(":senha_adv", $_POST['senha_adv']);
         $query->execute();
 
         if ($query->rowCount()==1) {

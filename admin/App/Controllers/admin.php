@@ -23,7 +23,7 @@ class Admin Extends ControllerSeguro
         echo $this->template->twig->render('admin/cadastrar.html.twig');
     }
 
-    public function formEditar($id_adm)
+    public function formEditar()
     {
         
         $db = Conexao::connect();
@@ -33,9 +33,7 @@ class Admin Extends ControllerSeguro
         $query = $db->prepare($sql);
         $query->bindParam(":id_adm",$_SESSION["id_adm"]);
         $resultado = $query->execute();
-
         $linha = $query->fetch();
-
         echo $this->template->twig->render('admin/editar.html.twig', compact('linha'));
     }
 
