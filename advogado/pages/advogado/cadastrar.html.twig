@@ -30,7 +30,7 @@
                 <div class="box box-primary">
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/advogado/salvarcadastrar" method="post" class="jsonForm">
+                    <form role="form" action="/advogados/salvarcadastrar" method="post" class="jsonForm">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="nome_adv">Nome</label>
@@ -91,7 +91,13 @@
 
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Salvar</button>
+                            <button type="button"  onclick="Evento()" class="btn btn-primary">Login</button>
                         </div>
+                              <script>
+                                 function Evento(){
+                                 window.location.href = '/login'
+                                 }
+                                </script>
                     </form>
                 </div>
 
