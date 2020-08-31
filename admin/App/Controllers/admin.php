@@ -76,6 +76,14 @@ class Admin Extends ControllerSeguro
     {
       
         $db = Conexao::connect();
+        $nome = $_POST['nome_adm'];
+        $sql = "SELECT nome_adm FROM administrador WHERE nome_adm=$nome";
+        $query = $db->prepare($sql);
+        $query->execute();
+        if ($query->rowCount() == 1) {
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Nome ja Existente';
+        } else {
 
         $sql = "UPDATE administrador SET nome_adm=:nome_adm, senha_adm=:senha_adm WHERE id_adm=:id_adm";
 
@@ -93,7 +101,7 @@ class Admin Extends ControllerSeguro
             $retorno['mensagem'] = 'Nenhum dado alterado';
         }
 
-        echo $this->jsonResponse($retorno);
+        echo $this->jsonResponse($retorno);}
     }
 
     public function excluir()
