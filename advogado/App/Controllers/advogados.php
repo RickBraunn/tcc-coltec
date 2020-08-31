@@ -22,7 +22,14 @@ public function formCadastrar()
     }
      public function salvarCadastrar(){
         $db = Conexao::connect();
-
+        $nome = $_POST['nome_usuario_adv'];
+        $sql = "SELECT nome_usuario_adv FROM cliente WHERE nome_usuario_adv=$nome";
+        $query = $db->prepare($sql);
+        $query->execute();
+        if ($query->rowCount() == 1) {
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Nome de Usuario ja Existente';
+        } else {
         $sql = "INSERT INTO advogado (nome_adv, sobrenome_adv, email_adv, cidade_adv, telefone_adv, nome_usuario_adv, senha_adv, formacao  ) VALUES (:nome_adv, :sobrenome_adv, :email_adv, :cidade_adv, :telefone_adv, :nome_usuario_adv, :senha_adv, :formacao)";
 
         $query = $db->prepare($sql);
@@ -44,6 +51,6 @@ public function formCadastrar()
             $retorno['mensagem'] = 'Erro ao inserir os dados';
         }
 
-        echo $this->jsonResponse($retorno);
+        echo $this->jsonResponse($retorno);}
     }
 }
