@@ -33,6 +33,14 @@ class Clientes Extends Controller
     public function salvarCadastrar()
     {
         $db = Conexao::connect();
+        $nome = $_POST['nome_usuario_cli'];
+        $sql = "SELECT nome_usuario_cli FROM cliente WHERE nome_usuario_cli=$nome";
+        $query = $db->prepare($sql);
+        $query->execute();
+        if ($query->rowCount() == 1) {
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Nome de Usuario ja Existente';
+        } else {
 
         $sql = "INSERT INTO cliente (nome_cli, sobrenome_cli, email_cli, cidade_cli, telefone_cli, nome_usuario_cli, senha_cli  ) VALUES (:nome_cli, :sobrenome_cli, :email_cli,  :cidade_cli, :telefone_cli, :nome_usuario_cli, :senha_cli)";
 
@@ -54,7 +62,7 @@ class Clientes Extends Controller
             $retorno['mensagem'] = 'Erro ao inserir os dados';
         }
 
-        $this->jsonResponse($retorno);
+        $this->jsonResponse($retorno);}
     }
 
 }
