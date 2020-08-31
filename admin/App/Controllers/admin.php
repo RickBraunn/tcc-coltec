@@ -43,6 +43,15 @@ class Admin Extends ControllerSeguro
     {
         
         $db = Conexao::connect();
+        $nome = $_POST['nome_adm'];
+        $sql = "SELECT nome_adm FROM administrador WHERE nome_adm=$nome";
+        $query = $db->prepare($sql);
+        $query->execute();
+        if ($query->rowCount() == 1) {
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Nome ja Existente';
+        }else{
+
 
         $sql = "INSERT INTO administrador (nome_adm, senha_adm) VALUES (:nome_adm, :senha_adm)";
 
@@ -60,7 +69,7 @@ class Admin Extends ControllerSeguro
             $retorno['mensagem'] = 'Erro ao inserir os dados';
         }
 
-        $this->jsonResponse($retorno);
+        $this->jsonResponse($retorno);}
     }
 
     public function salvarEditar()
