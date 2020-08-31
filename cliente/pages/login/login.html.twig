@@ -47,8 +47,14 @@
       <div class="row">
         <div class="col-xs-4">
             <button type="submit"  class="btn btn-primary btn-block btn-flat">Acessar</button>
+            <button type="button"  onclick="Evento()" class="btn btn-primary btn-block btn-flat">Cadastrar</button>
         </div>
       </div>
+            <script>
+    function Evento(){
+        window.location.href = '/advogados/formcadastrar/'
+    }
+</script>
     </form>
 
   </div>
@@ -88,7 +94,7 @@
                         message: d.mensagem
                     });
                     setTimeout(function(){
-                      document.location = '/';
+                      document.location = '/cliente/';
                     }, 2000);
 
                     $('.jsonForm').trigger("reset");
