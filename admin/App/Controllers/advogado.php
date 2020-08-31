@@ -57,6 +57,8 @@ class Advogado Extends ControllerSeguro
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nome de Usuario ja Existente';
         } else {
+            $senha = $_POST['senha_adv'];
+            $senha = sha1($senha);
 
         $sql = "INSERT INTO advogado (nome_adv, sobrenome_adv, email_adv, cidade_adv, telefone_adv, nome_usuario_adv, senha_adv, formacao  ) VALUES (:nome_adv, :sobrenome_adv, :email_adv, :cidade_adv, :telefone_adv, :nome_usuario_adv, :senha_adv, :formacao)";
 
@@ -67,7 +69,7 @@ class Advogado Extends ControllerSeguro
         $query->bindParam(":cidade_adv", $_POST['cidade_adv']);
         $query->bindParam(":telefone_adv", $_POST['telefone_adv']);
         $query->bindParam(":nome_usuario_adv", $_POST['nome_usuario_adv']);
-        $query->bindParam(":senha_adv", $_POST['senha_adv']);
+        $query->bindParam(":senha_adv", $senha);
         $query->bindParam(":formacao", $_POST['formacao']);
         $query->execute();
 
