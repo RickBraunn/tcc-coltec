@@ -49,6 +49,14 @@ class Advogado Extends ControllerSeguro
 
     public function salvarCadastrar(){
         $db = Conexao::connect();
+        $nome = $_POST['nome_usuario_adv'];
+        $sql = "SELECT nome_usuario_adv FROM advogado WHERE nome_usuario_adv=$nome";
+        $query = $db->prepare($sql);
+        $query->execute();
+        if ($query->rowCount() == 1) {
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Nome de Usuario ja Existente';
+        } else {
 
         $sql = "INSERT INTO advogado (nome_adv, sobrenome_adv, email_adv, cidade_adv, telefone_adv, nome_usuario_adv, senha_adv, formacao  ) VALUES (:nome_adv, :sobrenome_adv, :email_adv, :cidade_adv, :telefone_adv, :nome_usuario_adv, :senha_adv, :formacao)";
 
@@ -71,7 +79,7 @@ class Advogado Extends ControllerSeguro
             $retorno['mensagem'] = 'Erro ao inserir os dados';
         }
 
-        echo $this->jsonResponse($retorno);
+        echo $this->jsonResponse($retorno);}
     }
 
     public function salvarEditar(){
