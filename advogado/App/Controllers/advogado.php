@@ -42,7 +42,14 @@ class Advogado Extends ControllerSeguro
 
     public function salvarEditar(){
         $db = Conexao::connect();
-
+        $nome = $_POST['nome_usuario_adv'];
+        $sql = "SELECT nome_usuario_adv FROM advogado WHERE nome_usuario_adv=$nome";
+        $query = $db->prepare($sql);
+        $query->execute();
+        if ($query->rowCount() == 1) {
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Nome de Usuario ja Existente';
+        } else {
         $sql = "UPDATE advogado SET nome_adv=:nome_adv, sobrenome_adv=:sobrenome_adv, email_adv=:email_adv, cidade_adv=:cidade_adv, telefone_adv=:telefone_adv, nome_usuario_adv=:nome_usuario_adv, formacao=:formacao WHERE id_adv=:id_adv";
 
         $query = $db->prepare($sql);
@@ -65,7 +72,7 @@ class Advogado Extends ControllerSeguro
             $retorno['mensagem'] = 'Nenhum dado alterado';
         }
 
-        echo $this->jsonResponse($retorno);
+        echo $this->jsonResponse($retorno);}
     }
 
     public function excluir()
