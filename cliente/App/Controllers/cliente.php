@@ -42,6 +42,14 @@ class Cliente Extends ControllerSeguro
     public function salvarEditar()
     {
         $db = Conexao::connect();
+        $nome = $_POST['nome_usuario_cli'];
+        $sql = "SELECT nome_usuario_cli FROM cliente WHERE nome_usuario_cli=$nome";
+        $query = $db->prepare($sql);
+        $query->execute();
+        if ($query->rowCount() == 1) {
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Nome de Usuario ja Existente';
+        } else {
 
         $sql = "UPDATE cliente SET nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, cidade_cli=:cidade_cli, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli, senha_cli=:senha_cli WHERE id_cli=:id_cli";
 
@@ -64,7 +72,7 @@ class Cliente Extends ControllerSeguro
             $retorno['mensagem'] = 'Nenhum dado alterado';
         }
 
-        echo $this->jsonResponse($retorno);
+        echo $this->jsonResponse($retorno);}
     }
 
     public function excluir(){
