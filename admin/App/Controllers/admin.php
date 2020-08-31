@@ -51,13 +51,14 @@ class Admin Extends ControllerSeguro
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nome ja Existente';
         }else{
-
+            $senha = $_POST['senha_adm'];
+            $senha = sha1($senha);
 
         $sql = "INSERT INTO administrador (nome_adm, senha_adm) VALUES (:nome_adm, :senha_adm)";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_adm", $_POST['nome_adm']);
-        $query->bindParam(":senha_adm", $_POST['senha_adm']);
+        $query->bindParam(":senha_adm", $senha);
 
         $query->execute();
 
