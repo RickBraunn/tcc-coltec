@@ -41,6 +41,8 @@ class Clientes Extends Controller
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nome de Usuario ja Existente';
         } else {
+            $senha = $_POST['senha_cli'];
+            $senha = sha1($senha);
 
         $sql = "INSERT INTO cliente (nome_cli, sobrenome_cli, email_cli, cidade_cli, telefone_cli, nome_usuario_cli, senha_cli  ) VALUES (:nome_cli, :sobrenome_cli, :email_cli,  :cidade_cli, :telefone_cli, :nome_usuario_cli, :senha_cli)";
 
@@ -51,7 +53,7 @@ class Clientes Extends Controller
         $query->bindParam(":cidade_cli", $_POST['cidade_cli']);
         $query->bindParam(":telefone_cli", $_POST['telefone_cli']);
         $query->bindParam(":nome_usuario_cli", $_POST['nome_usuario_cli']);
-        $query->bindParam(":senha_cli", $_POST['senha_cli']);
+        $query->bindParam(":senha_cli", $senha);
         $query->execute();
 
         if ($query->rowCount() == 1) {
