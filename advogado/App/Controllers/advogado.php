@@ -38,6 +38,49 @@ class Advogado Extends ControllerSeguro
         echo $this->template->twig->render('advogado/editar.html.twig', compact('linha', 'cidades'));
     }
 
+    public function formSenha($id_adv)
+    {
+        $db = Conexao::connect();
+        echo $this->template->twig->render('advogado/senha.html.twig');
+
+    }
+    public function salvarSenha()
+    {
+        $db = Conexao::connect();
+        $senha_ant = $_POST['senha_ant'];
+        $senha1 = $_POST['senha1'];
+        $senha2 = $_POST['senha2'];
+        $senha_ant = sha1($senha_ant);
+        $sql = "SELECT senha_adv FROM advogado WHERE senha_adv=:senha_adv";
+        $query = $db->prepare($sql);
+        $query->bindParam(":senha_adv", $senha_ant);
+        $query->execute();
+        if ($query->rowCount() == 0) {
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Senha antiga errada!';
+            echo $this->jsonResponse($retorno);
+        } elseif ($senha1==$senha2){
+        $senha_adv = $senha2;
+        $senha_adv = sha1($senha_adv);
+        $sql = "UPDATE advogado SET senha_adv=:senha_adv WHERE id_adv=:id_adv";
+        $query = $db->prepare($sql);
+        $query->bindParam(":senha_adv", $senha_adv);
+        $query->bindParam(":id_adv", $_SESSION['id_adv']);
+        $query->execute();
+        if ($query->rowCount()==1) {
+            $retorno['status'] = 1;
+            $retorno['mensagem'] = 'Senha alterada com sucesso';
+        }else{
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Nenhum dado alterado';
+        }}else{
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Informe senhas iguais';
+        }
+        echo $this->jsonResponse($retorno);
+    }
+
+
    
 
     public function salvarEditar(){
