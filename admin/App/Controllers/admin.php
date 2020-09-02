@@ -44,12 +44,14 @@ class Admin Extends ControllerSeguro
         
         $db = Conexao::connect();
         $nome = $_POST['nome_adm'];
-        $sql = "SELECT nome_adm FROM administrador WHERE nome_adm=$nome";
+        $sql = "SELECT nome_adm FROM administrador WHERE nome_adm=:nome_adm";
         $query = $db->prepare($sql);
+        $query->bindParam(":nome_adm", $nome);
         $query->execute();
         if ($query->rowCount() == 1) {
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nome ja Existente';
+            echo $this->jsonResponse($retorno);
         }else{
             $senha = $_POST['senha_adm'];
             $senha = sha1($senha);
