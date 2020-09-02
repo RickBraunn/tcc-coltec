@@ -1,7 +1,7 @@
 {% extends 'layouts/dashboard.html.twig' %}
 
 
-{% block title %}| Advogado | Editar{% endblock %}
+{% block title %}| Admin | Editar{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="/dist/css/iziToast.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
@@ -11,12 +11,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Alterar Senha Advogado
+            Alterar Senha Admin
             <small>Editar</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active"><a href="/advogado">Advogado</a></li>
+            <li class="active"><a href="/admin">Admin</a></li>
         </ol>
     </section>
 {% endblock %}
@@ -31,7 +31,7 @@
                 <div class="box box-primary">
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="/advogado/salvarSenha" method="post" class="jsonForm">
+                    <form role="form" action="/admin/salvarSenha" method="post" class="jsonForm">
                         <div class="box-body">
 
                         <div class="form-group">
@@ -86,7 +86,7 @@
                         iziToast.success({
                             message: d.mensagem,
                             onClosed: function(){
-                                document.location = "/advogado";
+                                document.location = "/admin";
                             }
                         });
 

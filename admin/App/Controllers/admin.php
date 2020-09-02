@@ -36,7 +36,47 @@ class Admin Extends ControllerSeguro
         $linha = $query->fetch();
         echo $this->template->twig->render('admin/editar.html.twig', compact('linha'));
     }
-
+    public function formSenha($id_adm)
+    {
+        $db = Conexao::connect();
+        echo $this->template->twig->render('admin/senha.html.twig');
+    }
+    public function salvarSenha()
+    {
+        $db = Conexao::connect();
+        $senha_ant = $_POST['senha_ant'];
+        $senha1 = $_POST['senha1'];
+        $senha2 = $_POST['senha2'];
+        $senha_ant = sha1($senha_ant);
+        $sql = "SELECT senha_adm FROM administrador WHERE senha_adm=:senha_adm";
+        $query = $db->prepare($sql);
+        $query->bindParam(":senha_adm", $senha_ant);
+        $query->execute();
+        if ($query->rowCount() == 0) {
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Senha antiga errada!';
+            echo $this->jsonResponse($retorno);
+        } elseif ($senha1 == $senha2) {
+            $senha_adm = $senha2;
+            $senha_adm = sha1($senha_adm);
+            $sql = "UPDATE administrador SET senha_adm=:senha_adm WHERE id_adm=:id_adm";
+            $query = $db->prepare($sql);
+            $query->bindParam(":senha_adm", $senha_adm);
+            $query->bindParam(":id_adm", $_SESSION['id_adm']);
+            $query->execute();
+            if ($query->rowCount() == 1) {
+                $retorno['status'] = 1;
+                $retorno['mensagem'] = 'Senha alterada com sucesso';
+            } else {
+                $retorno['status'] = 0;
+                $retorno['mensagem'] = 'Nenhum dado alterado';
+            }
+        } else {
+            $retorno['status'] = 0;
+            $retorno['mensagem'] = 'Informe senhas iguais';
+        }
+        echo $this->jsonResponse($retorno);
+    }
 
 
     public function salvarCadastrar()
