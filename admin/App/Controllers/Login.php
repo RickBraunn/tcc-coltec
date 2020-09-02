@@ -25,6 +25,7 @@ class Login Extends Controller
 
         $nome_adm = $_POST['nome_adm'];
         $senha_adm = $_POST['senha_adm'];
+        $senha_adm = sha1($senha_adm);
 
         $sql = "SELECT * FROM administrador WHERE nome_adm=:nome_adm AND senha_adm=:senha_adm";
 
