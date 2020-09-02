@@ -25,6 +25,7 @@ class Login Extends Controller
 
         $nome_usuario_cli = $_POST['nome_usuario_cli'];
         $senha_cli = $_POST['senha_cli'];
+        $senha_cli = sha1($senha_cli);
 
         $sql = "SELECT * FROM cliente WHERE nome_usuario_cli=:nome_usuario_cli AND senha_cli=:senha_cli";
 
