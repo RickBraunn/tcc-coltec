@@ -25,6 +25,7 @@ class Login Extends Controller
 
         $nome_usuario_adv = $_POST['nome_usuario_adv'];
         $senha_adv = $_POST['senha_adv'];
+        $senha_adv =sha1($senha_adv);
 
         $sql = "SELECT * FROM advogado WHERE nome_usuario_adv=:nome_usuario_adv AND senha_adv=:senha_adv";
 
