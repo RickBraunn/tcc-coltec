@@ -48,14 +48,14 @@ class Admin Extends ControllerSeguro
         $senha1 = $_POST['senha1'];
         $senha2 = $_POST['senha2'];
         $senha_ant = sha1($senha_ant);
+
         $sql = "SELECT senha_adm FROM administrador WHERE senha_adm=:senha_adm";
         $query = $db->prepare($sql);
         $query->bindParam(":senha_adm", $senha_ant);
         $query->execute();
+
         if ($query->rowCount() == 0) {
-            $retorno['status'] = 0;
-            $retorno['mensagem'] = 'Senha antiga errada!';
-            echo $this->jsonResponse($retorno);
+            $this->retornaErro('Senha antiga errada!');
         } elseif ($senha1 == $senha2) {
             $senha_adm = $senha2;
             $senha_adm = sha1($senha_adm);
@@ -65,17 +65,13 @@ class Admin Extends ControllerSeguro
             $query->bindParam(":id_adm", $_SESSION['id_adm']);
             $query->execute();
             if ($query->rowCount() == 1) {
-                $retorno['status'] = 1;
-                $retorno['mensagem'] = 'Senha alterada com sucesso';
+                $this->retornaOK('Senha alterada com sucesso');
             } else {
-                $retorno['status'] = 0;
-                $retorno['mensagem'] = 'Nenhum dado alterado';
+                $this->retornaErro('Nenhum dado alterado');
             }
         } else {
-            $retorno['status'] = 0;
-            $retorno['mensagem'] = 'Informe senhas iguais';
+            $this->retornaErro('Informe senhas iguais');
         }
-        echo $this->jsonResponse($retorno);
     }
 
 

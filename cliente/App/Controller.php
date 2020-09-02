@@ -29,6 +29,27 @@ class Controller
         exit;
     }
 
+    public function retornaErro($mensagem)
+    {
+        $retorno['status'] = 0;
+        $retorno['mensagem'] = $mensagem;
+
+        echo $this->jsonResponse($retorno);
+        exit;
+    }
+
+    public function retornaOK($mensagem, $valor='')
+    {
+        $retorno['status'] = 1;
+        $retorno['mensagem'] = $mensagem;
+        if ($valor){
+            $retorno['retorno'] = $valor;
+        }
+
+        echo $this->jsonResponse($retorno);
+        exit;
+    }
+
     public function jsonResponse($json)
     {
         echo json_encode($json);
