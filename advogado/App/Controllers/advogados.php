@@ -23,12 +23,15 @@ public function formCadastrar()
      public function salvarCadastrar(){
         $db = Conexao::connect();
         $nome = $_POST['nome_usuario_adv'];
-        $sql = "SELECT nome_usuario_adv FROM cliente WHERE nome_usuario_adv=$nome";
+        $sql = "SELECT nome_usuario_adv FROM advogado WHERE nome_usuario_adv=:nome_usuario_adv";
         $query = $db->prepare($sql);
+        $query->bindParam(":nome_usuario_adv", $nome);
         $query->execute();
+        
         if ($query->rowCount() == 1) {
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nome de Usuario ja Existente';
+            echo $this->jsonResponse($retorno);
         } else {
         $senha = $_POST['senha_adv'];
         $senha = sha1($senha);
