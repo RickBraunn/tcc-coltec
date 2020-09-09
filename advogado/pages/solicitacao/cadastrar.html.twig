@@ -63,11 +63,12 @@
 </div>
 {% elseif linha['status_solicitacoes'] == 'Recusado'%}
 <div class="callout callout-warning">
-	<h4>Essa Solicitação já foi recusada!</h4>
+	<h4>Você já recusou essa solicitação!</h4>
 </div>
 {% elseif linha['status_solicitacoes'] == 'Aceito'%}
 <div class="callout callout-success">
-<h4>Essa Solicitação já foi Aceita!</h4>
+<h4>Você já aceitou essa solicitação!</h4>
+
 
 </div>  
 {%endif%}
