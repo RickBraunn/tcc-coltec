@@ -20,7 +20,8 @@ class Solicitacao extends ControllerSeguro
     {
         
         $db = Conexao::connect();
-        $sql = "SELECT solicitacoes.id_solicitacoes, cliente.id_cli, cliente.nome_cli, cliente.sobrenome_cli, solicitacoes.descricao From advogado Inner Join solicitacoes On solicitacoes.id_adv = advogado.id_adv Inner Join cliente On solicitacoes.id_cli = cliente.id_cli ";
+        $sql = "SELECT solicitacoes.id_solicitacoes, solicitacoes.status, cliente.id_cli, concat(cliente.nome_cli, ' ', cliente.sobrenome_cli) as nome_cli, solicitacoes.descricao 
+        From advogado Inner Join solicitacoes On solicitacoes.id_adv = advogado.id_adv Inner Join cliente On solicitacoes.id_cli = cliente.id_cli ";
         $resultados = $db->query($sql);
         $solicitacoes = $resultados->fetchALl();
 
