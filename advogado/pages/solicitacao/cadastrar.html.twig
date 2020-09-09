@@ -44,7 +44,8 @@
 
 
 <p> Descrição: {{ solicitacao.descricao}}</p>
-<p>Status: {{solicitacao.status}}</p>
+<p>Status: {{solicitacao.status_solicitacoes}}</p>
+
 
 <input type='hidden' name='id_solicitacoes' id='id_solicitacoes' value='{{ solicitacao.id_solicitacoes }}'>
 
@@ -52,7 +53,7 @@
 
 <input type="hidden" class="form-control" id="aprovado" name="aprovado" value="">
 
-{% if linha['status'] == 'Pendente' %}
+{% if linha['status_solicitacoes'] == 'Pendente' %}
 
 <div class="box-footer">
 <div class="row">
@@ -60,11 +61,11 @@
 	<button type="button" id="recusar" class="btn btn-block btn-danger btn-flat">Recusar</button>
     </div>
 </div>
-{% elseif linha['status'] == 'Recusado'%}
+{% elseif linha['status_solicitacoes'] == 'Recusado'%}
 <div class="callout callout-warning">
 	<h4>Essa Solicitação já foi recusada!</h4>
 </div>
-{% elseif linha['status'] == 'Aceito'%}
+{% elseif linha['status_solicitacoes'] == 'Aceito'%}
 <div class="callout callout-success">
 <h4>Essa Solicitação já foi Aceita!</h4>
 
