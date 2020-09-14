@@ -49,7 +49,7 @@
 
                         <div class="form-group">
                             <label for="email_adv">Email</label>
-                            <input type="email" class="form-control" id="email_adv" name="email_adv" placeholder="Email do Advogado" required value="{{ linha['email_adv'] }}">
+                            <input type="email" class="form-control" readonly id="email_adv" name="email_adv" placeholder="Email do Advogado" required value="{{ linha['email_adv'] }}">
                         </div>
 
 
@@ -71,35 +71,26 @@
 
                         <div class="form-group">
                             <label for="telefone_adv">Telefone</label>
-                            <input type="number" class="form-control" id="telefone_adv" name="telefone_adv" placeholder="Telefone" required value="{{ linha['telefone_adv'] }}">
+                            <input type="text" class="form-control" id="telefone_adv" name="telefone_adv" placeholder="Telefone" required value="{{ linha['telefone_adv'] }}">
                         </div>
 
 
                         <div class="form-group">
-                            <label for="nome_usuario_adv">Nome de Usuario</label>
-                            <input type="text" class="form-control" id="nome_usuario_adv" name="nome_usuario_adv" placeholder="Nome de Usuario" required value="{{ linha['nome_usuario_adv'] }}">
+                            <label for="nome_usuario_adv">Nome de Usuário</label>
+                            <input type="text" readonly class="form-control" id="nome_usuario_adv" name="nome_usuario_adv" placeholder="Nome de Usuario" required value="{{ linha['nome_usuario_adv'] }}">
                         </div>
 
 
                         <div class="form-group">
-                            <label for="senha_adv">Senha</label>
-                            <input type="password" class="form-control" id="senha_adv" name="senha_adv" placeholder="senha" required value="{{ linha['senha_adv'] }}">
-                        </div>
-                            <div class="form-group">
-                                <textarea name="formacao" class="form-control" rows="4" cols="50" placeholder="Formação"  value="{{ linha['formacao'] }}"></textarea>
-                            </div>
+                            <label for="formacao">Formação</label>
+                            <textarea name="formacao" id="formacao" class="form-control" rows="4" cols="50" placeholder="Formação">{{ linha['formacao'] }}</textarea>
                         </div>
                         <!-- /.box-body -->
 
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Salvar</button>
-                            <button type="button"  onclick="Evento()" class="btn btn-primary">Alterar Senha</button>
+                            <a href="/advogado/formSenha" class="btn btn-primary">Alterar Senha</a>
                         </div>
-                                <script>
-                                 function Evento(){
-                                 window.location.href = '/advogado/formSenha'
-                                 }
-                                </script>
                     </form>
                 </div>
 
@@ -122,6 +113,14 @@
     <script>
         $(document).ready(function(){
             $('.selectpicker').selectpicker();
+
+            $("#nome_usuario_adv").on("dblclick", function(){
+                $(this).attr('readonly', false);
+            });
+
+            $("#email_adv").on("dblclick", function(){
+                $(this).attr('readonly', false);
+            });
 
             $('.jsonForm').ajaxForm({
                 dataType:  'json',
