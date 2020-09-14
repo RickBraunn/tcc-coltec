@@ -20,7 +20,8 @@ class Solicitacao extends ControllerSeguro
     {
         
         $db = Conexao::connect();
-        $sql = "SELECT solicitacoes.id_solicitacoes, cliente.id_cli, cliente.nome_cli, cliente.sobrenome_cli, solicitacoes.descricao From advogado Inner Join solicitacoes On solicitacoes.id_adv = advogado.id_adv Inner Join cliente On solicitacoes.id_cli = cliente.id_cli ";
+        $sql = "SELECT solicitacoes.id_solicitacoes, solicitacoes.status_solicitacoes, cliente.id_cli, concat(cliente.nome_cli, ' ', cliente.sobrenome_cli) as nome_cli, solicitacoes.descricao 
+        From advogado Inner Join solicitacoes On solicitacoes.id_adv = advogado.id_adv Inner Join cliente On solicitacoes.id_cli = cliente.id_cli ";
         $resultados = $db->query($sql);
         $solicitacoes = $resultados->fetchALl();
 
@@ -61,23 +62,20 @@ class Solicitacao extends ControllerSeguro
     {
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO solicitacoes (descricao, id_cli, id_adv  ) VALUES (:descricao, :id_cli, :id_adv)";
+        $sql = "UPDATE solicitacoes SET status_solicitacoes=:status_solicitacoes WHERE id_adv=:id_adv AND id_cli=:id_cli";
 
         $query = $db->prepare($sql);
-        $query->bindParam(":descricao", $_POST['descricao']);
-        $query->bindParam(":id_cli", $_SESSION['id_cli']);
-        $query->bindParam(":id_adv", $_POST['id_adv']);
+        $query->bindParam(":status_solicitacoes", $_POST['aprovado']);
+        $query->bindParam(":id_adv", $_SESSION['id_adv']);
+        $query->bindParam(":id_cli", $_POST['id_cli']);
         $query->execute();
 
         if ($query->rowCount() == 1) {
-            $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Solicitação cadastrada com sucesso';
+            $this->retornaOK('Enviado com sucesso!');
         } else {
-            $retorno['status'] = 0;
-            $retorno['mensagem'] = 'Erro ao inserir os dados';
+            $this->retornaERRO('Erro ao enviar!');
         }
 
-        $this->jsonResponse($retorno);
     }
 /*
     public function salvarEditar()
