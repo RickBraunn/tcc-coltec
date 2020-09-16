@@ -130,11 +130,11 @@
                             <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                             <p>
-                                {{ session.nome_usuario_adv }}
-                                <small>OAB: ????</small>
+                                {{ session.nome_adv }} {{ session.sobrenome_adv }}
+                                <small>OAB: {{session.numero_oab}}/{{session.sigla_estado}} </small>
                             </p>
                         </li>
-                        <!-- Menu Body -->
+                        <!-- Menu Body 
                         <li class="user-body">
                             <div class="row">
                                 <div class="col-xs-4 text-center">
@@ -147,7 +147,7 @@
                                     <a href="#">Friends</a>
                                 </div>
                             </div>
-                            <!-- /.row -->
+                             /.row -->
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
