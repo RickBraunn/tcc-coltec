@@ -32,6 +32,8 @@ class Login Extends Controller
         $resultados = $db ->prepare($sql);
 
         $resultados->bindParam(":nome_usuario_cli", $nome_usuario_cli);
+        $resultados->bindParam(":nome_cli", $nome_cli);
+        $resultados->bindParam(":sobrenome_cli", $sobrenome_cli);
         $resultados->bindParam(":senha_cli", $senha_cli);
         $resultados->execute();
 		
@@ -39,6 +41,9 @@ class Login Extends Controller
             $linha = $resultados->fetchObject();
 
             $_SESSION['liberado'] = true;
+            $_SESSION['nome_usuario_cli'] = $linha->nome_usuario_cli;
+            $_SESSION['nome_cli'] = $linha->nome_cli;
+            $_SESSION['sobrenome_cli'] = $linha->sobrenome_cli;
             $_SESSION['id_cli'] = $linha->id_cli; //Código da Pessoa que está logada
             //$_SESSION['nivel_acesso'] = $linha->nivel_acesso; //Nível
             $retorno['status'] = 1;
