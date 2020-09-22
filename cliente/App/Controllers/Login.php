@@ -32,8 +32,6 @@ class Login Extends Controller
         $resultados = $db ->prepare($sql);
 
         $resultados->bindParam(":nome_usuario_cli", $nome_usuario_cli);
-        $resultados->bindParam(":nome_cli", $nome_cli);
-        $resultados->bindParam(":sobrenome_cli", $sobrenome_cli);
         $resultados->bindParam(":senha_cli", $senha_cli);
         $resultados->execute();
 		

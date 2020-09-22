@@ -135,7 +135,10 @@ class Cliente Extends ControllerSeguro
         echo $this->jsonResponse($retorno);
     }
 
+    public function arquivos()
+    {
 
+    }
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
