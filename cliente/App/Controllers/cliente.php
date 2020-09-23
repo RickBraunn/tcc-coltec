@@ -137,7 +137,7 @@ class Cliente Extends ControllerSeguro
 
     public function arquivos()
     {
-
+header("location: arquivos/");
     }
     public function bootgrid()
     {
