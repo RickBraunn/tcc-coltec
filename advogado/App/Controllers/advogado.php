@@ -86,7 +86,7 @@ class Advogado Extends ControllerSeguro
     public function salvarEditar(){
         $db = Conexao::connect();
         $nome = $_POST['nome_usuario_adv'];
-        $sql = "SELECT nome_usuario_adv FROM advogado WHERE nome_usuario_adv=$nome";
+        $sql = "SELECT nome_usuario_adv FROM advogado WHERE nome_usuario_adv=$nome AND id_adv<>:id_adv";
         $query = $db->prepare($sql);
         $query->execute();
         if ($query->rowCount() == 1) {

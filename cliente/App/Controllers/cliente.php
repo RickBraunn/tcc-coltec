@@ -83,7 +83,7 @@ class Cliente Extends ControllerSeguro
     {
         $db = Conexao::connect();
         $nome = $_POST['nome_usuario_cli'];
-        $sql = "SELECT nome_usuario_cli FROM cliente WHERE nome_usuario_cli=$nome";
+        $sql = "SELECT nome_usuario_cli FROM cliente WHERE nome_usuario_cli=$nome AND id_cli<>:id_cli";
         $query = $db->prepare($sql);
         $query->execute();
         if ($query->rowCount() == 1) {
