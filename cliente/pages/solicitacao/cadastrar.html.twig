@@ -41,19 +41,17 @@
                                 <label for="id_adv">Codigo Advogado</label>
                                 <input type="text" class="form-control" id="id_adv" name="id_adv" placeholder="Codigo do Advogado" type="hidden" readonly required value="{{ linha['id_adv'] }}">
                             </div>
-                            </div>
-
-                        </div>
-                        <div class="form-group">
+                            <div class="form-group">
 	                            <label for="descricao">Descreva sua Solicitação</label>
 	                            <textarea class="form-control" name="descricao" id="descricao" rows="3"></textarea>
-                                </div>
+                            </div>
 
 
                             <!-- /.box-body -->
 
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Salvar</button>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -87,7 +85,7 @@
                         iziToast.success({
                             message: d.mensagem
                         });
-                        $('.jsonForm').trigger("reset");
+                        document.location = '/solicitacao/arquivos/' + d.id;
                     }
                 }
 

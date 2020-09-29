@@ -637,13 +637,18 @@
       });
       this._on(fileUploadButtonBar.find('.delete'), {
         click: function (e) {
-          e.preventDefault();
-          filesList
-            .find('.toggle:checked')
-            .closest('.template-download')
-            .find('.delete')
-            .trigger('click');
-          fileUploadButtonBar.find('.toggle').prop('checked', false);
+          if(this._trigger('multiDestroy')){
+            if (e.isDefaultPrevented()) {
+              return false;
+            }
+            e.preventDefault();
+            filesList.find('.toggle:checked')
+                .closest('.template-download')
+                .find('.delete').click();
+            fileUploadButtonBar.find('.toggle')
+                .prop('checked', false);
+            this._trigger('multiDestroyFinished');
+          }
         }
       });
       this._on(fileUploadButtonBar.find('.toggle'), {

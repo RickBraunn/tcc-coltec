@@ -7,22 +7,23 @@ use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
 use App\ControllerSeguro;
+use App\UploadHandler;
 
 class Solicitacao extends ControllerSeguro
 {
     public function index()
     {
         //        include(ROOT . "/seguranca.php");
-        echo $this->template->twig->render('cliente/listagem.html.twig');
+        echo $this->template->twig->render('????/listagem.html.twig');
     }
 
     public function formCadastrar($id_adv)
     {
-        
+
         $db = Conexao::connect();
         $sql = "SELECT advogado.id_adv, advogado.nome_adv,  cliente.id_cli From advogado, cliente ";
         $query = $db->prepare($sql);
-        $resultado = $query->execute();
+        $query->execute();
 
         $linha = $query->fetch();
 
@@ -66,12 +67,56 @@ class Solicitacao extends ControllerSeguro
         if ($query->rowCount() == 1) {
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'Solicitação cadastrada com sucesso';
+            $retorno['id'] = $db->lastInsertId();
         } else {
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';
         }
 
         $this->jsonResponse($retorno);
+    }
+
+    public function arquivos($id_solicitacoes)
+    {
+        $db = Conexao::connect();
+        $sql = "SELECT * FROM solicitacoes WHERE id_solicitacoes=:id_solicitacoes";
+
+        $query = $db->prepare($sql);
+        $query->bindParam(":id_solicitacoes", $id_solicitacoes);
+        $query->execute();
+        $linha = $query->fetch();
+
+        echo $this->template->twig->render('solicitacao/arquivos.html.twig', compact('linha'));
+    }
+    public function upload($id_solicitacoes)
+    {
+        $upload_handler = new UploadHandler([
+            'accept_file_types' => '/\.(gif|jpe?g|png|pdf)$/i',
+            'script_url' => '/solicitacao/upload/' . $id_solicitacoes,
+            'upload_dir' => ROOT . '/../files/solicitacoes/' . $id_solicitacoes . '/',
+            'download_via_php' => true,
+        ]);
+        $resposta = $upload_handler->get_response();
+
+        if (!isset($resposta['files'][0]->error)){
+            $db = Conexao::connect();
+
+            if  ($_SERVER['REQUEST_METHOD']=='DELETE'){
+                $sql = "DELETE FROM documento WHERE nome_doc=:nome_doc AND Solicitacoes_idSolicitacoes=:Solicitacoes_idSolicitacoes";
+                $nome_doc = key($resposta);
+                if (!current($resposta)) exit;
+            }else{
+                $sql = "INSERT INTO documento (nome_doc, Solicitacoes_idSolicitacoes  ) VALUES (:nome_doc, :Solicitacoes_idSolicitacoes)";
+                $nome_doc = $resposta['files'][0]->name;
+            }
+            $query = $db->prepare($sql);
+
+            $query->bindParam(":nome_doc", $nome_doc);
+            $query->bindParam(":Solicitacoes_idSolicitacoes", $id_solicitacoes);
+
+            $query->execute();
+        }
+
     }
 /*
     public function salvarEditar()

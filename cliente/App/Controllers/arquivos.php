@@ -10,7 +10,7 @@ class Arquivos Extends ControllerSeguro
 public function index()
 {
 header(
-    "loaction: cliente/public/arquivos")
+    "loaction: cliente/public/arquivos");
 
 
 }
