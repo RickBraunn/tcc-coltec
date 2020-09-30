@@ -31,7 +31,7 @@ class Advogado Extends Controller
     advogado.formacao,
     advogado.foto
      FROM advogado 
-     WHERE advogado.completo=1";
+     WHERE advogado.cadastro_completo=1";
         $resultados = $db->query($sql);
         $advs = $resultados->fetchALl();
 
@@ -44,9 +44,9 @@ class Advogado Extends Controller
             $resultados = $db->query($sql);
             $adv['areas'] = $resultados->fetchALl();
 
-            $sql = "SELECT  numero_oab
+            $sql = "SELECT  concat(oab.numero_oab, '/', estado.sigla_estado) as numero_oab
                     From
-                        oab   
+                        oab Inner Join estado On oab.estados_oab = estado.id_estado   
                         WHERE oab.id_adv={$adv['id_adv']} AND status_oab='Aprovado'";
             $resultados = $db->query($sql);
             $adv['oabs'] = $resultados->fetchALl();

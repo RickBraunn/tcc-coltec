@@ -34,12 +34,8 @@
                         <div class="box-body">
                         <!-- Colocar dados do Adv-->
                             <div class="form-group">
-                                <label for="nome_adv">Nome Advogado</label>
-                                <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Nome do Advogado" readonly required value="{{ linha['nome_adv'] }}">
-                            </div>
-                             <div class="form-group">
-                                <label for="id_adv">Codigo Advogado</label>
-                                <input type="text" class="form-control" id="id_adv" name="id_adv" placeholder="Codigo do Advogado" type="hidden" readonly required value="{{ linha['id_adv'] }}">
+                            <input type='hidden' name='id_adv' id='id_adv' value='{{ adv.id_adv }}'>
+                            <input type='hidden' name='nome_adv' id='nome_adv' value='{{ adv.nome_adv }}'>
                             </div>
                             <div class="form-group">
 	                            <label for="descricao">Descreva sua Solicitação</label>
