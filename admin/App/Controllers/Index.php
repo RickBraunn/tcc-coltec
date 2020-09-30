@@ -5,8 +5,9 @@ namespace App\Controllers;
 
 use App\Controller;
 use App\Conexao;
+use App\ControllerSeguro;
 
-class Index Extends Controller
+class Index Extends ControllerSeguro
 {
     public function index(){
 
