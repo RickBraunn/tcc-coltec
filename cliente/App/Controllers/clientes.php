@@ -12,7 +12,6 @@ class Clientes Extends Controller
 {
     public function index()
     {
-        //        include(ROOT . "/seguranca.php");
         echo $this->template->twig->render('cliente/cadastrar.html.twig');
     }
 

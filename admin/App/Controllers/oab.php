@@ -7,6 +7,7 @@ use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
 use App\ControllerSeguro;
+use App\Advogado;
 
 class oab Extends ControllerSeguro
 {
@@ -80,6 +81,9 @@ Where oab.id_oab = :id_oab";
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'OAB aprovada com sucesso.';
+            //busca codigo do ADV pela OAB
+            //$id_adv
+            Advogado::verificaCadastro($id_adv);
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';

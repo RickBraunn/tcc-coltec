@@ -49,11 +49,11 @@ class area Extends ControllerSeguro
         $query->bindParam(":id_adv", $id_adv);
 
        $resultado = $query->execute();
-       
+
         if ($query->rowCount()==0){
             self::errorNotFound('Objeto não encontrado');
         }
-        Problema na verificação sempre verificando 0 
+        Problema na verificação sempre verificando 0
         $linha = $query->fetch();
 
         echo $this->template->twig->render('oab/editar.html.twig', compact('linha', 'estados'));
@@ -72,6 +72,7 @@ class area Extends ControllerSeguro
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'Area Adicionada com sucesso.';
+            \App\Advogado::verificaCadastro($_SESSION['id_adv']);
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';
@@ -116,6 +117,7 @@ class area Extends ControllerSeguro
         if ($query->rowCount() == 1) {
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'area excluído com sucesso';
+            \App\Advogado::verificaCadastro($_SESSION['id_adv']);
         } else {
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao excluir os dados';

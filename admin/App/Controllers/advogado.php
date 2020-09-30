@@ -7,6 +7,7 @@ use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
 use App\ControllerSeguro;
+use App\Advogado as AdvogadoVerifica;
 
 class Advogado Extends ControllerSeguro
 {
@@ -153,5 +154,6 @@ class Advogado Extends ControllerSeguro
         $bootgrid = new Bootgrid($sql);
         echo $bootgrid->show();
     }
+
 
 }

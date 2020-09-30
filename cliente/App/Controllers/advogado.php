@@ -25,29 +25,35 @@ class Advogado Extends Controller
 
         $db = Conexao::connect();
 
-
-        $sql = "SELECT     
+        $sql = "SELECT  
+    advogado.id_adv,   
      concat(advogado.nome_adv, ' ', advogado.sobrenome_adv) as nome_adv,
     advogado.formacao,
-    advogado.foto,
-    concat(oab.numero_oab,'/', estado.sigla_estado ) as numero_oab
-     FROM advogado Inner Join
-    oab On oab.id_adv = advogado.id_adv Inner Join
-    estado On oab.estados_oab = estado.id_estado Inner Join
-    area_adv On area_adv.id_adv = advogado.id_adv";
+    advogado.foto
+     FROM advogado 
+     WHERE advogado.completo=1";
         $resultados = $db->query($sql);
-        $adv = $resultados->fetchALl();
+        $advs = $resultados->fetchALl();
 
-        $sql = "SELECT
-    area.nome_area
-From
-    area Inner Join
-    area_adv On area_adv.id_area = area.id_area Inner Join
-    advogado On area_adv.id_adv = advogado.id_adv";
-        $resultados = $db->query($sql);
-        $area = $resultados->fetchALl();
+        foreach ($advs as &$adv){
+            $sql = "SELECT  area.nome_area
+                    From
+                        area Inner Join
+                        area_adv On area_adv.id_area = area.id_area  
+                        WHERE area_adv.id_adv={$adv['id_adv']}";
+            $resultados = $db->query($sql);
+            $adv['areas'] = $resultados->fetchALl();
 
-        echo $this->template->twig->render('advogado/cadastrar.html.twig', compact("adv", "area"));
+            $sql = "SELECT  numero_oab
+                    From
+                        oab   
+                        WHERE oab.id_adv={$adv['id_adv']} AND status_oab='Aprovado'";
+            $resultados = $db->query($sql);
+            $adv['oabs'] = $resultados->fetchALl();
+
+        }
+
+        echo $this->template->twig->render('advogado/cadastrar.html.twig', compact("advs"));
     }
 
     public function bootgrid()

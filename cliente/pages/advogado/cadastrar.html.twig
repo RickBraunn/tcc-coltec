@@ -30,14 +30,11 @@
                 <div class="box box-primary">
                     <!-- /.box-header -->
                     <!-- form start -->
-{% for adv in adv %}
+{% for adv in advs %}
 
-<div class="col-lg-4">
+<div class="col-lg-8">
 	<div class="card">
-		<form role="form" action="/solicitacao/salvarcadastrar" method="post" class="jsonForm">
 
-<div class="container">
-	<div class="row">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
@@ -48,16 +45,20 @@
 				<div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
 					<div class="container">
 						<h2>{{ adv.nome_adv }}</h2>
-						<p>{{adv.numero_oab}}</p>
+                        <p>
+                        {% for oab in adv.oabs %}
+                            {{oab.numero_oab}} <br>
+                        {% endfor %}
+                        </p>
 
 
 					</div>
 					<hr>
 					<ul class="container details">
-						{% for area in area %}
+						{% for area in adv.areas %}
                         <li>
 							<p>
-                                
+
 								<span class="glyphicon glyphicon-user one" style="width:50px;"></span>{{area.nome_area}}</p>
 						</li>
                         {% endfor %}
@@ -74,8 +75,7 @@
 
                             <!-- /.box-body -->
 
-                       
-                    </form>
+</div>
 {% endfor %}
 
                 </div>
