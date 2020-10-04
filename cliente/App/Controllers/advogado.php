@@ -71,4 +71,10 @@ class Advogado Extends Controller
         echo $bootgrid->show();
     }
 
+    public function formavaliar($id_adv)
+    {
+        echo $this->template->twig->render('advogado/avaliar.html.twig');
+    }
+
+
 }

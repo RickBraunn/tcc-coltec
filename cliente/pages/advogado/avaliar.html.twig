@@ -1,0 +1,76 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+
+{% block title %}| Advogado | Avaliar
+{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="/dist/css/iziToast.min.css">
+
+{% endblock %}
+
+{% block breadcrumb %}
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Avaliar Advogado
+			<small>Avaliar</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<a href="/cliente">
+					<i class="fa fa-dashboard"></i>
+					Home</a>
+			</li>
+			<li class="active">
+				<a href="/advogado">Advogado</a>
+			</li>
+		</ol>
+	</section>
+{% endblock %}
+
+{% block content %}
+
+<section class="content">
+
+	<div class="row">
+		<div class="col-12">
+
+			<div class="box box-primary">
+				<!-- /.box-header -->
+				<!-- form start -->
+				<form role="form" action="/advogado/salvaravaliar" method="post" class="jsonForm">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="nota">Nota de 1 a 5:</label>
+                        <br>
+                        <input type="radio" id="nota1" name="nota" value="1">
+                        <label for="nota1">1</label><br>
+                        <input type="radio" id="nota2" name="nota" value="2">
+                        <label for="nota2">2</label><br>
+                        <input type="radio" id="nota3" name="nota" value="3">
+                        <label for="nota3">3</label><br>
+                        <input type="radio" id="nota4" name="nota" value="4">
+                        <label for="nota4">4</label><br>
+                        <input type="radio" id="nota5" name="nota" value="5">
+                        <label for="nota5">5</label><br>
+                        </div>
+                        <div class="form-group">
+                                <textarea name="decricao" class="form-control" rows="4" cols="50" placeholder="Descrição"></textarea>
+                            </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                                Teste: {{session.id_cli}}
+                                <br>
+                                Teste: {{id_adv}}
+                            </div>
+                    </div>
+                 </div>
+            </div>
+
+
+
+
+
+{% endblock %}
+

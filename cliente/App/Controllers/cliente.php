@@ -12,7 +12,7 @@ class Cliente Extends ControllerSeguro
 {
     public function index()
     {
-//        include(ROOT . "/seguranca.php");
+
         echo $this->template->twig->render('cliente/listagem.html.twig');
     }
 

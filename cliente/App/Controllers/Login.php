@@ -37,13 +37,12 @@ class Login Extends Controller
 		
         if($resultados->rowCount()==1){
             $linha = $resultados->fetchObject();
-
+            //print_r($linha);
             $_SESSION['liberado'] = true;
             $_SESSION['nome_usuario_cli'] = $linha->nome_usuario_cli;
             $_SESSION['nome_cli'] = $linha->nome_cli;
             $_SESSION['sobrenome_cli'] = $linha->sobrenome_cli;
             $_SESSION['id_cli'] = $linha->id_cli; //Código da Pessoa que está logada
-            //$_SESSION['nivel_acesso'] = $linha->nivel_acesso; //Nível
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'Acesso autorizado!';
 
