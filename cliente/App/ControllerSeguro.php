@@ -15,6 +15,7 @@ class ControllerSeguro extends Controller
             \App\Controller::errorPermission();
             //header("Location: /login");
         }
+        $this->template->twig->addGlobal('session', $_SESSION);
     }
 
 

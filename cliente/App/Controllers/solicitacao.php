@@ -14,7 +14,8 @@ class Solicitacao extends ControllerSeguro
     public function index()
     {
         //        include(ROOT . "/seguranca.php");
-        echo $this->template->twig->render('????/listagem.html.twig');
+        //echo $this->template->twig->render('????/listagem.html.twig');
+        //print_r($_SESSION);
     }
 
     public function formCadastrar($id_adv)

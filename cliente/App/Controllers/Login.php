@@ -10,9 +10,12 @@ class Login Extends Controller
 {
     public function index()
     {
-//        include(ROOT . "/seguranca.php");
+        session_start();
 
-        //$db = Conexao::connect();
+        if (isset($_SESSION['liberado']) && $_SESSION['liberado'] == true) {
+            header("location: /");
+            exit;
+        }
 
         echo $this->template->twig->render('login/login.html.twig');
     }

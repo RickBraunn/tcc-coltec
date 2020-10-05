@@ -18,8 +18,8 @@ class Index Extends ControllerSeguro
 //        $tabela = $resultado->fetchAll();
 
 
-        echo $this->template->twig->render('inicial.html.twig');
-
+        //echo $this->template->twig->render('inicial.html.twig');
+        header('location: /advogado');
     }
 
 

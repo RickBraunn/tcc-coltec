@@ -6,17 +6,16 @@ namespace App\Controllers;
 use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
+use App\ControllerSeguro;
 
-class Advogado Extends Controller
+class Advogado Extends ControllerSeguro
 {
     public function index(){
 
-        include(ROOT . "/seguranca.php");
-
-        $db = Conexao::connect();
 
 
-        echo $this->template->twig->render('advogado/listagem.html.twig');
+        //echo $this->template->twig->render('advogado/formcadastrar.html.twig');
+        header('location: /advogado/formcadastrar');
 
     }
 
@@ -73,7 +72,19 @@ class Advogado Extends Controller
 
     public function formavaliar($id_adv)
     {
-        echo $this->template->twig->render('advogado/avaliar.html.twig');
+        $db = Conexao::connect();
+
+        $sql = "SELECT * FROM advogado WHERE id_adv=:id_adv";
+
+        $query = $db->prepare($sql);
+        $query->bindParam(":id_adv", $id_adv);
+        $resultado = $query->execute();
+
+        if ($query->rowCount() == 0) $this->errorNotFound('Advogado não encontrado');
+        
+        $linha = $query->fetchObject();
+
+        echo $this->template->twig->render('advogado/avaliar.html.twig', compact('id_adv', 'linha'));
     }
 
 
