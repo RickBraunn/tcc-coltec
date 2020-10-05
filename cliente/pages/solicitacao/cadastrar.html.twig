@@ -1,7 +1,7 @@
 {% extends 'layouts/dashboard.html.twig' %}
 
 
-{% block title %}| Cliente | Cadastrar{% endblock %}
+{% block title %}| Solicitação | Cadastrar{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="/dist/css/iziToast.min.css">
 {% endblock %}
@@ -10,12 +10,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Cadastro de Clientes
+            Cadastro de Solicitação
             <small>Cadastrar</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active"><a href="/cliente">clientes</a></li>
         </ol>
     </section>
 {% endblock %}
@@ -34,8 +33,11 @@
                         <div class="box-body">
                         <!-- Colocar dados do Adv-->
                             <div class="form-group">
-                            <input type='hidden' name='id_adv' id='id_adv' value='{{ adv.id_adv }}'>
-                            <input type='hidden' name='nome_adv' id='nome_adv' value='{{ adv.nome_adv }}'>
+                            <input type='hidden' name='id_adv' id='id_adv' value='{{ linha.id_adv }}'>
+                        <div class="form-group">
+                            <label for="nome_adv">Nome do Advogado</label>
+                            <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Nome Advogado" required value='{{ linha.nome_adv }}'>
+                        </div>
                             </div>
                             <div class="form-group">
 	                            <label for="descricao">Descreva sua Solicitação</label>

@@ -66,7 +66,7 @@
 					<hr>
 					<div class="col-sm-5 col-xs-6 tital ">Formação: {{adv.formacao}}</div>
 
-                    <form role="form" action="../solicitacao/formcadastrar" method="post" class="jsonForm">
+                    <form role="form" action="/solicitacao/formcadastrar/" method="post">
                     <input type='hidden' name='id_adv' id='id_adv' value='{{ adv.id_adv }}'>
                     <input type='hidden' name='nome_adv' id='nome_adv' value='{{ adv.nome_adv }}'>
                     <button type="submit" class="btn btn-primary">Salvar</button>

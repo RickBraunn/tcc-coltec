@@ -18,18 +18,19 @@ class Solicitacao extends ControllerSeguro
         //print_r($_SESSION);
     }
 
-    public function formCadastrar($id_adv)
+    public function formCadastrar()
     {
 
         $db = Conexao::connect();
-        $sql = "SELECT advogado.id_adv, advogado.nome_adv,  cliente.id_cli From advogado, cliente ";
+        $sql = "SELECT *, concat(advogado.nome_adv, ' ', advogado.sobrenome_adv) as nome_adv From advogado Where id_adv=:id_adv";
         $query = $db->prepare($sql);
+        $query->bindParam(":id_adv", $_POST['id_adv']);
         $query->execute();
 
-        $linha = $query->fetch();
+        $linha = $query->fetchObject();
 
 
-        echo $this->template->twig->render('solicitacao/cadastrar.html.twig', compact('linha', 'id_adv','nome_adv'));
+        echo $this->template->twig->render('solicitacao/cadastrar.html.twig', compact('linha'));
     }
 
    /* public function formEditar($id_cli)
