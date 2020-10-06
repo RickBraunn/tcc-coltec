@@ -74,7 +74,7 @@ class Advogado Extends ControllerSeguro
     {
         $db = Conexao::connect();
 
-        $sql = "SELECT * FROM advogado WHERE id_adv=:id_adv";
+        $sql = "SELECT *, concat(advogado.nome_adv, ' ', advogado.sobrenome_adv) as nome_adv FROM advogado WHERE id_adv=:id_adv";
 
         $query = $db->prepare($sql);
         $query->bindParam(":id_adv", $id_adv);
@@ -87,5 +87,25 @@ class Advogado Extends ControllerSeguro
         echo $this->template->twig->render('advogado/avaliar.html.twig', compact('id_adv', 'linha'));
     }
 
+    public function salvaravaliar()
+    {
 
+        $db = Conexao::connect();
+
+        $sql = "INSERT INTO avaliacao (titulo, descricao, nota, id_cli, id_adv) VALUES :titulo, :descricao, :nota, :id_cli, :id_adv ";
+
+        $query = $db->prepare($sql);
+        $query->bindParam(":titulo", $_POST['titulo']);
+        $query->bindParam(":descricao", $_POST['descricao']);
+        $query->bindParam(":nota", $_POST['nota']);
+        $query->bindParam(":id_cli", $_POST['id_cli']);
+        $query->bindParam(":id_adv", $_POST['id_adv']);
+
+        if ($query->rowCount() == 0) {
+            $this->retornaErro('Erro ao enviar Avaliação!');
+        } else{
+            $this->retornaOK('Avaliação Enviada com sucesso, Obrigado!');
+        }
+
+    }
 }

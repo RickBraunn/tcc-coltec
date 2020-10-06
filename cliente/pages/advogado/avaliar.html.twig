@@ -39,10 +39,20 @@
 				<!-- /.box-header -->
 				<!-- form start -->
 				<form role="form" action="/advogado/salvaravaliar" method="post" class="jsonForm">
+
                 <div class="box-body">
+
                     <div class="form-group">
+
+                        <div class="form-group">
+                            <label for="titulo">Titulo</label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Nome Advogado" required>
+                        </div>
+
                         <label for="nota">Nota de 1 a 5:</label>
+
                         <br>
+
                         <input type="radio" id="nota1" name="nota" value="1">
                         <label for="nota1">1</label><br>
                         <input type="radio" id="nota2" name="nota" value="2">
@@ -54,15 +64,24 @@
                         <input type="radio" id="nota5" name="nota" value="5">
                         <label for="nota5">5</label><br>
                         </div>
+
                         <div class="form-group">
                                 <textarea name="decricao" class="form-control" rows="4" cols="50" placeholder="Descrição"></textarea>
-                            </div>
+                        </div>
+
+                        <input type='hidden' name='id_adv' id='id_adv' value='{{ linha.id_adv }}'>
+
+                        <input type='hidden' name='id_cli' id='id_cli' value='{{ session.id_cli }}'>
+
+                        <div class="form-group">
+                            <label for="nome_adv">Nome do Advogado</label>
+                            <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Nome Advogado" required value='{{ linha.nome_adv }}'>
+                        </div>
+
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
-                                Teste: {{session.id_cli}}
-                                <br>
-                                Teste: {{linha.id_adv}}
+
                             </div>
                     </div>
                  </div>
