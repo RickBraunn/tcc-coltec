@@ -23,6 +23,9 @@
 
 {% block content %}
     <section class="content">
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/dist/js/jquery.mask.js"></script>
+
 
         <div class="row">
             <div class="col-12">
@@ -35,7 +38,7 @@
 
                                 <div class="form-group">
                                     <label for="numero_oab ">Numero Oab</label>
-                                    <input type="number" class="form-control" id="numero_oab " name="numero_oab" placeholder="Numero" required>
+                                    <input type="number" class="form-control" id="numero_oab " name="numero_oab" placeholder="Numero" required data-mask="00.000">
                                 </div>
 
                                 <div class="form-group">

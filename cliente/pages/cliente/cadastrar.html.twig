@@ -23,6 +23,8 @@
 
 {% block content %}
     <section class="content">
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/dist/js/jquery.mask.js"></script>
 
         <div class="row">
             <div class="col-12">
@@ -62,7 +64,9 @@
 
                                 <div class="form-group">
                                     <label for="telefone_cli">Telefone</label>
-                                    <input type="number" class="form-control" id="telefone_cli" name="telefone_cli" placeholder="Telefone" required>
+                                    <input type="text" class="form-control" id="telefone_cli" name="telefone_cli" placeholder="Telefone" max="11" data-mask="(00)00000-0000" required>
+
+
                                 </div>
 
 
@@ -90,6 +94,7 @@
                                  function Evento(){
                                  window.location.href = '/login'
                                  }
+
                                 </script>
                     </form>
                 </div>
@@ -111,6 +116,7 @@
 {% block jquery %}
     <script>
         $(document).ready(function(){
+             $('.telefone_cli').mask('(00) 00000-0000');
             $('.jsonForm').ajaxForm({
                 dataType:  'json',
 
