@@ -45,8 +45,13 @@
                     <div class="form-group">
 
                         <div class="form-group">
+                            <label for="nome_adv">Nome do Advogado</label>
+                            <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Nome Advogado" required readonly value='{{ linha.nome_adv }}'>
+                        </div>
+
+                        <div class="form-group">
                             <label for="titulo">Titulo</label>
-                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Nome Advogado" required>
+                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo" required>
                         </div>
 
                         <label for="nota">Nota de 1 a 5:</label>
@@ -73,10 +78,6 @@
 
                         <input type='hidden' name='id_cli' id='id_cli' value='{{ session.id_cli }}'>
 
-                        <div class="form-group">
-                            <label for="nome_adv">Nome do Advogado</label>
-                            <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Nome Advogado" required value='{{ linha.nome_adv }}'>
-                        </div>
 
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Salvar</button>
