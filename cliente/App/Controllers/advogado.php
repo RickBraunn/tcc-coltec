@@ -92,15 +92,15 @@ class Advogado Extends ControllerSeguro
 
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO avaliacao (titulo, descricao, nota, id_cli, id_adv) VALUES :titulo, :descricao, :nota, :id_cli, :id_adv ";
-
+        $sql = "INSERT INTO avaliacao (nota, titulo, descricao, id_adv, id_cli) VALUES :nota, :titulo, :descricao, :id_adv, :id_cli ";
+        var_dump($_POST);
         $query = $db->prepare($sql);
+        $query->bindParam(":nota", $_POST['nota']);
         $query->bindParam(":titulo", $_POST['titulo']);
         $query->bindParam(":descricao", $_POST['descricao']);
-        $query->bindParam(":nota", $_POST['nota']);
-        $query->bindParam(":id_cli", $_POST['id_cli']);
         $query->bindParam(":id_adv", $_POST['id_adv']);
-
+        $query->bindParam(":id_cli", $_POST['id_cli']);
+        
         if ($query->rowCount() == 0) {
             $this->retornaErro('Erro ao enviar Avaliação!');
         } else{
