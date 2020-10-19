@@ -73,7 +73,7 @@ class Advogado Extends ControllerSeguro
     public function formavaliar($id_adv)
     {
         $db = Conexao::connect();
-
+        //verificar
         $sql = "SELECT *, concat(advogado.nome_adv, ' ', advogado.sobrenome_adv) as nome_adv FROM advogado WHERE id_adv=:id_adv";
 
         $query = $db->prepare($sql);
@@ -92,15 +92,16 @@ class Advogado Extends ControllerSeguro
 
         $db = Conexao::connect();
 
-        $sql = "INSERT INTO avaliacao (nota, titulo, descricao, id_adv, id_cli) VALUES :nota, :titulo, :descricao, :id_adv, :id_cli ";
-        var_dump($_POST);
+        $sql = "INSERT INTO avaliacao (nota, titulo, descricao, id_adv, id_cli) VALUES (:nota, :titulo, :descricao, :id_adv, :id_cli) ";
+        //var_dump($_POST);
         $query = $db->prepare($sql);
         $query->bindParam(":nota", $_POST['nota']);
         $query->bindParam(":titulo", $_POST['titulo']);
         $query->bindParam(":descricao", $_POST['descricao']);
         $query->bindParam(":id_adv", $_POST['id_adv']);
         $query->bindParam(":id_cli", $_POST['id_cli']);
-        
+        $resultado = $query->execute();
+
         if ($query->rowCount() == 0) {
             $this->retornaErro('Erro ao enviar Avaliação!');
         } else{

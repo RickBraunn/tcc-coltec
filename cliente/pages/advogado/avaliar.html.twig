@@ -89,8 +89,43 @@
             </div>
 
 
-
-
-
 {% endblock %}
+
+{% block javascriptPlugins %}
+	<script src="/dist/js/jquery.form.js"></script>
+	<script src="/dist/js/iziToast.min.js"></script>
+{% endblock %}
+
+{% block jquery %}
+    <script>
+        $(document).ready(function(){
+            $('.jsonForm').ajaxForm({
+                dataType:  'json',
+
+                success:   function(d){
+                    if (d.status==0){
+                        iziToast.error({
+                            message: d.mensagem
+                        });
+                    }else{
+                        iziToast.success({
+                            message: d.mensagem,
+                            onClosed: function(){
+                                document.location = "/advogado";
+                            }
+                        });
+                        $('.jsonForm').trigger("reset");
+
+                    }
+                }
+
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block javascript %}{% endblock %}
+
+
 
