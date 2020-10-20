@@ -1,0 +1,91 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+
+{% block title %}| Advogado | Avaliar
+{% endblock %}
+{% block stylesheet %}
+	<link rel="stylesheet" href="/dist/css/iziToast.min.css">
+
+{% endblock %}
+
+{% block breadcrumb %}
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Avaliar Advogado
+			<small>Avaliar</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<a href="/cliente">
+					<i class="fa fa-dashboard"></i>
+					Home</a>
+			</li>
+			<li class="active">
+				<a href="/advogado">Advogado</a>
+			</li>
+		</ol>
+	</section>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+
+	<div class="row">
+		<div class="col-12">
+
+			<div class="box box-primary">
+
+                <form method="post">
+
+                <div class="box-body">
+
+                    <div class="form-group" class="jsonForm">
+
+                        <div class="form-group">
+                            <label for="nome_adv">Avaliador</label>
+                            <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Avaliador"  readonly value='{{ session.nome_cli }} {{session.sobrenome_cli}}'>
+                        </div>
+
+                        <br>
+                        <h4><b>Avaliação enviada em: {{data}}</b></h4>
+                        <br>
+                        <h4><b>Nota: {{linha.nota}}/5</b></h4>
+                        <br>
+
+                        <div class="form-group">
+                            <label for="nome_adv">Nome do Advogado</label>
+                            <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Nome Advogado"  readonly value='{{ linha.nome_adv }}'>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="titulo">Titulo</label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo" readonly value='{{linha.titulo}}' >
+                        </div>
+
+                        <div class="form-group">
+                                <textarea name="descricao" class="form-control" rows="4" cols="50" placeholder="Descrição">{{linha.descricao}}</textarea>
+                        </div>
+                    </form>
+                        
+                            <button onclick="window.location.href = '../advogado'" class="btn btn-default btn-block">Voltar</button>
+                        
+                        </div>
+                    </div>
+                 </div>
+            </div>
+                        
+                        
+
+
+
+                        
+                    
+
+
+{% endblock %}
+
+{% block javascriptPlugins %}
+	<script src="/dist/js/jquery.form.js"></script>
+	<script src="/dist/js/iziToast.min.js"></script>
+{% endblock %}

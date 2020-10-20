@@ -73,7 +73,36 @@ class Advogado Extends ControllerSeguro
     public function formavaliar($id_adv)
     {
         $db = Conexao::connect();
-        //verificar
+
+        $sql = "SELECT
+        avaliacao.nota,
+        avaliacao.titulo,
+        avaliacao.descricao,
+        avaliacao.data_avali,
+        avaliacao.id_adv,
+        avaliacao.id_cli,
+        concat(advogado.nome_adv, ' ', advogado.sobrenome_adv) as nome_adv
+    From
+     avaliacao Inner Join
+        advogado On avaliacao.id_adv = advogado.id_adv 
+    WHERE id_cli=:id_cli";
+
+        $query = $db->prepare($sql);
+        $query->bindParam(":id_cli", $_SESSION['id_cli']);
+
+        $resultado = $query->execute();
+
+        
+
+        if ($query->rowCount()== 1){
+
+            $linha = $query->fetchObject();
+            $data1 = $linha->data_avali;
+            $data = date('d/m/Y', strtotime($data1));
+
+            echo $this->template->twig->render('advogado/avaliado.html.twig', compact('id_adv', 'linha', 'data'));
+        }else{
+
         $sql = "SELECT *, concat(advogado.nome_adv, ' ', advogado.sobrenome_adv) as nome_adv FROM advogado WHERE id_adv=:id_adv";
 
         $query = $db->prepare($sql);
@@ -85,6 +114,7 @@ class Advogado Extends ControllerSeguro
         $linha = $query->fetchObject();
 
         echo $this->template->twig->render('advogado/avaliar.html.twig', compact('id_adv', 'linha'));
+        }
     }
 
     public function salvaravaliar()
