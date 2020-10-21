@@ -14,7 +14,7 @@ class Login Extends Controller
 
         //$db = Conexao::connect();
 
-        echo $this->template->twig->render('login/login.html.twig');
+        echo $this->template->twig->render('login/index.html.twig');
     }
 
     public function verificar()
