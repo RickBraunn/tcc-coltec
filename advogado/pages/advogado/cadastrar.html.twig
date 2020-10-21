@@ -26,7 +26,6 @@
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/dist/js/jquery.mask.js"></script>
 
-
         <div class="row">
             <div class="col-12">
 
@@ -51,10 +50,6 @@
                                     <input type="email" class="form-control" id="email_adv" name="email_adv" placeholder="Email do Advogado" required>
                                 </div>
 
-
-
-
-
                                 <div class="form-group">
                                     <label for="cidade_adv">Cidade</label>
                                     <select class="form-control" id="cidade_adv" name="cidade_adv" required>
@@ -68,7 +63,7 @@
 
                                 <div class="form-group">
                                     <label for="telefone_adv">Telefone</label>
-                                    <input type="number" class="form-control" id="telefone_adv" name="telefone_adv" placeholder="Telefone" required data-mask="(00)00000-0000">
+                                    <input type="text" class="form-control" id="telefone_adv" name="telefone_adv" placeholder="Telefone" max="11" data-mask="(00)00000-0000" required>
                                 </div>
 
 
@@ -121,6 +116,7 @@
 {% block jquery %}
     <script>
         $(document).ready(function(){
+            $('.telefone_cli').mask('(00) 00000-0000');
             $('.jsonForm').ajaxForm({
                 dataType:  'json',
 
