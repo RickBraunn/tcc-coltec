@@ -33,6 +33,7 @@
                         <div class="box-body">
                         <!-- Colocar dados do Adv-->
 
+
 {% for solicitacao in solicitacoes %}
 
 <div class="col-lg-4">
@@ -52,7 +53,10 @@
 
 <input type="hidden" class="form-control" id="aprovado" name="aprovado" value="">
 
-{% if linha['status_solicitacoes'] == 'Pendente' %}
+
+
+{% if solicitacao.status_solicitacoes == 'Pendente' %}
+
 
 <div class="box-footer">
 <div class="row">
@@ -60,11 +64,14 @@
 	<button type="button" id="recusar" class="btn btn-block btn-danger btn-flat">Recusar</button>
     </div>
 </div>
-{% elseif linha['status_solicitacoes'] == 'Recusado'%}
+{% elseif solicitacao.status_solicitacoes == 'Recusado'%}
+
+
 <div class="callout callout-warning">
 	<h4>Você já recusou essa solicitação!</h4>
 </div>
-{% elseif linha['status_solicitacoes'] == 'Aceito'%}
+{% elseif solicitacao.status_solicitacoes == 'Aceito'%}
+
 <div class="callout callout-success">
 <h4>Você já aceitou essa solicitação!</h4>
 
