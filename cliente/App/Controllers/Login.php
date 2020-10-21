@@ -17,7 +17,7 @@ class Login Extends Controller
             exit;
         }
 
-        echo $this->template->twig->render('login/login.html.twig');
+        echo $this->template->twig->render('login/index.html.twig');
     }
 
     public function verificar()
