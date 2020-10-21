@@ -1,7 +1,7 @@
 {% extends 'layouts/dashboard.html.twig' %}
 
 
-{% block title %}| Cliente | Cadastrar{% endblock %}
+{% block title %}| Lista | Solicitações{% endblock %}
 {% block stylesheet %}
     <link rel="stylesheet" href="/dist/css/iziToast.min.css">
 {% endblock %}
@@ -10,12 +10,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Cadastro de Clientes
-            <small>Cadastrar</small>
+            Lista de Solicitações
+            <small></small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active"><a href="/cliente">clientes</a></li>
+            <li><a href="/advogado/"><i class="fa fa-dashboard"></i> Home</a></li>
         </ol>
     </section>
 {% endblock %}
@@ -71,7 +70,7 @@
 
 
 </div>  
-{%endif%}
+{% endif %}
 
 	</div>
 </div>
