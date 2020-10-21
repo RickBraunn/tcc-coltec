@@ -20,12 +20,13 @@ class Solicitacao extends ControllerSeguro
     {
         
         $db = Conexao::connect();
-        $sql = "SELECT solicitacoes.id_solicitacoes, solicitacoes.status_solicitacoes, cliente.id_cli, concat(cliente.nome_cli, ' ', cliente.sobrenome_cli) as nome_cli, solicitacoes.descricao 
-        From advogado Inner Join solicitacoes On solicitacoes.id_adv = advogado.id_adv Inner Join cliente On solicitacoes.id_cli = cliente.id_cli ";
+        $sql = "SELECT solicitacoes.id_solicitacoes, solicitacoes.data_hora, solicitacoes.status_solicitacoes, cliente.id_cli, concat(cliente.nome_cli, ' ', cliente.sobrenome_cli) as nome_cli, solicitacoes.descricao 
+        From advogado Inner Join solicitacoes On solicitacoes.id_adv = advogado.id_adv Inner Join cliente On solicitacoes.id_cli = cliente.id_cli order by data_hora desc ";
         $resultados = $db->query($sql);
-        $solicitacoes = $resultados->fetchALl();
+        $solicitacoes = $resultados->fetchAll();
 
-        $sql = "SELECT * FROM solicitacoes WHERE id_adv=:id_adv";
+
+        $sql = "SELECT * FROM solicitacoes WHERE id_adv=:id_adv ";
         $query = $db->prepare($sql);
         $query->bindParam(":id_adv", $_SESSION["id_adv"]);
 
@@ -34,7 +35,7 @@ class Solicitacao extends ControllerSeguro
         $linha = $query->fetch();
 
 
-        echo $this->template->twig->render('solicitacao/cadastrar.html.twig', compact('linha', 'solicitacoes'));
+        echo $this->template->twig->render('solicitacao/cadastrar.html.twig', compact('linha', 'solicitacoes', 'data'));
     }
 
    /* public function formEditar($id_cli)
