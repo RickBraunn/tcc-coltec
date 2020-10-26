@@ -63,12 +63,12 @@ class Solicitacao extends ControllerSeguro
     {
         $db = Conexao::connect();
 
-        $sql = "UPDATE solicitacoes SET status_solicitacoes=:status_solicitacoes WHERE id_adv=:id_adv AND id_cli=:id_cli";
+        $sql = "UPDATE solicitacoes SET status_solicitacoes=:status_solicitacoes WHERE id_adv=:id_adv AND id_solicitacoes=:id_solicitacoes";
 
         $query = $db->prepare($sql);
         $query->bindParam(":status_solicitacoes", $_POST['aprovado']);
         $query->bindParam(":id_adv", $_SESSION['id_adv']);
-        $query->bindParam(":id_cli", $_POST['id_cli']);
+        $query->bindParam(":id_solicitacoes", $_POST['id_solicitacoes']);
         $query->execute();
 
         if ($query->rowCount() == 1) {
@@ -142,5 +142,29 @@ class Solicitacao extends ControllerSeguro
 
         $bootgrid = new Bootgrid($sql);
         echo $bootgrid->show();
+    }
+    public function aceitarpage($id_solicitacoes)
+    {
+        $db = Conexao::connect();
+
+        $sql = "SELECT
+    solicitacoes.*, concat(cliente.nome_cli, ' ', cliente.sobrenome_cli)as nome_cli,
+    cliente.cidade_cli,
+    cliente.email_cli
+From
+    solicitacoes Inner Join
+    advogado On solicitacoes.id_adv = advogado.id_adv Inner Join
+    cliente On solicitacoes.id_cli = cliente.id_cli Inner Join
+    cidade On advogado.cidade_adv = cidade.id_cidade
+            And cliente.cidade_cli = cidade.id_cidade WHERE id_solicitacoes=$id_solicitacoes";
+        $query = $db->prepare($sql);
+        $resultado = $query->execute();
+        $resultados = $db->query($sql);
+        $solicitacoes = $resultados->fetchObject();
+        $data1 = $solicitacoes->data_hora;
+        $data = date('d/m/Y', strtotime($data1));
+
+    
+        echo $this->template->twig->render('solicitacao/aceitar.html.twig', compact('solicitacoes', 'data'));
     }
 }

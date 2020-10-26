@@ -23,65 +23,58 @@
 {% block content %}
     <section class="content">
 
-        <div class="row">
             <div class="col-12">
 
-                <div class="box box-primary">
-                    <!-- /.box-header -->
-                    <!-- form start -->
-                    
-                        <div class="box-body">
-                        <!-- Colocar dados do Adv-->
+                
+
 
 
 {% for solicitacao in solicitacoes %}
+<div class="box box-primary">
+	<div class="box-body">
 
+<div class="row">
 <div class="col-lg-4">
 	<div class="card">
-<form role="form" action="/solicitacao/salvarcadastrar" method="post" class="jsonForm">
+<form role="form" action="/solicitacao/aceitarpage/{{ solicitacao.id_solicitacoes }}" method="post">
 
 <h4><b>Cliente:</b> {{ solicitacao.nome_cli }}</h4>
 
 
 <p> Descrição: {{ solicitacao.descricao}}</p>
-<p>Status: {{solicitacao.status_solicitacoes}}</p>
 
+{% if solicitacao.status_solicitacoes == 'Pendente' %}
+
+<p>Status: <span class="label label-warning">{{solicitacao.status_solicitacoes}} </span></p>
+
+{% elseif solicitacao.status_solicitacoes == 'Recusado'%}
+
+<p>Status: <span class="label label-danger">{{solicitacao.status_solicitacoes}} </span></p>
+
+{% elseif solicitacao.status_solicitacoes == 'Aceito'%}
+
+<p>Status: <span class="label label-success">{{solicitacao.status_solicitacoes}} </span></p>
 
 <input type='hidden' name='id_solicitacoes' id='id_solicitacoes' value='{{ solicitacao.id_solicitacoes }}'>
 
 <input type='hidden' name='id_cli' id='id_cli' value='{{ solicitacao.id_cli }}'>
 
 
-<input type="hidden" class="form-control" id="aprovado" name="aprovado" value="">
 
 
-
-{% if solicitacao.status_solicitacoes == 'Pendente' %}
-
-
-<div class="box-footer">
-<div class="row">
-	<button type="button" id="aceitar" class="btn btn-block btn-success btn-flat">Aceitar</button>
-	<button type="button" id="recusar" class="btn btn-block btn-danger btn-flat">Recusar</button>
-    </div>
-</div>
-{% elseif solicitacao.status_solicitacoes == 'Recusado'%}
-
-
-<div class="callout callout-warning">
-	<h4>Você já recusou essa solicitação!</h4>
-</div>
-{% elseif solicitacao.status_solicitacoes == 'Aceito'%}
-
-<div class="callout callout-success">
-<h4>Você já aceitou essa solicitação!</h4>
-
-
-</div>  
 {% endif %}
+<div class="box-footer">
+<button type="submit" class="btn btn-info btn-lg btn-block">Visualizar</button>
+</div>
+</form>
+
 
 	</div>
 </div>
+</div>
+</div>
+</div>
+
 
 {% endfor %}
                             <!-- /.box-body -->
@@ -89,7 +82,6 @@
                         <div class="box-footer">
                             
                         </div>
-                    </form>
                 </div>
 
             </div>

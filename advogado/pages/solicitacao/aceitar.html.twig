@@ -1,0 +1,116 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+
+{% block title %}| Lista | Solicitações
+{% endblock %}
+{% block stylesheet %}
+	<link rel="stylesheet" href="/dist/css/iziToast.min.css">
+{% endblock %}
+
+{% block breadcrumb %}
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			Lista de Solicitações
+			<small></small>
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<a href="/advogado/">
+					<i class="fa fa-dashboard"></i>
+					Home</a>
+			</li>
+		</ol>
+	</section>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+
+	<div class="col-12">
+        <div class="box box-primary">
+	        <div class="box-body">
+            <form role="form" action="/solicitacao/salvarcadastrar" method="post" class="jsonForm">
+
+            <h4><b>Cliente:</b> {{ solicitacoes.nome_cli }}</h4>
+            <h5>Enviado em: {{data}}</h5>
+
+            <p> Descrição: {{ solicitacoes.descricao}}</p>
+
+{% if solicitacoes.status_solicitacoes == 'Pendente' %}
+
+	<p>Status:
+		<span class="label label-warning">{{solicitacoes.status_solicitacoes}}
+		</span>
+	</p>
+
+<input type="hidden" class="form-control" id="aprovado" name="aprovado" value="">
+<input type="hidden" class="form-control" id="id_solicitacoes" name="id_solicitacoes" value="{{solicitacoes.id_solicitacoes}}">
+
+<div class="box-footer">
+	<div class="row">
+		<button type="button" id="aceitar" class="btn btn-block btn-success btn-flat">Aceitar</button>
+		<button type="button" id="recusar" class="btn btn-block btn-danger btn-flat">Recusar</button>
+	</div>
+</div>
+
+
+{% elseif solicitacoes.status_solicitacoes == 'Recusado'%}
+
+	<p>Status:
+		<span class="label label-danger">{{solicitacoes.status_solicitacoes}}
+		</span>
+	</p>
+
+{% elseif solicitacoes.status_solicitacoes == 'Aceito'%}
+
+	<p>Status:
+		<span class="label label-success">{{solicitacoes.status_solicitacoes}}
+		</span>
+	</p>
+
+{% endif %}
+
+
+</div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block javascriptPlugins %}
+	<script src="/dist/js/jquery.form.js"></script>
+	<script src="/dist/js/iziToast.min.js"></script>
+{% endblock %}
+
+
+
+{% block jquery %}
+    <script>
+        $(document).ready(function(){
+            $("#aceitar").on("click", function(){
+   $("#aprovado").val("Aceito");
+$('.jsonForm').submit();  });
+            $("#recusar").on("click", function(){
+   $("#aprovado").val("Recusado");
+$('.jsonForm').submit();  });
+            $('.jsonForm').ajaxForm({
+                dataType:  'json',
+
+                success:   function(d){
+                    if (d.status==0){
+                        iziToast.error({
+                            message: d.mensagem
+                        });
+                    }else{
+                        iziToast.success({
+                            message: d.mensagem
+                        });
+                        $('.jsonForm').trigger("reset");
+                    }
+                }
+
+            });
+        });
+    </script>
+{% endblock %}
