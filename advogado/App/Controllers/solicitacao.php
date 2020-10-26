@@ -153,21 +153,6 @@ class Solicitacao extends ControllerSeguro
         echo $this->jsonResponse($retorno);
     }
 
-
-    public function bootgrid($id_solicitacoes)
-    {
-        $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT * FROM documento WHERE id_solicitacoes=$id_solicitacoes ";
-
-        if ($busca != '') {
-            $sql .= " and (
-                        nome_doc LIKE '%{$busca}%'
-                        ) ";
-        }
-
-        $bootgrid = new Bootgrid($sql);
-        echo $bootgrid->show();
-    }
     public function aceitarpage($id_solicitacoes)
     {
         $db = Conexao::connect();
