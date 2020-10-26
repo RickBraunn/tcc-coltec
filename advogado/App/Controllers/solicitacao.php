@@ -13,7 +13,7 @@ class Solicitacao extends ControllerSeguro
     public function index()
     {
         //        include(ROOT . "/seguranca.php");
-        echo $this->template->twig->render('cliente/listagem.html.twig');
+        echo $this->template->twig->render('solicitacao/listagem.html.twig');
     }
 
     public function formCadastrar($id_adv)
@@ -154,14 +154,14 @@ class Solicitacao extends ControllerSeguro
     }
 
 
-    public function bootgrid()
+    public function bootgrid($id_solicitacoes)
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT `id_cli`, `nome_cli`, `sobrenome_cli`, `email_cli`, `cidade_cli`, `telefone_cli`, `nome_usuario_cli`, `senha_cli` FROM cliente WHERE 1 ";
+        $sql = "SELECT * FROM documento WHERE id_solicitacoes=$id_solicitacoes ";
 
         if ($busca != '') {
             $sql .= " and (
-                        nome LIKE '%{$busca}%'
+                        nome_doc LIKE '%{$busca}%'
                         ) ";
         }
 
@@ -185,11 +185,16 @@ From
         $query = $db->prepare($sql);
         $resultado = $query->execute();
         $resultados = $db->query($sql);
+
         $solicitacoes = $resultados->fetchObject();
         $data1 = $solicitacoes->data_hora;
         $data = date('d/m/Y', strtotime($data1));
 
+
+        $sql = "SELECT * FROM documento WHERE Solicitacoes_idSolicitacoes=$id_solicitacoes";
+        $resultados = $db->query($sql);
+        $docs = $resultados->fetchAll();
     
-        echo $this->template->twig->render('solicitacao/aceitar.html.twig', compact('solicitacoes', 'data'));
+        echo $this->template->twig->render('solicitacao/aceitar.html.twig', compact('solicitacoes', 'data','docs'));
     }
 }

@@ -1,7 +1,7 @@
 {% extends 'layouts/dashboard.html.twig' %}
 
 
-{% block title %}| Lista | Solicitações
+{% block title %}| Visualizar | Solicitações
 {% endblock %}
 {% block stylesheet %}
 	<link rel="stylesheet" href="/dist/css/iziToast.min.css">
@@ -11,7 +11,7 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			Lista de Solicitações
+			Visualizar de Solicitações
 			<small></small>
 		</h1>
 		<ol class="breadcrumb">
@@ -32,17 +32,25 @@
 	        <div class="box-body">
             <form role="form" action="/solicitacao/salvarcadastrar" method="post" class="jsonForm">
 
-            <h4><b>Cliente:</b> {{ solicitacoes.nome_cli }}</h4>
-            <h5>Enviado em: {{data}}</h5>
+            <h4><b>Cliente:</b> {{ solicitacoes.nome_cli }}</h4><br>
+            <h5><b>Enviado em: {{data}}</b></h5><br>
 
-            <p> Descrição: {{ solicitacoes.descricao}}</p>
+            <p><b> Descrição: </b>{{ solicitacoes.descricao}}</p><br>
+			<h4><b>Lista de Anexos:</b></h4>
+
+			{% for doc in docs %}
+    		<h5><a href="">{{doc.nome_doc}}</a></h5>
+			{% endfor %}
+
+			<br>
+
 
 {% if solicitacoes.status_solicitacoes == 'Pendente' %}
 
 	<p>Status:
 		<span class="label label-warning">{{solicitacoes.status_solicitacoes}}
 		</span>
-	</p>
+	</p><br>
 
 <input type="hidden" class="form-control" id="aprovado" name="aprovado" value="">
 <input type="hidden" class="form-control" id="id_solicitacoes" name="id_solicitacoes" value="{{solicitacoes.id_solicitacoes}}">
@@ -60,14 +68,14 @@
 	<p>Status:
 		<span class="label label-danger">{{solicitacoes.status_solicitacoes}}
 		</span>
-	</p>
+	</p><br>
 
 {% elseif solicitacoes.status_solicitacoes == 'Aceito'%}
 
 	<p>Status:
 		<span class="label label-success">{{solicitacoes.status_solicitacoes}}
 		</span>
-	</p>
+	</p><br>
 
 {% endif %}
 
