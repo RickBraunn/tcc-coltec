@@ -15,10 +15,11 @@ class Controller
     }
 
 
-    public function errorNotFound($error='')
+    static public function errorNotFound($error='')
     {
         http_response_code(404);
-        echo $this->template->twig->render('404.html.twig', compact("error"));
+        $template = new Template();
+        echo $template->twig->render('404.html.twig', compact("error"));
         exit;
     }
 

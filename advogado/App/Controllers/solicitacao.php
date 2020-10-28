@@ -7,6 +7,8 @@ use App\Controller;
 use App\Conexao;
 use App\Bootgrid;
 use App\ControllerSeguro;
+use App\Download;
+use ZipArchive;
 
 class Solicitacao extends ControllerSeguro
 {
@@ -18,7 +20,7 @@ class Solicitacao extends ControllerSeguro
 
     public function formCadastrar($id_adv)
     {
-        
+
         $db = Conexao::connect();
         $sql = "SELECT solicitacoes.id_solicitacoes, solicitacoes.data_hora, solicitacoes.status_solicitacoes, cliente.id_cli, concat(cliente.nome_cli, ' ', cliente.sobrenome_cli) as nome_cli, solicitacoes.descricao 
         From advogado Inner Join solicitacoes On solicitacoes.id_adv = advogado.id_adv Inner Join cliente On solicitacoes.id_cli = cliente.id_cli order by data_hora desc ";
@@ -74,7 +76,7 @@ class Solicitacao extends ControllerSeguro
         if ($query->rowCount() == 1) {
             $this->retornaOK('Enviado com sucesso!');
             $aprovado = $_POST['aprovado'];
-            if ($aprovado == "Aceito") 
+            if ($aprovado == "Aceito")
             {
                 $db = Conexao::connect();
 
@@ -179,7 +181,75 @@ From
         $sql = "SELECT * FROM documento WHERE Solicitacoes_idSolicitacoes=$id_solicitacoes";
         $resultados = $db->query($sql);
         $docs = $resultados->fetchAll();
-    
+
         echo $this->template->twig->render('solicitacao/aceitar.html.twig', compact('solicitacoes', 'data','docs'));
     }
+
+    public function downloadArquivo($id_documento)
+    {
+        $db = Conexao::connect();
+        $sql = "SELECT * FROM documento INNER JOIN solicitacoes ON Solicitacoes_idSolicitacoes=id_solicitacoes WHERE id_documento=:id_documento";
+        $query = $db->prepare($sql);
+        $query->bindParam(':id_documento', $id_documento);
+        $query->execute();
+
+        if ($query->rowCount()==0) $this->errorNotFound();
+
+        $doc = $query->fetchObject();
+
+        if (!$this->checarProprietarioSolicitacao($doc->id_adv)) $this->errorNotFound();
+
+        $download = new Download();
+        $download->solicitacao($doc->Solicitacoes_idSolicitacoes, $doc->nome_doc);
+        $download->download();
+    }
+
+    public function downloadTodos($id_solicitacoes)
+    {
+        $db = Conexao::connect();
+
+        $sql = "SELECT * FROM solicitacoes WHERE id_solicitacoes=:id_solicitacoes";
+        $query = $db->prepare($sql);
+        $query->bindParam(':id_solicitacoes', $id_solicitacoes);
+        $query->execute();
+        $solicitacao = $query->fetchObject();
+
+        if (!$this->checarProprietarioSolicitacao($solicitacao->id_adv)) $this->errorNotFound();
+
+        $sql = "SELECT * FROM documento WHERE Solicitacoes_idSolicitacoes=:id_solicitacoes";
+        $query = $db->prepare($sql);
+        $query->bindParam(':id_solicitacoes', $id_solicitacoes);
+        $query->execute();
+
+        if ($query->rowCount()==0) $this->errorNotFound();
+
+        $zip = new ZipArchive();
+        $filename = DIR_SOLICITACAO . uniqid() . ".zip";
+
+        if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
+            $this->errorNotFound('Não foi possível compactar os arquivos');
+        }
+
+        while($doc = $query->fetchObject()){
+            $zip->addFile($this->diretorioSolicitacao($id_solicitacoes) . $doc->nome_doc, $doc->nome_doc);
+        }
+        $zip->close();
+
+        $download = new Download();
+        $download->setArquivo($filename);
+        $download->setNomeOriginal(sprintf('solicitacao-%05d.zip', $id_solicitacoes));
+        if ($download->download()) unlink($filename);
+    }
+
+    private function checarProprietarioSolicitacao($id_adv)
+    {
+        return ($id_adv == $_SESSION['id_adv']);
+    }
+
+    private function diretorioSolicitacao($id_solicitacoes)
+    {
+        return DIR_SOLICITACAO . $id_solicitacoes . '/';
+    }
+
 }
+

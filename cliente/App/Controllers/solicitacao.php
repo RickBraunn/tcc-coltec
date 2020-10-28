@@ -95,7 +95,7 @@ class Solicitacao extends ControllerSeguro
         $upload_handler = new UploadHandler([
             'accept_file_types' => '/\.(gif|jpe?g|png|pdf)$/i',
             'script_url' => '/solicitacao/upload/' . $id_solicitacoes,
-            'upload_dir' => ROOT . '/../files/solicitacoes/' . $id_solicitacoes . '/',
+            'upload_dir' => DIR_SOLICITACAO . $id_solicitacoes . '/',
             'download_via_php' => true,
         ]);
         $resposta = $upload_handler->get_response();

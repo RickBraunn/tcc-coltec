@@ -36,11 +36,14 @@
             <h5><b>Enviado em: {{data}}</b></h5><br>
 
             <p><b> Descrição: </b>{{ solicitacoes.descricao}}</p><br>
-			<h4><b>Lista de Anexos:</b></h4>
+			{% if docs %}
+				<h4><b>Lista de Anexos:</b></h4>
 
-			{% for doc in docs %}
-    		<h5><a href="">{{doc.nome_doc}}</a></h5>
-			{% endfor %}
+				{% for doc in docs %}
+				<h5><a href="/solicitacao/downloadArquivo/{{doc.id_documento}}"><i class="fa fa-download" aria-hidden="true"></i> {{doc.nome_doc}}</a></h5>
+				{% endfor %}
+				<a href="/solicitacao/downloadTodos/{{ solicitacoes.id_solicitacoes }}" class="btn btn-info"><i class="fa fa-download" aria-hidden="true"></i> Baixar Todos</a>
+			{% endif %}
 
 			<br>
 
