@@ -74,30 +74,35 @@ class Solicitacao extends ControllerSeguro
         $query->execute();
 
         if ($query->rowCount() == 1) {
-            $this->retornaOK('Enviado com sucesso!');
             $aprovado = $_POST['aprovado'];
+
+            $solicitacao = $_POST['id_solicitacoes'];
+
+            $sql = "SELECT solicitacoes.id_cli FROM solicitacoes WHERE id_solicitacoes=$solicitacao";
+            $query = $db->prepare($sql);
+            $resultado = $query->execute();
+            $resultados = $db->query($sql);
+            $solicitacoes = $resultados->fetchObject();
+            $id_cli = $solicitacoes->id_cli;
+
+            $tipo_user = "cli";
+
             if ($aprovado == "Aceito")
             {
-                $db = Conexao::connect();
-
-                $solicitacao = $_POST['id_solicitacoes'];
-                $tipo_user = "cli";
                 $texto = "Sua solicitação foi aceita pelo Advogado";
-
-                $sql = "SELECT solicitacoes.id_cli FROM solicitacoes WHERE id_solicitacoes=$solicitacao";
-                $query = $db->prepare($sql);
-                $resultado = $query->execute();
-                $resultados = $db->query($sql);
-                $solicitacoes = $resultados->fetchObject();
-                $id_cli = $solicitacoes->id_cli;
-
-                $sql = "INSERT INTO notificacao (id_user, tipo_user, texto) values (:id_user, :tipo_user, :texto)";
-                $query = $db->prepare($sql);
-                $query->bindParam(":id_user", $id_cli);
-                $query->bindParam(":tipo_user", $tipo_user);
-                $query->bindParam(":texto", $texto);
-                $query->execute();
+                
+            }else{
+                $texto = "Sua solicitação foi recusada pelo Advogado";
             }
+
+            $sql = "INSERT INTO notificacao (id_user, tipo_user, texto) values (:id_user, :tipo_user, :texto)";
+            $query = $db->prepare($sql);
+            $query->bindParam(":id_user", $id_cli);
+            $query->bindParam(":tipo_user", $tipo_user);
+            $query->bindParam(":texto", $texto);
+            $query->execute();
+
+            $this->retornaOK('Enviado com sucesso!');
 
         } else {
             $this->retornaERRO('Erro ao enviar!');
