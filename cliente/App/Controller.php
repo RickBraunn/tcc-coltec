@@ -3,14 +3,18 @@
 
 namespace App;
 
-use Twig, App\Template;
+use Twig;
+use App\Template;
+use App\Conexao;
 
 class Controller
 {
     protected $template;
+    protected $db;
 
     public function __construct()
     {
+        $this->db = Conexao::connect();
         $this->template = new Template();
     }
 
