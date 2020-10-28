@@ -3,14 +3,14 @@
 
 namespace App\Controllers;
 
-use App\Conexao;
 use App\ControllerSeguro;
 
 class Notificacao extends ControllerSeguro
 {
-public function notifica(){
-    
-}
+
+    public function notifica(){
+        $this->db->query('SELECT * FROM notifica');
+    }
 
 
 }
