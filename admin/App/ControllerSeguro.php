@@ -10,7 +10,9 @@ class ControllerSeguro extends Controller
     {
         parent::__construct();
 
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if (!isset($_SESSION['liberado']) || $_SESSION['liberado'] != true) {
             \App\Controller::errorPermission();
             //header("Location: /login");

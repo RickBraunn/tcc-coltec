@@ -83,7 +83,7 @@ class Solicitacao extends ControllerSeguro
             $resultado = $query->execute();
             $resultados = $db->query($sql);
             $solicitacoes = $resultados->fetchObject();
-            $id_cli = $solicitacoes->id_cli;
+            $id_user = $solicitacoes->id_cli;
 
             $tipo_user = "cli";
 
@@ -94,13 +94,9 @@ class Solicitacao extends ControllerSeguro
             }else{
                 $texto = "Sua solicitação foi recusada pelo Advogado";
             }
+           $notificacao = new Notificacao();
+           $notificacao->inserir($id_user, $tipo_user, $texto);
 
-            $sql = "INSERT INTO notificacao (id_user, tipo_user, texto) values (:id_user, :tipo_user, :texto)";
-            $query = $db->prepare($sql);
-            $query->bindParam(":id_user", $id_cli);
-            $query->bindParam(":tipo_user", $tipo_user);
-            $query->bindParam(":texto", $texto);
-            $query->execute();
 
             $this->retornaOK('Enviado com sucesso!');
 
