@@ -53,7 +53,10 @@ class Solicitacao extends ControllerSeguro
     }
 */
 
-
+    public function lista()
+    {
+        //Lista de solicitações enviadas pelo cli
+    }
     public function salvarCadastrar()
     {
         $db = Conexao::connect();
