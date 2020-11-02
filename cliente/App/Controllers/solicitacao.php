@@ -67,8 +67,17 @@ class Solicitacao extends ControllerSeguro
         $query->execute();
 
         if ($query->rowCount() == 1) {
+
+            
+                $texto = "Você Recebeu uma nova Solicitação!";
+                $id_user = $_SESSION['id_cli'];
+                $tipo_user = "cli";
+
+            $notificacao = new Notificacao();
+            $notificacao->inserir($id_user, $tipo_user, $texto);
+
             $retorno['status'] = 1;
-            $retorno['mensagem'] = 'Solicitação cadastrada com sucesso';
+            $retorno['mensagem'] = 'Solicitação enviada com sucesso';
             $retorno['id'] = $db->lastInsertId();
         } else {
             $retorno['status'] = 0;
