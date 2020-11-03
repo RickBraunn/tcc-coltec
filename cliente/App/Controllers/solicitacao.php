@@ -73,8 +73,8 @@ class Solicitacao extends ControllerSeguro
 
             
                 $texto = "Você Recebeu uma nova Solicitação!";
-                $id_user = $_SESSION['id_cli'];
-                $tipo_user = "cli";
+                $id_user = $_POST['id_adv'];
+                $tipo_user = "adv";
 
             $notificacao = new Notificacao();
             $notificacao->inserir($id_user, $tipo_user, $texto);
