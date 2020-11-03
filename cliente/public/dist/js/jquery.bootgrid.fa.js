@@ -15,5 +15,13 @@
         iconRefresh: "fa-refresh",
         iconSearch: "fa-search",
         iconUp: "fa-sort-asc"
-});
+	});
+    $.extend($.fn.bootgrid.Constructor.defaults.labels, {
+        all: "Todos",
+        infos: "Exibindo \{\{ctx.start\}\} até \{\{ctx.end\}\} de \{\{ctx.total\}\}",
+        loading: "Carregando...",
+        noResults: "Resultados não encontrados!",
+        refresh: "Recarregar",
+        search: "Buscar"
+    });
 })(jQuery, window);
