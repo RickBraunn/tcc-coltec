@@ -83,15 +83,17 @@ class Cliente Extends ControllerSeguro
     {
         $db = Conexao::connect();
         $nome = $_POST['nome_usuario_cli'];
-        $sql = "SELECT nome_usuario_cli FROM cliente WHERE nome_usuario_cli=$nome AND id_cli<>:id_cli";
+        $sql = "SELECT nome_usuario_cli FROM cliente WHERE nome_usuario_cli=:nome_usuario_cli AND id_cli<>:id_cli";
         $query = $db->prepare($sql);
+        $query->bindParam(":id_cli", $_POST['id_cli']);
+        $query->bindParam(":nome_usuario_cli", $nome);
         $query->execute();
         if ($query->rowCount() == 1) {
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Nome de Usuario ja Existente';
         } else {
 
-        $sql = "UPDATE cliente SET nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, cidade_cli=:cidade_cli, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli, senha_cli=:senha_cli WHERE id_cli=:id_cli";
+        $sql = "UPDATE cliente SET nome_cli=:nome_cli, sobrenome_cli=:sobrenome_cli, email_cli=:email_cli, cidade_cli=:cidade_cli, telefone_cli=:telefone_cli, nome_usuario_cli=:nome_usuario_cli WHERE id_cli=:id_cli";
 
         $query = $db->prepare($sql);
         $query->bindParam(":nome_cli", $_POST['nome_cli']);
@@ -100,7 +102,6 @@ class Cliente Extends ControllerSeguro
         $query->bindParam(":cidade_cli", $_POST['cidade_cli']);
         $query->bindParam(":telefone_cli", $_POST['telefone_cli']);
         $query->bindParam(":nome_usuario_cli", $_POST['nome_usuario_cli']);
-        $query->bindParam(":senha_cli", $_POST['senha_cli']);
         $query->bindParam(":id_cli", $_POST['id_cli']);
         $query->execute();
 

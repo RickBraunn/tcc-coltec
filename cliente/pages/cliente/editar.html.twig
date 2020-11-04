@@ -34,8 +34,7 @@
                     <form role="form" action="/cliente/salvareditar" method="post" class="jsonForm">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="id_cli">Código</label>
-                                <input type="number" class="form-control" id="id_cli" name="id_cli" readonly value="{{ linha['id_cli'] }}" >
+                                <input type="hidden" class="form-control" id="id_cli" name="id_cli" readonly value="{{ linha['id_cli'] }}" >
                             </div>
                             <div class="form-group">
                                 <label for="nome_cli">Nome</label>
@@ -69,7 +68,7 @@
 
                         <div class="form-group">
                             <label for="telefone_cli">Telefone</label>
-                            <input type="number" class="form-control" id="telefone_cli" name="telefone_cli" placeholder="Telefone" required value="{{ linha['telefone_cli'] }}">
+                            <input type="text" class="form-control" id="telefone_cli" name="telefone_cli" placeholder="Telefone" required value="{{ linha['telefone_cli'] }}">
                         </div>
 
 
@@ -123,7 +122,7 @@
                         iziToast.success({
                             message: d.mensagem,
                             onClosed: function(){
-                                document.location = "/cliente";
+                                document.location = "/";
                             }
                         });
 
