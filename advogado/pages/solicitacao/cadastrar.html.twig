@@ -55,14 +55,16 @@
 
 <p>Status: <span class="label label-success">{{solicitacao.status_solicitacoes}} </span></p>
 
-<input type='hidden' name='id_solicitacoes' id='id_solicitacoes' value='{{ solicitacao.id_solicitacoes }}'>
 
-<input type='hidden' name='id_cli' id='id_cli' value='{{ solicitacao.id_cli }}'>
 
 
 
 
 {% endif %}
+<input type='hidden' name='id_solicitacoes' id='id_solicitacoes' value='{{ solicitacao.id_solicitacoes }}'>
+
+<input type='hidden' name='id_cli' id='id_cli' value='{{ solicitacao.id_cli }}'>
+
 <div class="box-footer">
 <button type="submit" class="btn btn-info btn-lg btn-block">Visualizar</button>
 </div>

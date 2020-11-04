@@ -55,7 +55,35 @@ class Solicitacao extends ControllerSeguro
 
     public function lista()
     {
-        //Lista de solicitações enviadas pelo cli
+        $db = Conexao::connect();
+        $sql = "Select
+    solicitacoes.descricao,
+    solicitacoes.data_hora,
+    solicitacoes.status_solicitacoes,
+    solicitacoes.id_adv,
+    solicitacoes.id_cli,
+    cliente.id_cli As id_cli1,
+    cliente.nome_cli,
+    cliente.sobrenome_cli,
+    advogado.id_adv As id_adv1,
+    advogado.nome_adv,
+    advogado.sobrenome_adv,
+    advogado.email_adv
+From
+    solicitacoes Inner Join
+    advogado On solicitacoes.id_adv = advogado.id_adv Inner Join
+    cliente On solicitacoes.id_cli = cliente.id_cli";
+        $query = $db->prepare($sql);
+        $resultado = $query->execute();
+        $resultados = $db->query($sql);
+
+        $solicitacoes = $resultados->fetchAll();
+        //$data1 = $solicitacoes->data_hora;
+       // $data = date('d/m/Y', strtotime($data1));
+
+
+        echo $this->template->twig->render('solicitacao/lista.html.twig', compact('solicitacoes'));
+
     }
     public function salvarCadastrar()
     {
