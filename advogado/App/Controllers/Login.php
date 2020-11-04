@@ -27,18 +27,7 @@ class Login Extends Controller
         $senha_adv = $_POST['senha_adv'];
         $senha_adv =sha1($senha_adv);
 
-        $sql = "SELECT
-    advogado.nome_adv,
-    advogado.nome_usuario_adv,
-    advogado.sobrenome_adv,
-    advogado.senha_adv,
-    advogado.id_adv,
-    oab.numero_oab,
-    estado.sigla_estado
-From
-    advogado Inner Join
-    oab On oab.id_adv = advogado.id_adv Inner Join
-    estado On oab.estados_oab = estado.id_estado WHERE nome_usuario_adv=:nome_usuario_adv AND senha_adv=:senha_adv";
+        $sql = "SELECT * From advogado WHERE nome_usuario_adv=:nome_usuario_adv AND senha_adv=:senha_adv";
 
         $resultados = $db ->prepare($sql);
 
@@ -47,15 +36,30 @@ From
         $resultados->execute();
 		
         if($resultados->rowCount()==1){
-            $linha = $resultados->fetchObject();
-//print_r ($linha);
+             $query =$this->db->prepare("SELECT
+    advogado.nome_adv,
+    advogado.nome_usuario_adv,
+    advogado.sobrenome_adv,
+    advogado.id_adv,
+    oab.numero_oab,
+    estado.sigla_estado
+From
+    advogado Inner Join
+    oab On oab.id_adv = advogado.id_adv Inner Join
+    estado On oab.estados_oab = estado.id_estado WHERE nome_usuario_adv=:nome_usuario_adv");
+
+
+            $query->bindParam(":nome_usuario_adv", $_POST['nome_usuario_adv']);
+            $query->execute();
+            $linha = $query->fetchObject();
+
             $_SESSION['liberado'] = true;
             $_SESSION['nome_usuario_adv'] = $linha->nome_usuario_adv;
             $_SESSION['nome_adv'] = $linha->nome_adv;
             $_SESSION['sobrenome_adv'] = $linha->sobrenome_adv;
             $_SESSION['numero_oab'] = $linha->numero_oab;
             $_SESSION['sigla_estado'] = $linha->sigla_estado;
-            $_SESSION['id_adv'] = $linha->id_adv; //Código da Pessoa que está logada
+            $_SESSION['id_adv'] = $linha->id_adv;
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'Acesso autorizado!';
 
