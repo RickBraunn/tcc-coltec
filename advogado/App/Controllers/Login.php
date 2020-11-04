@@ -44,8 +44,8 @@ class Login Extends Controller
     oab.numero_oab,
     estado.sigla_estado
 From
-    advogado Inner Join
-    oab On oab.id_adv = advogado.id_adv Inner Join
+    advogado Left Join
+    oab On oab.id_adv = advogado.id_adv Left Join
     estado On oab.estados_oab = estado.id_estado WHERE nome_usuario_adv=:nome_usuario_adv");
 
 
