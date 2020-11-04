@@ -8,8 +8,11 @@ use App\ControllerSeguro;
 class Notificacao extends ControllerSeguro
 {
 
-    public function notifica(){
-        $this->db->query('SELECT * FROM notifica');
+    public function notifica($id_user, $tipo_user){
+        $query =$this->db->prepare('SELECT * FROM notifica Where id_user=:id_user and tipo_user=:tipo_user');
+        $query->bindParam(":id_user", $id_user);
+        $query->bindParam(":tipo_user", $tipo_user);
+        $query->execute();
      }
 
      public function inserir($id_user, $tipo_user, $texto){

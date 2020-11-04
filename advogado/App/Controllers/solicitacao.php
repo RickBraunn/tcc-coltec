@@ -86,16 +86,19 @@ class Solicitacao extends ControllerSeguro
             $id_user = $solicitacoes->id_cli;
 
             $tipo_user = "cli";
+            $url_noti = "/solicitacao"; //colocar id quando tiver a pagina pronta
 
             if ($aprovado == "Aceito")
             {
                 $texto = "Sua solicitação foi aceita pelo Advogado";
+                $icone = "fa-check-square";
                 
             }else{
                 $texto = "Sua solicitação foi recusada pelo Advogado";
+                $icone = "fa-close";
             }
            $notificacao = new Notificacao();
-           $notificacao->inserir($id_user, $tipo_user, $texto);
+           $notificacao->inserir($id_user, $tipo_user, $texto, $url_noti, $icone);
 
 
             $this->retornaOK('Enviado com sucesso!');

@@ -75,9 +75,11 @@ class Solicitacao extends ControllerSeguro
                 $texto = "Você Recebeu uma nova Solicitação!";
                 $id_user = $_POST['id_adv'];
                 $tipo_user = "adv";
+                $url_noti = "/solicitacao";
+                $icone = "fa-balance-scale";
 
             $notificacao = new Notificacao();
-            $notificacao->inserir($id_user, $tipo_user, $texto);
+            $notificacao->inserir($id_user, $tipo_user, $texto, $url_noti, $icone);
 
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'Solicitação enviada com sucesso';
