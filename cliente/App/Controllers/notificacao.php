@@ -28,5 +28,11 @@ class Notificacao extends ControllerSeguro
         $query->bindParam(":icone", $icone);
         $query->execute();
      }
+   public function url($idnotificacao)
+   {
+      $query = $this->db->prepare("UPDATE notificacao SET data_leitura=now() WHERE idnotificacao=:idnotificacao");
+      $query->bindParam(":idnotificacao", $idnotificacao);
+      $query->execute();
+   }
 
 }
