@@ -78,8 +78,6 @@ From
         $resultados = $db->query($sql);
 
         $solicitacoes = $resultados->fetchAll();
-        //$data1 = $solicitacoes->data_hora;
-       // $data = date('d/m/Y', strtotime($data1));
 
 
         echo $this->template->twig->render('solicitacao/lista.html.twig', compact('solicitacoes'));
@@ -135,7 +133,7 @@ From
     public function upload($id_solicitacoes)
     {
         $upload_handler = new UploadHandler([
-            'accept_file_types' => '/\.(gif|jpe?g|png|pdf)$/i',
+            'accept_file_types' => '/\.(gif|jpe?g|png|pdf|doc|docx)$/i',
             'script_url' => '/solicitacao/upload/' . $id_solicitacoes,
             'upload_dir' => DIR_SOLICITACAO . $id_solicitacoes . '/',
             'download_via_php' => true,

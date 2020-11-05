@@ -47,7 +47,7 @@
 											<b>Enviado por:</b>
 											{{ solicitacao.nome_cli }} {{solicitacao.sobrenome_cli}}</h4>
 
-                                            <h5><b>Enviado em: {{solicitacao.data_hora}}</b></h5><br>
+                                            <h5><b>Enviado em: {{solicitacao.data_hora|date("d/m/Y H:i", "America/Sao_Paulo")}}</b></h5><br>
 
 
 										<p>
@@ -165,3 +165,8 @@
 {% endblock %}
 
 {% block javascriptPlugins %}<script src="/dist/js/jquery.form.js"></script><script src="/dist/js/iziToast.min.js"></script>{% endblock %}
+{% block jquery %}
+	<script>
+
+	</script>
+{% endblock %}
