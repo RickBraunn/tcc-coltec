@@ -4,13 +4,13 @@
     <!-- Logo -->
     <a href="/" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>A</b>LT</span>
+        <span class="logo-mini"><b>Adv</b></span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><b>Busca</b>Advogados</span>
     </a>
 
     <!-- Header Navbar -->
-<nav class="navbar navbar-light" style="background-color: #daa520;" role="navigation">
+<nav class="navbar navbar-light" style="" role="navigation">
 
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -25,22 +25,15 @@
                     <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <span class="label label-warning" id="notificacao-numero"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
+                        <li class="header" id="notificacao-header"></li>
                         <li>
                             <!-- Inner Menu: contains the notifications -->
-                            <ul class="menu">
-                                <li><!-- start notification -->
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                    </a>
-                                </li>
-                                <!-- end notification -->
+                            <ul class="menu" id="notificacao-lista">
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">View all</a></li>
                     </ul>
                 </li>
 
@@ -63,7 +56,7 @@
                                 <small>OAB: {{session.numero_oab}}/{{session.sigla_estado}} </small>
                             </p>
                         </li>
-                        <!-- Menu Body 
+                        <!-- Menu Body
                         <li class="user-body">
                             <div class="row">
                                 <div class="col-xs-4 text-center">

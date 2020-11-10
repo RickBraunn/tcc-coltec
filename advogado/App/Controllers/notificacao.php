@@ -11,7 +11,8 @@ class Notificacao extends ControllerSeguro
     public function notifica(){
          $id_user=$_SESSION['id_adv'];
          $tipo_user = "adv";
-        $query =$this->db->prepare('SELECT * FROM notificacao Where id_user=:id_user and tipo_user=:tipo_user and data_leitura is null ');
+
+        $query =$this->db->prepare('SELECT idnotificacao, texto, icone, url_noti  FROM notificacao Where id_user=:id_user and tipo_user=:tipo_user and data_leitura is null ');
         $query->bindParam(":id_user", $id_user);
         $query->bindParam(":tipo_user", $tipo_user);
         $query->execute();
@@ -28,10 +29,19 @@ class Notificacao extends ControllerSeguro
       $query->bindParam(":icone", $icone);
       $query->execute();
    }
-   public function url($idnotificacao)
+   public function leitura($idnotificacao)
    {
+       $query =$this->db->prepare('SELECT ifnull(url_noti, "") as url_noti FROM notificacao Where idnotificacao=:idnotificacao');
+       $query->bindParam(":idnotificacao", $idnotificacao);
+       $query->execute();
+       $linhaNotifica = $query->fetchObject();
+
+
+
       $query = $this->db->prepare("UPDATE notificacao SET data_leitura=now() WHERE idnotificacao=:idnotificacao");
       $query->bindParam(":idnotificacao", $idnotificacao);
       $query->execute();
+
+       $this->retornaOK($linhaNotifica->url_noti);
    }
 }
