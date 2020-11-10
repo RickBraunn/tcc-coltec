@@ -1,4 +1,6 @@
-atualizaNotificacao();
+$(document).ready(function(){
+    atualizaNotificacao();
+});
 function atualizaNotificacao(){
     $.getJSON('/notificacao/notifica', function(data){
         $(".notifications-menu").find('.label').text(data.length);
