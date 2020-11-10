@@ -56,7 +56,7 @@ class Solicitacao extends ControllerSeguro
     public function lista()
     {
         $db = Conexao::connect();
-        $sql = "Select
+        $sql = "SELECT
     solicitacoes.descricao,
     solicitacoes.data_hora,
     solicitacoes.status_solicitacoes,
@@ -72,7 +72,7 @@ class Solicitacao extends ControllerSeguro
 From
     solicitacoes Inner Join
     advogado On solicitacoes.id_adv = advogado.id_adv Inner Join
-    cliente On solicitacoes.id_cli = cliente.id_cli";
+    cliente On solicitacoes.id_cli = cliente.id_cli order by data_hora desc";
         $query = $db->prepare($sql);
         $resultado = $query->execute();
         $resultados = $db->query($sql);
