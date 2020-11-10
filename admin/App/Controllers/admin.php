@@ -17,6 +17,10 @@ class Admin Extends ControllerSeguro
         //echo $this->template->twig->render('admin/listagem.html.twig');
     }
 
+    public function lista()
+    {
+        echo $this->template->twig->render('admin/listagem.html.twig'); 
+    }
     public function formCadastrar()
     {
 
