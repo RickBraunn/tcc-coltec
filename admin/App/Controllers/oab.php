@@ -81,9 +81,25 @@ Where oab.id_oab = :id_oab";
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'OAB aprovada com sucesso.';
-            //busca codigo do ADV pela OAB
-            //$id_adv
-            Advogado::verificaCadastro($id_adv);
+
+            $sql = "SELECT advogado.id_adv, oab.id_adv As id_adv1 From advogado Inner Join oab On oab.id_adv = advogado.id_adv";
+            $query = $db->prepare($sql);
+            $query->bindParam(":id_oab", $_POST['id_oab']);
+            $query->execute();
+            $resultado = $query->fetchObject();
+
+            $id_user = $resultado->id_adv;
+            $tipo_user = "adv";
+            if($_POST['aprovado']== "Aprovado" ){
+                $texto = "Sua OAB foi aprovada!";
+                $icone = "fa-check-square";
+            }else{
+                $texto = "Sua OAB foi rejeitada!";
+                $icone = "fa-close";
+            }
+            $url_noti = "";
+            $notificacao = new Notificacao();
+            $notificacao->inserir($id_user, $tipo_user, $texto, $url_noti, $icone);
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';

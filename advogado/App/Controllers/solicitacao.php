@@ -82,6 +82,7 @@ class Solicitacao extends ControllerSeguro
             $query = $db->prepare($sql);
             $resultado = $query->execute();
             $resultados = $db->query($sql);
+
             $solicitacoes = $resultados->fetchObject();
             $id_user = $solicitacoes->id_cli;
 
@@ -97,6 +98,7 @@ class Solicitacao extends ControllerSeguro
                 $texto = "Sua solicitação foi recusada pelo Advogado";
                 $icone = "fa-close";
             }
+            
            $notificacao = new Notificacao();
            $notificacao->inserir($id_user, $tipo_user, $texto, $url_noti, $icone);
 
