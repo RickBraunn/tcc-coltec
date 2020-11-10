@@ -97,11 +97,17 @@ From
 
         if ($query->rowCount() == 1) {
 
+            $query = $this->db->prepare("SELECT id_solicitacoes from solicitacoes Where id_cli=:id_cli and id_adv=:id_adv");
+            $query->bindParam(":id_cli", $_SESSION['id_cli']);
+            $query->bindParam(":id_adv", $_POST['id_adv']);
+            $query->execute();
+            $resultado = $query->fetchObject();
+            $id_solicitacoes = $resultado->id_solicitacoes;
             
                 $texto = "Você Recebeu uma nova Solicitação!";
                 $id_user = $_POST['id_adv'];
                 $tipo_user = "adv";
-                $url_noti = "/solicitacao";
+                $url_noti = "/solicitacao/aceitarpage/".$id_solicitacoes;
                 $icone = "fa-balance-scale";
 
             $notificacao = new Notificacao();
