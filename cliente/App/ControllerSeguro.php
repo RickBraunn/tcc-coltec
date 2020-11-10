@@ -14,8 +14,8 @@ class ControllerSeguro extends Controller
             session_start();
         }
         if (!isset($_SESSION['liberado']) || $_SESSION['liberado'] != true) {
-            \App\Controller::errorPermission();
-            //header("Location: /login");
+           // \App\Controller::errorPermission();
+            header("Location: /login");
         }
         $this->template->twig->addGlobal('session', $_SESSION);
     }

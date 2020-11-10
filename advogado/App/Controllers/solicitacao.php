@@ -86,7 +86,7 @@ class Solicitacao extends ControllerSeguro
             $id_user = $solicitacoes->id_cli;
 
             $tipo_user = "cli";
-            $url_noti = "/solicitacao"; //colocar id quando tiver a pagina pronta
+            $url_noti = "/solicitacao/lista/";
 
             if ($aprovado == "Aceito")
             {
