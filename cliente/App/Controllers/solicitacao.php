@@ -97,7 +97,7 @@ From
 
         if ($query->rowCount() == 1) {
 
-            $query = $this->db->prepare("SELECT id_solicitacoes from solicitacoes Where id_cli=:id_cli and id_adv=:id_adv");
+            $query = $this->db->prepare("SELECT id_solicitacoes from solicitacoes Where id_cli=:id_cli and id_adv=:id_adv order by data_hora desc");
             $query->bindParam(":id_cli", $_SESSION['id_cli']);
             $query->bindParam(":id_adv", $_POST['id_adv']);
             $query->execute();
