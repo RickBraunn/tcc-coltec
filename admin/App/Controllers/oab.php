@@ -82,7 +82,7 @@ Where oab.id_oab = :id_oab";
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'OAB aprovada com sucesso.';
 
-            $sql = "SELECT advogado.id_adv, oab.id_adv As id_adv1 From advogado Inner Join oab On oab.id_adv = advogado.id_adv";
+            $sql = "SELECT advogado.id_adv From advogado Inner Join oab On oab.id_adv = advogado.id_adv where id_oab =:id_oab";
             $query = $db->prepare($sql);
             $query->bindParam(":id_oab", $_POST['id_oab']);
             $query->execute();
