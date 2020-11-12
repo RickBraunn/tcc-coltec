@@ -27,6 +27,7 @@
             <div class="col-12">
 
                 <div class="box box-primary">
+                <p><input type="text" class="form-control" placeholder="Pesquisa" /></p>
                     <!-- /.box-header -->
                     <!-- form start -->
 {% for adv in advs %}
@@ -58,7 +59,7 @@
                         <li>
 							<p>
 
-								<span class="glyphicon glyphicon-user one" style="width:50px;"></span>{{area.nome_area}}</p>
+								<span class="glyphicon glyphicon-user one" style="width:20px;"></span>{{area.nome_area}}</p>
 						</li>
                         {% endfor %}
 					</ul>
@@ -109,29 +110,43 @@
 {% block javascriptPlugins %}
     <script src="/dist/js/jquery.form.js"></script>
     <script src="/dist/js/iziToast.min.js"></script>
+    <script src="/dist/js/isotope.pkgd.min.js"></script>
 {% endblock %}
 
 {% block jquery %}
     <script>
-        $(document).ready(function(){
-            $('.jsonForm').ajaxForm({
-                dataType:  'json',
+    // quick search regex
+var qsRegex;
 
-                success:   function(d){
-                    if (d.status==0){
-                        iziToast.error({
-                            message: d.mensagem
-                        });
-                    }else{
-                        iziToast.success({
-                            message: d.mensagem
-                        });
-                        $('.jsonForm').trigger("reset");
-                    }
-                }
+// init Isotope
+var $card = $('.card').isotope({
+  itemSelector: '.panel-body',
+  layoutMode: 'fitRows',
+  filter: function() {
+    return qsRegex ? $(this).text().match( qsRegex ) : true;
+  }
+});
 
-            });
-        });
+// use value of search field to filter
+var $formcontrol = $('.form-control').keyup( debounce( function() {
+  qsRegex = new RegExp( $formcontrol.val(), 'gi' );
+  $card.isotope();
+}, 200 ) );
+
+// debounce so filtering doesn't happen every millisecond
+function debounce( fn, threshold ) {
+  var timeout;
+  threshold = threshold || 100;
+  return function debounced() {
+    clearTimeout( timeout );
+    var args = arguments;
+    var _this = this;
+    function delayed() {
+      fn.apply( _this, args );
+    }
+    timeout = setTimeout( delayed, threshold );
+  };
+}
     </script>
 {% endblock %}
 
