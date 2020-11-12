@@ -62,6 +62,7 @@ From
             $_SESSION['id_adv'] = $linha->id_adv;
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'Acesso autorizado!';
+            \App\Advogado::verificaCadastro($_SESSION['id_adv']);
 
         }else{
             $retorno['status'] = 0;
