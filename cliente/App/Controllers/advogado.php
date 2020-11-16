@@ -28,9 +28,11 @@ class Advogado Extends ControllerSeguro
     advogado.id_adv,   
      concat(advogado.nome_adv, ' ', advogado.sobrenome_adv) as nome_adv,
     advogado.formacao,
-    advogado.foto
-     FROM advogado 
-     WHERE advogado.cadastro_completo=1";
+    advogado.foto,
+    AVG(avaliacao.nota) as nota
+     FROM  advogado FULL OUTER JOIN
+    avaliacao On avaliacao.id_adv = advogado.id_adv 
+     WHERE advogado.cadastro_completo='1'";
         $resultados = $db->query($sql);
         $advs = $resultados->fetchALl();
 
