@@ -30,7 +30,7 @@ class Advogado Extends ControllerSeguro
     advogado.formacao,
     advogado.foto,
     AVG(avaliacao.nota) as nota
-     FROM  advogado FULL OUTER JOIN
+     FROM  advogado INNER JOIN
     avaliacao On avaliacao.id_adv = advogado.id_adv 
      WHERE advogado.cadastro_completo='1'";
         $resultados = $db->query($sql);
