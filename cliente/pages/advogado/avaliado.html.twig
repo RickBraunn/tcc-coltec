@@ -43,8 +43,8 @@
                     <div class="form-group" class="jsonForm">
 
                         <div class="form-group">
-                            <label for="nome_adv">Avaliador</label>
-                            <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Avaliador"  readonly value='{{ session.nome_cli }} {{session.sobrenome_cli}}'>
+                            <label for="nome_adv">Nome do Advogado</label>
+                            <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Nome Advogado"  readonly value='{{ linha.nome_adv }}'>
                         </div>
 
                         <br>
@@ -53,10 +53,6 @@
                     <input id="input-7-md" class="rating rating-loading" value="{{linha.nota}}" data-min="0" data-max="5" data-step="1" data-size="md"  data-disabled="true">
                         <br>
 
-                        <div class="form-group">
-                            <label for="nome_adv">Nome do Advogado</label>
-                            <input type="text" class="form-control" id="nome_adv" name="nome_adv" placeholder="Nome Advogado"  readonly value='{{ linha.nome_adv }}'>
-                        </div>
 
                         <div class="form-group">
                             <label for="titulo">Titulo</label>
