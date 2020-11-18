@@ -98,10 +98,11 @@ class Advogado Extends ControllerSeguro
     From
      avaliacao Inner Join
         advogado On avaliacao.id_adv = advogado.id_adv 
-    WHERE id_cli=:id_cli";
+    WHERE id_cli=:id_cli and avaliacao.id_adv=:id_adv";
 
         $query = $db->prepare($sql);
         $query->bindParam(":id_cli", $_SESSION['id_cli']);
+        $query->bindParam(":id_adv", $id_adv);
 
         $resultado = $query->execute();
 
