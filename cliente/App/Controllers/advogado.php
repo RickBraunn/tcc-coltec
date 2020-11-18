@@ -24,15 +24,22 @@ class Advogado Extends ControllerSeguro
 
         $db = Conexao::connect();
 
-        $sql = "SELECT  
-    advogado.id_adv,   
+/*        $sql = "SELECT
+    advogado.id_adv,
      concat(advogado.nome_adv, ' ', advogado.sobrenome_adv) as nome_adv,
     advogado.formacao,
     advogado.foto,
     AVG(avaliacao.nota) as nota
      FROM  advogado INNER JOIN
-    avaliacao On avaliacao.id_adv = advogado.id_adv 
-     WHERE advogado.cadastro_completo='1'";
+    avaliacao On avaliacao.id_adv = advogado.id_adv
+     WHERE advogado.cadastro_completo='1'";*/
+            $sql = "SELECT
+        advogado.id_adv,
+         concat(advogado.nome_adv, ' ', advogado.sobrenome_adv) as nome_adv,
+        advogado.formacao,
+        advogado.foto
+         FROM  advogado
+         WHERE advogado.cadastro_completo='1'";
         $resultados = $db->query($sql);
         $advs = $resultados->fetchALl();
 
@@ -44,6 +51,10 @@ class Advogado Extends ControllerSeguro
                         WHERE area_adv.id_adv={$adv['id_adv']}";
             $resultados = $db->query($sql);
             $adv['areas'] = $resultados->fetchALl();
+
+            $resultados = $db->query("SELECT AVG(avaliacao.nota) as nota FROM avaliacao WHERE avaliacao.id_adv={$adv['id_adv']}");
+            $linha = $resultados->fetchObject();
+            $adv['nota'] = $linha->nota;
 
             $sql = "SELECT  concat(oab.numero_oab, '/', estado.sigla_estado) as numero_oab
                     From
@@ -94,9 +105,9 @@ class Advogado Extends ControllerSeguro
 
         $resultado = $query->execute();
 
-        
 
-        if ($query->rowCount()== 1){
+
+        if ($query->rowCount()>0){
 
             $linha = $query->fetchObject();
             $data1 = $linha->data_avali;
@@ -112,7 +123,7 @@ class Advogado Extends ControllerSeguro
         $resultado = $query->execute();
 
         if ($query->rowCount() == 0) $this->errorNotFound('Advogado não encontrado');
-        
+
         $linha = $query->fetchObject();
 
         echo $this->template->twig->render('advogado/avaliar.html.twig', compact('id_adv', 'linha'));

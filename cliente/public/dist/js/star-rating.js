@@ -472,7 +472,7 @@
             }
             cssVal = typeof vCss === "function" ? vCss(val, width) : vCss[val];
             capVal = typeof vCap === "function" ? vCap(val, width) : vCap[val];
-          
+
             cap = $h.isEmpty(capVal) ? self.defaultCaption.replace(/\{rating}/g, val) : capVal;
             css = $h.isEmpty(cssVal) ? self.clearCaptionClass : cssVal;
             caption = (val === self.clearValue) ? self.clearCaption : cap;
@@ -588,7 +588,7 @@
     };
 
     $.fn.ratingLocales.en = {
-        defaultCaption: '{rating} Stars',
+        defaultCaption: '{rating} Estrelas',
         starCaptions: {
             0.5: 'Half Star',
             1: 'One Star',

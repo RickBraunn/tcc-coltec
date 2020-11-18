@@ -50,7 +50,7 @@
                         <br>
                         <h4><b>Avaliação enviada em: {{data}}</b></h4>
                         <br>
-                        <h4><b>Nota: {{linha.nota}}/5</b></h4>
+                    <input id="input-7-md" class="rating rating-loading" value="{{linha.nota}}" data-min="0" data-max="5" data-step="1" data-size="md"  data-disabled="true">
                         <br>
 
                         <div class="form-group">
@@ -64,23 +64,23 @@
                         </div>
 
                         <div class="form-group">
-                                <textarea name="descricao" class="form-control" rows="4" cols="50" placeholder="Descrição">{{linha.descricao}}</textarea>
+                                <textarea name="descricao" class="form-control" rows="4" cols="50" placeholder="Descrição" readonly>{{linha.descricao}}</textarea>
                         </div>
                     </form>
-                        
+
                             <a href="/advogado/" class="btn btn-default btn-block">Voltar</a>
-                        
+
                         </div>
                     </div>
                  </div>
             </div>
-                        
-                        
 
 
 
-                        
-                    
+
+
+
+
 
 
 {% endblock %}
