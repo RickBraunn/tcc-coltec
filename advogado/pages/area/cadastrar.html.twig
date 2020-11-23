@@ -81,6 +81,9 @@
                         iziToast.success({
                             message: d.mensagem
                         });
+                        setTimeout(function(){
+                      document.location = '/area/formCadastrar';
+                    }, 2000);
                         $('.jsonForm').trigger("reset");
                     }
                 }

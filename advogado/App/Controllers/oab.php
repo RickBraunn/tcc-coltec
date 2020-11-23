@@ -72,6 +72,7 @@ class oab Extends ControllerSeguro
         if ($query->rowCount()==1) {
             $retorno['status'] = 1;
             $retorno['mensagem'] = 'OAB cadastrado com sucesso, aguardando aprovação.';
+            \App\Advogado::verificaCadastro($_SESSION['id_adv']);
         }else{
             $retorno['status'] = 0;
             $retorno['mensagem'] = 'Erro ao inserir os dados';

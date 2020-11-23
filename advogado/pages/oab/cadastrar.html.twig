@@ -89,6 +89,9 @@
                         iziToast.success({
                             message: d.mensagem
                         });
+                        setTimeout(function(){
+                      document.location = '/advogado/';
+                    }, 2000);
                         $('.jsonForm').trigger("reset");
                     }
                 }

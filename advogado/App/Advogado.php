@@ -31,7 +31,7 @@ class Advogado
         $query2->bindParam(":id_adv", $_SESSION["id_adv"]);
         $query2->execute();
         
-        if ($query1->rowCount() == 1 || $query2->rowCount() >= 1 ){
+        if ($query1->rowCount() == 1 and $query2->rowCount() >= 1 ){
             $cadastro_completo = "1";
             $sql = "UPDATE advogado SET cadastro_completo=:cadastro_completo WHERE id_adv=:id_adv";
             $query = $db->prepare($sql);

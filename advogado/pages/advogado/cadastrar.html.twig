@@ -129,6 +129,9 @@
                         iziToast.success({
                             message: d.mensagem
                         });
+                        setTimeout(function(){
+                      document.location = '/login/';
+                    }, 2000);
                         $('.jsonForm').trigger("reset");
                     }
                 }
