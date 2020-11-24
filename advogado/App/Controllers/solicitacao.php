@@ -173,13 +173,14 @@ From
     solicitacoes Inner Join
     advogado On solicitacoes.id_adv = advogado.id_adv Inner Join
     cliente On solicitacoes.id_cli = cliente.id_cli Inner Join
-    cidade On advogado.cidade_adv = cidade.id_cidade
-            And cliente.cidade_cli = cidade.id_cidade WHERE id_solicitacoes=$id_solicitacoes";
+    cidade On cliente.cidade_cli = cidade.id_cidade
+             WHERE id_solicitacoes=$id_solicitacoes";
         $query = $db->prepare($sql);
         $resultado = $query->execute();
         $resultados = $db->query($sql);
 
         $solicitacoes = $resultados->fetchObject();
+
         $data1 = $solicitacoes->data_hora;
         $data = date('d/m/Y', strtotime($data1));
 
