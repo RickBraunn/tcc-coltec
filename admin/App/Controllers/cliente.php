@@ -148,7 +148,19 @@ class Cliente Extends Controller
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT `id_cli`, `nome_cli`, `sobrenome_cli`, `email_cli`, `cidade_cli`, `telefone_cli`, `nome_usuario_cli`, `senha_cli` FROM cliente WHERE 1 ";
+        $sql = "SELECT
+        cliente.id_cli,
+    cliente.nome_cli,
+    cliente.sobrenome_cli,
+    cliente.email_cli,
+    cliente.cidade_cli,
+    cliente.telefone_cli,
+    cliente.nome_usuario_cli,
+    cliente.senha_cli,
+    cidade.Nome
+From
+    cidade Inner Join
+    cliente On cliente.cidade_cli = cidade.id_cidade";
 
         if ($busca!=''){
             $sql .= " and (

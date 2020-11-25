@@ -143,7 +143,22 @@ class Advogado Extends ControllerSeguro
     public function bootgrid()
     {
         $busca = addslashes($_POST['searchPhrase']);
-        $sql = "SELECT * FROM advogado WHERE 1 ";
+        $sql = "SELECT
+    cidade.Nome,
+    cidade.estado_idestados,
+    advogado.id_adv,
+    advogado.nome_adv,
+    advogado.sobrenome_adv,
+    advogado.email_adv,
+    advogado.cidade_adv,
+    advogado.telefone_adv,
+    advogado.nome_usuario_adv,
+    advogado.formacao,
+    advogado.senha_adv,
+    advogado.cadastro_completo
+From
+    advogado Inner Join
+    cidade On advogado.cidade_adv = cidade.id_cidade";
 
         if ($busca!=''){
             $sql .= " and (
