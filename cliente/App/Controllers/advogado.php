@@ -37,8 +37,9 @@ class Advogado Extends ControllerSeguro
         advogado.id_adv,
          concat(advogado.nome_adv, ' ', advogado.sobrenome_adv) as nome_adv,
         advogado.formacao,
-        advogado.foto
-         FROM  advogado
+        advogado.foto,
+        cidade.Nome
+         FROM  advogado Inner Join cidade on advogado.cidade_adv = cidade.id_cidade
          WHERE advogado.cadastro_completo='1'";
         $resultados = $db->query($sql);
         $advs = $resultados->fetchALl();

@@ -68,8 +68,9 @@
 				</div>
 				<div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
 					<div class="container">
-						<h2>{{ adv.nome_adv }}</h2>
-                        <p>
+						<h2>Advogado: {{ adv.nome_adv }}</h2>
+                        <h4>Cidade: {{adv.Nome}}</h4>
+                         
                         {% for oab in adv.oabs %}
                             {{oab.numero_oab}} <br>
                         {% endfor %}
