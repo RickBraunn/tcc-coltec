@@ -93,6 +93,7 @@ Where oab.id_oab = :id_oab";
             if($_POST['aprovado']== "Aprovado" ){
                 $texto = "Sua OAB foi aprovada!";
                 $icone = "fa-check-square";
+                \App\Advogado::verificaCadastro($_SESSION['id_adv']);
             }else{
                 $texto = "Sua OAB foi rejeitada!";
                 $icone = "fa-close";
