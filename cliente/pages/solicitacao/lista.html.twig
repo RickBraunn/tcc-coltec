@@ -107,7 +107,7 @@
                                         </div>
 
 										{% elseif solicitacao.status_solicitacoes == 'Aceito'%}
-
+											
 											<p>Status:
 												<span class="label label-success">{{solicitacao.status_solicitacoes}}
 												</span>
@@ -127,7 +127,7 @@
                                             <!-- /.box-header -->
                                             <div class="box-body">
                                                     Sua solicitação foi aceita pelo Advogado,
-                                                    entre em contato atraves do email: <b>{{solicitacao.email_adv}}</b>
+                                                    entre em contato atraves do email: <b>{{solicitacao.email_adv}}</b><br> ou pelo telefone: <b>{{solicitacao.telefone_adv}}</b>
                                             </div>
                                              <!-- /.box-body -->
                                              </div>

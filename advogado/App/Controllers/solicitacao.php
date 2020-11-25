@@ -168,7 +168,8 @@ class Solicitacao extends ControllerSeguro
         $sql = "SELECT
     solicitacoes.*, concat(cliente.nome_cli, ' ', cliente.sobrenome_cli)as nome_cli,
     cliente.cidade_cli,
-    cliente.email_cli
+    cliente.email_cli,
+    cliente.telefone_cli
 From
     solicitacoes Inner Join
     advogado On solicitacoes.id_adv = advogado.id_adv Inner Join

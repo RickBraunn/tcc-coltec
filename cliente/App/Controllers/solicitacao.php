@@ -68,7 +68,8 @@ class Solicitacao extends ControllerSeguro
     advogado.id_adv As id_adv1,
     advogado.nome_adv,
     advogado.sobrenome_adv,
-    advogado.email_adv
+    advogado.email_adv,
+    advogado.telefone_adv
 From
     solicitacoes Inner Join
     advogado On solicitacoes.id_adv = advogado.id_adv Inner Join

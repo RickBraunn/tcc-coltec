@@ -25,6 +25,8 @@
 {% endblock %}
 
 {% block content %}
+{% if solicitacoes.status_solicitacoes == 'Pendente' %}
+
 <section class="content">
 
 	<div class="col-12">
@@ -48,7 +50,6 @@
 			<br>
 
 
-{% if solicitacoes.status_solicitacoes == 'Pendente' %}
 
 	<p>Status:
 		<span class="label label-warning">{{solicitacoes.status_solicitacoes}}
@@ -68,12 +69,94 @@
 
 {% elseif solicitacoes.status_solicitacoes == 'Recusado'%}
 
+<section class="content">
+
+	<div class="col-12">
+		<div class="box box-primary">
+			<div class="box-body">
+				<form role="form" action="/solicitacao/salvarcadastrar" method="post" class="jsonForm">
+
+					<h4>
+						<b>Cliente:</b>
+						{{ solicitacoes.nome_cli }}</h4><br>
+					<h5>
+						<b>Enviado em:
+							{{data}}</b>
+					</h5><br>
+
+					<p>
+						<b>
+							Descrição:
+						</b>
+						{{ solicitacoes.descricao}}</p><br>
+					{% if docs %}
+						<h4>
+							<b>Lista de Anexos:</b>
+						</h4>
+
+						{% for doc in docs %}
+							<h5>
+								<a href="/solicitacao/downloadArquivo/{{doc.id_documento}}">
+									<i class="fa fa-download" aria-hidden="true"></i>
+									{{doc.nome_doc}}</a>
+							</h5>
+						{% endfor %}
+						<a href="/solicitacao/downloadTodos/{{ solicitacoes.id_solicitacoes }}" class="btn btn-info">
+							<i class="fa fa-download" aria-hidden="true"></i>
+							Baixar Todos</a>
+					{% endif %}
+
+					<br>
+
+
 	<p>Status:
 		<span class="label label-danger">{{solicitacoes.status_solicitacoes}}
 		</span>
 	</p><br>
 
 {% elseif solicitacoes.status_solicitacoes == 'Aceito'%}
+
+<section class="content">
+
+	<div class="col-12">
+		<div class="box box-primary">
+			<div class="box-body">
+				<form role="form" action="/solicitacao/salvarcadastrar" method="post" class="jsonForm">
+
+					<h4>
+						<b>Dados do cliente:</b></h4>
+						<b>Nome: </b>{{ solicitacoes.nome_cli }}<br>
+						<b>Email:</b> {{solicitacoes.email_cli}}<br>
+						<b>Telefone: </b>{{solicitacoes.telefone_cli}}
+					<h5>
+						<b>Enviado em:</b> 
+							{{data}}
+					</h5><br>
+
+					<p>
+						<b>
+							Descrição:
+						</b>
+						{{ solicitacoes.descricao}}</p><br>
+					{% if docs %}
+						<h4>
+							<b>Lista de Anexos:</b>
+						</h4>
+
+						{% for doc in docs %}
+							<h5>
+								<a href="/solicitacao/downloadArquivo/{{doc.id_documento}}">
+									<i class="fa fa-download" aria-hidden="true"></i>
+									{{doc.nome_doc}}</a>
+							</h5>
+						{% endfor %}
+						<a href="/solicitacao/downloadTodos/{{ solicitacoes.id_solicitacoes }}" class="btn btn-info">
+							<i class="fa fa-download" aria-hidden="true"></i>
+							Baixar Todos</a>
+					{% endif %}
+
+					<br>
+
 
 	<p>Status:
 		<span class="label label-success">{{solicitacoes.status_solicitacoes}}
